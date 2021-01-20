@@ -13,8 +13,9 @@ module.exports = (_env, argv) => {
     entry: path.resolve(__dirname, 'src/index.tsx'),
     output: {
       path: path.resolve('public'),
-      filename: '[name].[hash].bundle.js',
-      pathinfo: false // https://webpack.js.org/guides/build-performance/#output-without-path-info,
+      filename: '[name].[fullhash].bundle.js',
+      pathinfo: false, // https://webpack.js.org/guides/build-performance/#output-without-path-info
+      publicPath: ''
     },
     devServer: {
       hot: true,
@@ -37,10 +38,7 @@ module.exports = (_env, argv) => {
           test: /\.css$/,
           use: [
             {
-              loader: MiniCssExtractPlugin.loader,
-              options: {
-                hmr: !isProd
-              }
+              loader: MiniCssExtractPlugin.loader
             },
             {
               loader: 'css-loader'
@@ -74,11 +72,7 @@ module.exports = (_env, argv) => {
       ]
     },
     resolve: {
-      extensions: ['.ts', '.tsx', '.js'],
-      alias: {
-        '@console/internal': path.resolve(__dirname, '../dist/module/ConsoleInternal'),
-        '@console/shared': path.resolve(__dirname, '../dist/module/ConsoleShared')
-      }
+      extensions: ['.ts', '.tsx', '.js']
     },
     plugins: [
       new MiniCssExtractPlugin(

@@ -1,13 +1,13 @@
 {
   "compilerOptions": {
     "baseUrl": ".",
-    "rootDir": ".",
     "outDir": "dist",
-    "module": "commonjs",
-    "target": "es5",
+    "module": "es2015",
+    "target": "es2015",
     "lib": ["es2015", "dom"],
     "sourceMap": true,
     "declaration": true,
+    "declarationDir": "./dist",
     "jsx": "react",
     "moduleResolution": "node",
     "forceConsistentCasingInFileNames": true,
@@ -20,20 +20,17 @@
     "strict": false,
     "paths": {
       "@assets/*": ["node_modules/@patternfly/react-core/dist/styles/assets/*"],
-      "@console/shared": ["module/ConsoleShared"],
-      "@console/shared/*": ["module/ConsoleShared/*"],
-      "@console/internal": ["module/ConsoleInternal"],
-      "@console/internal/*": ["module/ConsoleInternal/*"],
-      "@quickstarts/*": ["module/*"]
+      "@console/shared": ["src/ConsoleShared"],
+      "@console/shared/*": ["src/ConsoleShared/*"],
+      "@console/internal": ["src/ConsoleInternal"],
+      "@console/internal/*": ["src/ConsoleInternal/*"],
+      "@quickstarts/*": ["src/*"]
     },
     "importHelpers": true,
     "skipLibCheck": true
   },
   "include": [
-    "module/**/*.ts",
-    "module/**/*.tsx",
-    "module/**/*.jsx",
-    "module/**/*.js"
+    "src/**/*"
   ],
   "exclude": [
     "node_modules",

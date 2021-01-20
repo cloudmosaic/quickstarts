@@ -1,36 +1,33 @@
 # Quickstarts
 
-## Quick-start
+## Setup
 
 ```bash
 https://github.com/cloudmosaic/quickstarts.git
 cd quickstarts
-npm install && npm run start:dev
+yarn install && yarn build && yarn start
 ```
 
 ## Development Scripts
 ```sh
 # Install development/build dependencies
-npm install
+yarn install
 
 # Start the development server
-npm run start:dev
+yarn start
 
-# Run a production build (outputs to "dist" dir)
-npm run build
+# Run a production build (outputs to "packages/module/dist" dir)
+yarn build
 
 # Run the test suite
-npm run test
+# yarn test
 
 # Run the linter
-npm run lint
+# yarn lint
 
 # Run the code formatter
-npm run format
+# yarn format
 
 # Launch a tool to inspect the bundle size
-npm run bundle-profile:analyze
-
-# Start the express server (run a production build first)
-npm run start
+# yarn bundle-profile:analyze
 ```

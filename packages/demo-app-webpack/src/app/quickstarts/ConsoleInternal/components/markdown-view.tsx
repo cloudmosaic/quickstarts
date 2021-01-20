@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as _ from 'lodash-es';
 import { Converter } from 'showdown';
-import * as sanitizeHtml from 'sanitize-html';
+import sanitizeHtml from 'sanitize-html';
 
 const tableTags = ['table', 'thead', 'tbody', 'tr', 'th', 'td'];
 

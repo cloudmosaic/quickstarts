@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as cx from 'classnames';
+import cx from 'classnames';
 import { Modal as PfModal, ModalProps as PfModalProps } from '@patternfly/react-core';
 import './Modal.scss';
 
