@@ -39,6 +39,7 @@ export const setQueryArgument = (k: string, v: string) => {
   if (params.get(k) !== v) {
     params.set(k, v);
     const url = new URL(window.location.href);
+    // @ts-ignore
     history.replace(`${url.pathname}?${params.toString()}${url.hash}`);
   }
 };
@@ -63,6 +64,7 @@ export const removeQueryArgument = (k: string) => {
   if (params.has(k)) {
     params.delete(k);
     const url = new URL(window.location.href);
+    // @ts-ignore
     history.replace(`${url.pathname}?${params.toString()}${url.hash}`);
   }
 };

@@ -1,0 +1,75 @@
+{
+  "name": "@cloudmosaic/quickstarts",
+  "federatedModuleName": "federatedQuickstarts",
+  "version": "0.0.1+42946fb6",
+  "description": "Quickstarts for MAS",
+  "crc": {
+    "name": "rhosak-quickstarts",
+    "bundle": "application-services",
+    "beta": true
+  },
+  "files": [
+    "dist"
+  ],
+  "main": "dist/quickstarts.js",
+  "module": "dist/module/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cloudmosaic/quickstarts.git"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/cloudmosaic/quickstarts/issues"
+  },
+  "homepage": "https://github.com/cloudmosaic/quickstarts#readme",
+  "scripts": {
+    "prebuild": "npm run clean",
+    "dr:surge": "node dr-surge.js",
+    "build": "webpack --config webpack.app.prod.js && npm run dr:surge",
+    "start": "node server.js",
+    "start:dev": "webpack serve --hot --color --progress --config webpack.app.dev.js",
+    "start:federate": "HOST=localhost PORT=9000 PROTOCOL=http webpack serve --hot --color --progress --config webpack.app.dev.js",
+    "test": "jest",
+    "eslint": "eslint --ext .tsx,.js ./src/",
+    "lint": "npm run eslint",
+    "format": "prettier --check --write ./src/**/*.{tsx,ts}",
+    "type-check": "tsc --noEmit",
+    "ci-checks": "npm run type-check && npm run lint && npm run test",
+    "build:bundle-profile": "webpack --config webpack.module.prod.js --profile --json > stats.json",
+    "bundle-profile:analyze": "npm run build:bundle-profile && webpack-bundle-analyzer ./stats.json",
+    "clean": "rimraf dist",
+    "build:module": "npm run prebuild && webpack --config webpack.module.prod.js",
+    "build:ts": "npm run prebuild && tsc --p tsconfig.module.json"
+  },
+  "peerDependencies": {
+    "react": ">=16.8.0",
+    "react-dom": ">=16.8.0"
+  },
+  "dependencies": {
+    "@patternfly/react-catalog-view-extension": "^4.8.126",
+    "@patternfly/react-core": "^4.63.3",
+    "@patternfly/react-table": "^4.19.24",
+    "@redhat-cloud-services/frontend-components": "^2.4.22",
+    "dayjs": "^1.9.6",
+    "i18next": "^19.8.3",
+    "i18next-browser-languagedetector": "^6.0.1",
+    "i18next-http-backend": "^1.0.21",
+    "i18next-parser": "^3.3.0",
+    "i18next-pseudo": "^2.2.0",
+    "immutable": "^4.0.0-rc.12",
+    "lodash-es": "^4.17.20",
+    "react": "^16.14.0",
+    "react-dom": "^16.14.0",
+    "react-helmet": "^6.1.0",
+    "react-i18next": "^11.7.3",
+    "react-redux": "^7.2.2",
+    "react-router-last-location": "^2.0.1",
+    "redux": "^4.0.5",
+    "redux-logger": "^3.0.6",
+    "redux-promise-middleware": "^6.1.2",
+    "sass": "^1.30.0",
+    "showdown": "^1.9.1",
+    "typesafe-actions": "^5.1.0"
+  },
+  "yalcSig": "42946fb6c43b962a813fa0593b81fe98"
+}
