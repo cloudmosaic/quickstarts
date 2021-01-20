@@ -20,5 +20,6 @@ export default {
       sourcemap: true
     }
   ],
+  external: ['react', 'react-dom', 'react-router-dom'],
   plugins: [peerDepsExternal(), resolve(), commonjs(), typescript(), scss()]
 };

@@ -18,7 +18,12 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import Demos from "./Demos";
 import "./App.css";
 // @ts-ignore
-import { QuickStartDrawer, QuickStartContext, useValuesForQuickStartContext } from "@cloudmosaic/quickstarts";
+import {
+  QuickStartDrawer,
+  QuickStartContext,
+  QuickStartCatalogPage,
+  useValuesForQuickStartContext,
+} from "@cloudmosaic/quickstarts";
 
 interface AppState {
   activeItem: number | string;
@@ -28,7 +33,9 @@ interface AppState {
 const App: React.FunctionComponent = () => {
   const [initialized, setInitialized] = React.useState(true);
 
-  const [activeQuickStartID, setActiveQuickStartID] = React.useState<string>("");
+  const [activeQuickStartID, setActiveQuickStartID] = React.useState<string>(
+    ""
+  );
 
   const valuesForQuickstartContext = useValuesForQuickStartContext(
     activeQuickStartID,
@@ -75,12 +82,8 @@ const App: React.FunctionComponent = () => {
       <React.Suspense fallback={<div>Loading</div>}>
         <QuickStartContext.Provider value={valuesForQuickstartContext}>
           <QuickStartDrawer>
-            <Page
-              header={AppHeader}
-              sidebar={AppSidebar}
-              isManagedSidebar
-            >
-              Content
+            <Page header={AppHeader} sidebar={AppSidebar} isManagedSidebar>
+              <QuickStartCatalogPage />
             </Page>
           </QuickStartDrawer>
         </QuickStartContext.Provider>

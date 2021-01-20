@@ -3,22 +3,21 @@
   "private": true,
   "version": "4.66.3",
   "scripts": {
-    "build:demo-app": "webpack --mode production",
-    "start:demo-app": "webpack-dev-server",
-    "serve:demo-app": "node scripts/serve"
+    "build": "webpack --mode production",
+    "start": "webpack-dev-server",
+    "serve": "node scripts/serve"
   },
   "dependencies": {
-    "@cloudmosaic/quickstarts": "file:.yalc/@cloudmosaic/quickstarts",
+    "@cloudmosaic/quickstarts": "link:..",
+    "react": "link:../node_modules/react",
+    "react-dom": "link:../node_modules/react-dom",
     "@patternfly/react-core": "^4.87.3",
-    "react": "^17.0.0",
-    "react-dom": "^17.0.0",
-    "react-router": "^4.3.1",
-    "react-router-dom": "^4.3.1"
+    "react-router-dom": "link:../node_modules/react-router-dom"
   },
   "devDependencies": {
     "@types/react": "^16.8.0",
     "@types/react-dom": "^16.8.0",
-    "@types/react-router-dom": "^4.3.1",
+    "@types/react-router-dom": "^5.1.7",
     "clean-webpack-plugin": "^3.0.0",
     "copy-webpack-plugin": "^6.1.0",
     "css-loader": "^4.3.0",

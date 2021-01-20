@@ -1,9 +1,0 @@
-{
-  "version": "v1",
-  "packages": {
-    "@cloudmosaic/quickstarts": {
-      "signature": "083f8c6ee94e5a39142aed8fe360a443",
-      "file": true
-    }
-  }
-}
