@@ -9,6 +9,10 @@
   ],
   "scripts": {
     "build": "yarn workspace @cloudmosaic/quickstarts build",
-    "start": "yarn workspace @cloudmosaic/quickstarts-app-demo start"
+    "start": "yarn workspace @cloudmosaic/quickstarts-app-demo start",
+    "watch": "yarn build && concurrently --kill-others \"yarn workspace @cloudmosaic/quickstarts watch\" \"yarn start\""
+  },
+  "devDependencies": {
+    "concurrently": "^5.3.0"
   }
 }

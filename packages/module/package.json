@@ -18,19 +18,17 @@
   },
   "homepage": "https://github.com/cloudmosaic/quickstarts#readme",
   "scripts": {
-    "start:app": "cd demo-app-ts && yarn start",
     "clean": "rimraf dist",
     "prebuild": "yarn clean",
-    "build": "yarn build:rollup",
+    "build": "rollup -c",
+    "watch": "rollup -cw",
     "test": "jest",
     "eslint": "eslint --ext .tsx,.js ./src/",
     "lint": "yarn eslint",
     "format": "prettier --check --write ./src/**/*.{tsx,ts}",
     "type-check": "tsc --noEmit",
     "ci-checks": "yarn type-check && yarn lint && yarn test",
-    "build:ts": "yarn clean && tsc --p tsconfig.module.json",
-    "build:rollup": "rollup -c",
-    "watch:rollup": "rollup -cw"
+    "build:ts": "yarn clean && tsc --p tsconfig.json"
   },
   "peerDependencies": {
     "react": ">=16.14.0",
