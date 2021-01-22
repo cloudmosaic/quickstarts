@@ -3,7 +3,7 @@ import { shallow } from 'enzyme';
 import { Gallery, GalleryItem } from '@patternfly/react-core';
 import { EmptyBox } from '@console/internal/components/utils';
 import QuickStartCatalog from '../QuickStartCatalog';
-import { getQuickStarts } from '../../utils/quick-start-utils';
+import { getQuickStarts } from '../../__tests__/test-utils';
 
 jest.mock('react-i18next', () => {
   const reactI18next = require.requireActual('react-i18next');

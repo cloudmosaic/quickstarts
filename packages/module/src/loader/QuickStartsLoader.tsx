@@ -4,7 +4,7 @@ import * as React from 'react';
 import { QuickStart } from '../utils/quick-start-types';
 // import { QuickStartModel } from '../../../models';
 import QuickStartPermissionChecker from './QuickStartPermissionChecker';
-import { allQuickStarts } from '../data/quick-start-test-data';
+import { QuickStartContext, QuickStartContextValues } from '../utils/quick-start-context';
 
 type QuickStartsLoaderProps = {
   children: (quickStarts: QuickStart[], loaded: boolean) => React.ReactNode;
@@ -15,6 +15,9 @@ const QuickStartsLoader: React.FC<QuickStartsLoaderProps> = ({ children }) => {
   //   kind: referenceForModel(QuickStartModel),
   //   isList: true,
   // });
+  const { allQuickStarts } = React.useContext<
+    QuickStartContextValues
+  >(QuickStartContext);
   const [quickStarts, quickStartsLoaded] = React.useState<QuickStart[]>(allQuickStarts);
   const [allowedQuickStarts, setAllowedQuickStarts] = React.useState<QuickStart[]>([]);
   const [loaded, setLoaded] = React.useState<boolean>(!(quickStarts.length > 0));
