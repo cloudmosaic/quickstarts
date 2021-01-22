@@ -1,5 +1,8 @@
 # Quickstarts
 
+This is early WIP work to modularize OpenShift's quickstarts
+https://quickstarts.netlify.app/
+
 ## Setup
 
 ```bash
