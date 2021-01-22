@@ -23,6 +23,7 @@ import {
   QuickStartContext,
   QuickStartCatalogPage,
   useValuesForQuickStartContext,
+  i18n
 } from "@cloudmosaic/quickstarts";
 import { allQuickStarts } from './quickstarts-data/quick-start-test-data';
 
@@ -85,6 +86,8 @@ const App: React.FunctionComponent = () => {
         <QuickStartContext.Provider value={valuesForQuickstartContext}>
           <QuickStartDrawer>
             <Page header={AppHeader} sidebar={AppSidebar} isManagedSidebar>
+              <Button variant="plain" onClick={() => i18n.changeLanguage('de')}>Change lng - DE</Button>
+              <Button variant="plain" onClick={() => i18n.changeLanguage('en')}>Change lng - EN</Button>
               <Button
                 onClick={() =>
                   valuesForQuickstartContext.startQuickStart(

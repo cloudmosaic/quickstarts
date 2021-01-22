@@ -5,6 +5,7 @@ import typescript from "rollup-plugin-typescript2";
 import replace from "@rollup/plugin-replace";
 import scss from "./rollup-plugin-scss";
 import copy from 'rollup-plugin-copy'
+import json from '@rollup/plugin-json';
 import visualizer from "rollup-plugin-visualizer";
 // import nodePolyfills from 'rollup-plugin-node-polyfills';
 
@@ -46,11 +47,12 @@ export default {
     }),
     commonjs(),
     typescript({ typescript: require("typescript") }),
-    copy({
-      targets: [
-        { src: 'src/locales', dest: 'dist/locales' },
-      ]
-    }),
+    // copy({
+    //   targets: [
+    //     { src: 'src/locales', dest: 'dist/locales' },
+    //   ]
+    // }),
+    json(),
     visualizer()
     // nodePolyfills()
   ],

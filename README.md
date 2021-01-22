@@ -32,10 +32,10 @@ yarn build
 # yarn bundle-profile:analyze
 ```
 
-## TODO
 ### Localization
-The library pulls in i18next. A related package appears to use node modules. In Webpack 5, node modules are no longer bundled so it won't find them. It is possible to polyfill them back into Webpack 5, but a better solution should be found.
-Possibly even remove i18next from the library and have consumers provide a json file to it for translations?
+Export the i18n instance out so that consumers can switch the library's language to a supported one.
+
+## TODO
 ### Drawer iframe
 For some reason the content within the drawer was in an iframe, I've removed the iframe, see if that breaks anything.
 ### Styling
