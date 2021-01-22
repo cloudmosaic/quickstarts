@@ -1,5 +1,5 @@
-import { getQuickStartByName } from '../utils/quick-start-utils';
-import { allQuickStarts } from '../data/quick-start-test-data';
+import { getQuickStartByName } from './test-utils';
+import { allQuickStarts } from './data/quick-start-test-data';
 
 describe('quick-start-utils', () => {
   it('should return the quick start corresponding to the id', () => {

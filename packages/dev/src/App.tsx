@@ -24,6 +24,7 @@ import {
   QuickStartCatalogPage,
   useValuesForQuickStartContext,
 } from "@cloudmosaic/quickstarts";
+import { allQuickStarts } from './quickstarts-data/quick-start-test-data';
 
 interface AppState {
   activeItem: number | string;
@@ -38,6 +39,7 @@ const App: React.FunctionComponent = () => {
   );
 
   const valuesForQuickstartContext = useValuesForQuickStartContext(
+    allQuickStarts,
     activeQuickStartID,
     setActiveQuickStartID
   );
