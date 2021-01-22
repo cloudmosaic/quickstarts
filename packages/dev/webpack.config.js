@@ -3,7 +3,6 @@ const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
-// const NodePolyfillPlugin = require("node-polyfill-webpack-plugin");
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 
 const staticDir = path.join(process.cwd(), "static/");
@@ -79,29 +78,6 @@ module.exports = (_env, argv) => {
     },
     resolve: {
       extensions: [".ts", ".tsx", ".js"],
-      // https://sanchit3b.medium.com/how-to-polyfill-node-core-modules-in-webpack-5-905c1f5504a0
-      // alias: {
-      //   assert: 'assert',
-      //   buffer: 'buffer',
-      //   encoding: 'encoding',
-      //   http: 'stream-http',
-      //   https: 'https-browserify',
-      //   process: 'process/browser',
-      //   stream: 'stream-browserify',
-      //   util: 'util',
-      //   zlib: 'browserify-zlib'
-      // }
-      // fallback: {
-        // assert: false,
-        // buffer: false,
-        // encoding: false,
-        // http: false,
-        // https: false,
-        // process: false,
-        // stream: false,
-        // util: false,
-        // zlib: false
-      // },
       plugins: [
         new TsconfigPathsPlugin({
           configFile: path.resolve(__dirname, './tsconfig.json')
@@ -123,18 +99,7 @@ module.exports = (_env, argv) => {
       }),
       new CopyPlugin({
         patterns: [{ from: staticDir, to: "" }],
-      }),
-      // new CopyPlugin({
-      //   patterns: [
-      //     {
-      //       from: path.resolve(
-      //         __dirname,
-      //         "../../node_modules/@cloudmosaic/quickstarts/dist/locales"
-      //       )
-      //     },
-      //   ],
-      // }),
-      // new NodePolyfillPlugin(),
+      })
     ],
     stats: "minimal",
   };

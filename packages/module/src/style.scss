@@ -1,4 +1,5 @@
-$pf-global--image-path: '~@patternfly/patternfly/assets/images';
-@import './ConsoleInternal/style.scss';
+// $pf-global--image-path: '~@patternfly/patternfly/assets/images';
+// @import '~@patternfly/patternfly/patternfly.scss'; // blows up the bundle
 
+@import './ConsoleInternal/style.scss';
 @import 'ConsoleShared/src/components/layout/PageLayout.scss';
