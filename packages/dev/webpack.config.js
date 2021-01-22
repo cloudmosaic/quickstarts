@@ -4,6 +4,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
 const NodePolyfillPlugin = require("node-polyfill-webpack-plugin");
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 
 const staticDir = path.join(process.cwd(), "static/");
 
@@ -70,6 +71,10 @@ module.exports = (_env, argv) => {
             },
           ],
         },
+        {
+          test: /\.ya?ml$/,
+          use: 'js-yaml-loader',
+        }
       ],
     },
     resolve: {
@@ -97,6 +102,11 @@ module.exports = (_env, argv) => {
         // util: false,
         // zlib: false
       },
+      plugins: [
+        new TsconfigPathsPlugin({
+          configFile: path.resolve(__dirname, './tsconfig.json')
+        })
+      ]
     },
     plugins: [
       new MiniCssExtractPlugin(
