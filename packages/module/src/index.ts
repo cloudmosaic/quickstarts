@@ -1,3 +1,8 @@
+// import '@patternfly/react-core/dist/styles/base.css';
+// import './vendor.scss';
+import './style.scss';
+import "./i18n/i18n";
+
 export * from './QuickStartCatalogPage';
 export * from './QuickStartDrawer';
 export * from './utils/quick-start-context';

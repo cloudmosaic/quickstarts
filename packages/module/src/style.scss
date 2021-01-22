@@ -1,0 +1,4 @@
+$pf-global--image-path: '~@patternfly/patternfly/assets/images';
+@import './ConsoleInternal/style.scss';
+
+@import 'ConsoleShared/src/components/layout/PageLayout.scss';

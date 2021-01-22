@@ -11,6 +11,7 @@ import {
   Brand,
   PageHeader,
   PageHeaderTools,
+  Button,
 } from "@patternfly/react-core";
 import imgBrand from "./assets/images/imgBrand.svg";
 import imgAvatar from "./assets/images/imgAvatar.svg";
@@ -83,10 +84,14 @@ const App: React.FunctionComponent = () => {
         <QuickStartContext.Provider value={valuesForQuickstartContext}>
           <QuickStartDrawer>
             <Page header={AppHeader} sidebar={AppSidebar} isManagedSidebar>
+              <Button onClick={() => valuesForQuickstartContext.startQuickStart('explore-pipelines', 1)}>Open quickstart</Button>
               <QuickStartCatalogPage />
             </Page>
           </QuickStartDrawer>
         </QuickStartContext.Provider>
+        {/* <Page header={AppHeader} sidebar={AppSidebar} isManagedSidebar>
+          <Button>Hello World</Button>
+        </Page> */}
       </React.Suspense>
     </Router>
   );

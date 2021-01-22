@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "rootDir": "src",
     "baseUrl": ".",
     "outDir": "dist",
     "module": "es2015",
