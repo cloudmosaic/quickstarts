@@ -103,6 +103,8 @@ export class SyncMarkdownView extends React.Component<SyncMarkdownProps, State> 
 
   render() {
     // Find the app's stylesheets and inject them into the frame to ensure consistent styling.
+    // webpack: const extractCSS = new MiniCssExtractPlugin({ filename: 'app-bundle.[contenthash].css' });
+    // https://console-openshift-console.apps.rhamilto.devcluster.openshift.com/static/181.app-bundle.5637763d43f192d1cef3.css
     const filteredLinks = Array.from(document.getElementsByTagName('link')).filter((l) =>
       _.includes(l.href, 'app-bundle'),
     );
@@ -154,19 +156,23 @@ export class SyncMarkdownView extends React.Component<SyncMarkdownProps, State> 
       )}</div></body>`;
     const hasExtension = this.props.extensions?.length > 0 && !!this.props.renderExtension;
     return (
-      <>
-        <iframe
-          sandbox="allow-popups allow-same-origin"
-          srcDoc={contents}
-          style={{ border: '0px', display: 'block', width: '100%', height: '0' }}
-          ref={(r) => (this.frame = r)}
-          onLoad={() => this.onLoad()}
-        />
-        {this.state?.loaded &&
-          this.frame?.contentDocument &&
-          hasExtension &&
-          this.props.renderExtension(this.frame.contentDocument)}
-      </>
+      // <>
+      //   <iframe
+      //     sandbox="allow-popups allow-same-origin"
+      //     srcDoc={contents}
+      //     style={{ border: '0px', display: 'block', width: '100%', height: '0' }}
+      //     ref={(r) => (this.frame = r)}
+      //     onLoad={() => this.onLoad()}
+      //   />
+      //   {this.state?.loaded &&
+      //     this.frame?.contentDocument &&
+      //     hasExtension &&
+      //     this.props.renderExtension(this.frame.contentDocument)}
+      // </>
+      <div dangerouslySetInnerHTML={{ __html: markdownConvert(
+        content || emptyMsg || 'Not available',
+        this.props.extensions,
+      ) }} />
     );
   }
 }
