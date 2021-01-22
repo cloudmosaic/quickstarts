@@ -39,7 +39,7 @@ Possibly even remove i18next from the library and have consumers provide a json 
 ### Drawer iframe
 For some reason the content within the drawer was in an iframe, I've removed the iframe, see if that breaks anything.
 ### Styling
-Need to consolidate all the required bits and pieces for the styling and prune what is not needed
+Need to consolidate all the required bits and pieces for the styling and prune what is not needed. Pulls in styles from various sources: bootstrap, PF3, PF4, custom
 ### Bundle size
 Bundle is too heavy, see packages/module/stats.html
 ### Files
@@ -48,3 +48,5 @@ Provide path to provide quickstart yaml/json files to the components
 Look into creating a federated quickstarts module
 ### Improve HMR
 Speed up watching for file changes and reloading dev env
+### React router
+Is react-router-dom needed? See if we can pull it out
