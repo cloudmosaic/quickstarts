@@ -53,9 +53,17 @@ Provide path to provide quickstart yaml/json files to the components
 [Commit](https://github.com/cloudmosaic/quickstarts/commit/2de199036f7ed9bf77c3330d26f84207379bc1e1)
 
 ## TODO
+### Styling (continued)
+Need to adjust styles to match OS
 ### Federated module
-Look into creating a federated quickstarts module
+Look into use-case/need and possibly create a federated quickstarts module
 ### Improve HMR
 Speed up watching for file changes and reloading dev env
 ### React router
 Is react-router-dom needed? See if we can pull it out
+### Redux/Local Storage
+Support saving to local storage like it's done in OS, i.e.
+key: bridge/quick-start-redux-state
+value: {"activeQuickStartId":"explore-serverless","allQuickStartStates":{"explore-serverless":{"status":"Not started","taskNumber":-1,"taskStatus0":"Initial","taskStatus1":"Initial"}}}
+### Ease yaml dev
+See if we can provide a template or generate yaml files so it's easier to author content
