@@ -1,5 +1,6 @@
 import * as React from 'react';
-import * as _ from 'lodash';
+import _compact from 'lodash-es/compact';
+import _concat from 'lodash-es/concat';
 
 type SecondaryStatusProps = {
   status?: string | string[];
@@ -7,7 +8,7 @@ type SecondaryStatusProps = {
 };
 
 const SecondaryStatus: React.FC<SecondaryStatusProps> = ({ status, className }) => {
-  const statusLabel = _.compact(_.concat([], status)).join(', ');
+  const statusLabel = _compact(_concat([], status)).join(', ');
   const cssClassName = className || '';
   if (statusLabel) {
     return (

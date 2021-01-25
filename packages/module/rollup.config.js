@@ -3,8 +3,9 @@ import resolve from "@rollup/plugin-node-resolve";
 import peerDepsExternal from "rollup-plugin-peer-deps-external";
 import typescript from "rollup-plugin-typescript2";
 import scss from "./rollup-plugin-scss";
-import json from '@rollup/plugin-json';
+import json from "@rollup/plugin-json";
 import visualizer from "rollup-plugin-visualizer";
+import analyze from "rollup-plugin-analyzer";
 
 import packageJson from "./package.json";
 
@@ -38,6 +39,7 @@ export default {
     commonjs(),
     typescript({ typescript: require("typescript") }),
     json(),
-    visualizer()
+    analyze({ summaryOnly: true, limit: 10 }),
+    visualizer(),
   ],
 };

@@ -1,5 +1,7 @@
 import * as React from "react";
-import * as _ from "lodash-es";
+import _includes from "lodash-es/includes";
+import _reduce from "lodash-es/reduce";
+import _truncate from "lodash-es/truncate";
 import { Converter } from "showdown";
 import DOMPurify from "dompurify";
 
@@ -114,16 +116,16 @@ export class SyncMarkdownView extends React.Component<
     // https://console-openshift-console.apps.rhamilto.devcluster.openshift.com/static/181.app-bundle.5637763d43f192d1cef3.css
     const filteredLinks = Array.from(
       document.getElementsByTagName("link")
-    ).filter((l) => _.includes(l.href, "app-bundle"));
+    ).filter((l) => _includes(l.href, "app-bundle"));
 
-    const linkRefs = _.reduce(
+    const linkRefs = _reduce(
       filteredLinks,
       (refs, link) => `${refs}
         <link rel="stylesheet" href="${link.href}">`,
       ""
     );
     const content = this.props.truncateContent
-      ? _.truncate(this.props.content, {
+      ? _truncate(this.props.content, {
           length: 256,
           separator: " ",
           omission: "\u2026",

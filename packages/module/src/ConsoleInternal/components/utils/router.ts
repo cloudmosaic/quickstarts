@@ -1,4 +1,5 @@
-// import * as _ from 'lodash-es';
+// import _startsWith from 'lodash-es/startsWith';
+// import _each from 'lodash-es/each';
 // import { createBrowserHistory, createMemoryHistory, History } from 'history';
 
 // type AppHistory = History & { pushPath: History['push'] };
@@ -19,7 +20,7 @@
 // export const history: AppHistory = createHistory({ basename: window.SERVER_FLAGS.basePath });
 
 // const removeBasePath = (url = '/') =>
-//   _.startsWith(url, window.SERVER_FLAGS.basePath)
+//   _startsWith(url, window.SERVER_FLAGS.basePath)
 //     ? url.slice(window.SERVER_FLAGS.basePath.length - 1)
 //     : url;
 
@@ -47,7 +48,7 @@ export const setQueryArgument = (k: string, v: string) => {
 // export const setAllQueryArguments = (newParams: { [k: string]: string }) => {
 //   const params = new URLSearchParams();
 //   let update = false;
-//   _.each(newParams, (v, k) => {
+//   _each(newParams, (v, k) => {
 //     if (params.get(k) !== v) {
 //       update = true;
 //       params.set(k, v);
