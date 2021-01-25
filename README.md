@@ -58,3 +58,5 @@ See if we can provide a template or generate yaml files so it's easier to author
 Add pathway to be consumed in class based components.
 Add example in `dev` package.
 Context / local storage hooks etc equivalents for class based components.
+### Sync code with latest from OpenShift console
+https://github.com/openshift/console/commits/master/frontend/packages/console-app/src/components/quick-starts
