@@ -16,7 +16,6 @@ import "dayjs/locale/de";
 const params = new URLSearchParams(window.location.search);
 const pseudolocalizationEnabled = params.get("pseudolocalization") === "true";
 
-// declare const __PUBLIC_PATH__: string
 declare const window: Window & {
   windowError: string;
 };
