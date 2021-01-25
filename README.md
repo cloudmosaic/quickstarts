@@ -21,18 +21,6 @@ yarn start
 
 # Run a production build (outputs to "packages/module/dist" dir)
 yarn build
-
-# Run the test suite
-# yarn test
-
-# Run the linter
-# yarn lint
-
-# Run the code formatter
-# yarn format
-
-# Launch a tool to inspect the bundle size
-# yarn bundle-profile:analyze
 ```
 
 ### Localization
@@ -51,19 +39,22 @@ Bundle is too heavy, see packages/module/stats.html
 ### Files
 Provide path to provide quickstart yaml/json files to the components
 [Commit](https://github.com/cloudmosaic/quickstarts/commit/2de199036f7ed9bf77c3330d26f84207379bc1e1)
+### Save state / local storage
+Support saving to local storage (in functional components at the moment). Module exports out a `useLocalStorage` hook that can be used to save back to local storage.
 
 ## TODO
 ### Styling (continued)
-Need to adjust styles to match OS
+Need to adjust styles to match OS.
+Also investigate why the `dev` app prod build requires patternfly.css to be pulled in.
 ### Federated module
 Look into use-case/need and possibly create a federated quickstarts module
 ### Improve HMR
 Speed up watching for file changes and reloading dev env
 ### React router
 Is react-router-dom needed? See if we can pull it out
-### Redux/Local Storage
-Support saving to local storage like it's done in OS, i.e.
-key: bridge/quick-start-redux-state
-value: {"activeQuickStartId":"explore-serverless","allQuickStartStates":{"explore-serverless":{"status":"Not started","taskNumber":-1,"taskStatus0":"Initial","taskStatus1":"Initial"}}}
 ### Ease yaml dev
 See if we can provide a template or generate yaml files so it's easier to author content
+### Class based components
+Add pathway to be consumed in class based components.
+Add example in `dev` package.
+Context / local storage hooks etc equivalents for class based components.

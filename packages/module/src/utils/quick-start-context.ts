@@ -1,6 +1,4 @@
-import { createContext, useCallback, useState } from "react";
-// import { useUserSettings } from '@console/shared/src/hooks/useUserSettings';
-import { QUICKSTART_REDUX_STATE_LOCAL_STORAGE_KEY } from "./const";
+import { createContext, useCallback } from "react";
 import {
   AllQuickStartStates,
   QuickStartState,
@@ -15,7 +13,7 @@ export type QuickStartContextValues = {
   allQuickStartStates?: AllQuickStartStates;
   activeQuickStartState?: QuickStartState;
   setActiveQuickStart?: (quickStartId: string, totalTasks?: number) => void;
-  startQuickStart?: (quickStartId: string, totalTasks: number) => void;
+  startQuickStart?: (quickStartId: string, totalTasks?: number) => void;
   restartQuickStart?: (quickStartId: string, totalTasks: number) => void;
   nextStep?: (totalTasks: number) => void;
   previousStep?: () => void;
@@ -28,11 +26,6 @@ export const QuickStartContext = createContext<QuickStartContextValues>({
   allQuickStarts: [],
   activeQuickStartID: "",
 });
-
-const getInitialState = () =>
-  localStorage.getItem(QUICKSTART_REDUX_STATE_LOCAL_STORAGE_KEY)
-    ? JSON.parse(localStorage.getItem(QUICKSTART_REDUX_STATE_LOCAL_STORAGE_KEY))
-    : {};
 
 const getDefaultQuickStartState = (
   totalTasks?: number,
@@ -50,25 +43,15 @@ const getDefaultQuickStartState = (
   return defaultQuickStartState;
 };
 
-const QUICK_START_KEY = "console.quickstart";
-const ACTIVE_QUICK_START_ID_KEY = `${QUICK_START_KEY}.active`;
-const ALL_QUICK_START_STATE_KEY = `${QUICK_START_KEY}.allStates`;
-
-// const useActiveQuickStartId = () =>
-//   useUserSettings<string>(ACTIVE_QUICK_START_ID_KEY, getInitialState()?.activeQuickStartId ?? '');
-// const useAllQuickStartStates = () =>
-//   useUserSettings(ALL_QUICK_START_STATE_KEY, getInitialState()?.allQuickStartStates ?? {});
-
-// export const useValuesForQuickStartContext = (): QuickStartContextValues => {
 export const useValuesForQuickStartContext = (
   allQuickStarts: QuickStart[],
   activeQuickStartID: string,
-  setActiveQuickStartID: React.Dispatch<React.SetStateAction<string>>
+  setActiveQuickStartID: React.Dispatch<React.SetStateAction<string>>,
+  allQuickStartStates: AllQuickStartStates,
+  setAllQuickStartStates: React.Dispatch<
+    React.SetStateAction<AllQuickStartStates>
+  >
 ): QuickStartContextValues => {
-  // const [activeQuickStartID, setActiveQuickStartID] = useActiveQuickStartId();
-  // const [allQuickStartStates, setAllQuickStartStates] = useAllQuickStartStates();
-  const [allQuickStartStates, setAllQuickStartStates] = useState([]);
-
   const setActiveQuickStart = useCallback(
     (quickStartId: string, totalTasks?: number) => {
       setActiveQuickStartID((id) => (id !== quickStartId ? quickStartId : ""));
@@ -137,7 +120,7 @@ export const useValuesForQuickStartContext = (
       setAllQuickStartStates((qs) => {
         const quickStart = qs[activeQuickStartID];
         const status = quickStart?.status;
-        const taskNumber = quickStart?.taskNumber;
+        const taskNumber = quickStart?.taskNumber as number;
         const taskStatus = quickStart[`taskStatus${taskNumber}`];
 
         let updatedStatus;
@@ -184,7 +167,7 @@ export const useValuesForQuickStartContext = (
   const previousStep = useCallback(() => {
     setAllQuickStartStates((qs) => {
       const quickStart = qs[activeQuickStartID];
-      const taskNumber = quickStart?.taskNumber;
+      const taskNumber = quickStart?.taskNumber as number;
 
       if (taskNumber < 0) return qs;
 
@@ -242,7 +225,7 @@ export const useValuesForQuickStartContext = (
     allQuickStarts,
     activeQuickStartID,
     activeQuickStartState,
-    allQuickStartStates: allQuickStartStates as any,
+    allQuickStartStates,
     setActiveQuickStart,
     startQuickStart,
     restartQuickStart,

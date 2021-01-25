@@ -23,9 +23,12 @@ import {
   QuickStartContext,
   QuickStartCatalogPage,
   useValuesForQuickStartContext,
-  i18n
+  AllQuickStartStates,
+  QuickStartContextValues,
+  i18n,
+  useLocalStorage
 } from "@cloudmosaic/quickstarts";
-import { allQuickStarts } from './quickstarts-data/quick-start-test-data';
+import { allQuickStarts } from "./quickstarts-data/quick-start-test-data";
 
 interface AppState {
   activeItem: number | string;
@@ -35,14 +38,28 @@ interface AppState {
 const App: React.FunctionComponent = () => {
   const [initialized, setInitialized] = React.useState(true);
 
-  const [activeQuickStartID, setActiveQuickStartID] = React.useState<string>(
-    ""
+  const [activeQuickStartID, setActiveQuickStartID] = useLocalStorage(
+    "quickstartId",
+    ''
   );
+
+  const [allQuickStartStates, setAllQuickStartStates] = useLocalStorage(
+    "quickstarts",
+    {}
+  );
+
+  React.useEffect(() => console.log(activeQuickStartID), [activeQuickStartID]);
+  React.useEffect(() => {
+    // callback on state change
+    console.log(allQuickStartStates);
+  }, [allQuickStartStates]);
 
   const valuesForQuickstartContext = useValuesForQuickStartContext(
     allQuickStarts,
     activeQuickStartID,
-    setActiveQuickStartID
+    setActiveQuickStartID,
+    allQuickStartStates,
+    setAllQuickStartStates
   );
 
   if (!initialized) return <div>Loading</div>;
@@ -86,13 +103,16 @@ const App: React.FunctionComponent = () => {
         <QuickStartContext.Provider value={valuesForQuickstartContext}>
           <QuickStartDrawer>
             <Page header={AppHeader} sidebar={AppSidebar} isManagedSidebar>
-              <Button variant="plain" onClick={() => i18n.changeLanguage('de')}>Change lng - DE</Button>
-              <Button variant="plain" onClick={() => i18n.changeLanguage('en')}>Change lng - EN</Button>
+              <Button variant="plain" onClick={() => i18n.changeLanguage("de")}>
+                Change lng - DE
+              </Button>
+              <Button variant="plain" onClick={() => i18n.changeLanguage("en")}>
+                Change lng - EN
+              </Button>
               <Button
                 onClick={() =>
-                  valuesForQuickstartContext.startQuickStart(
-                    "explore-pipelines",
-                    1
+                  valuesForQuickstartContext.setActiveQuickStart(
+                    "add-healthchecks"
                   )
                 }
               >

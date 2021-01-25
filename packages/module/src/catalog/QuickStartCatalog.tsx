@@ -105,7 +105,10 @@ const QuickStartCatalog: React.FC<QuickStartCatalogProps> = ({ quickStarts }) =>
                     quickStart={quickStart}
                     isActive={id === activeQuickStartID}
                     status={getQuickStartStatus(allQuickStartStates, id)}
-                    onClick={() => setActiveQuickStart(id, tasks?.length)}
+                    onClick={() => {
+                      debugger;
+                      setActiveQuickStart(id, tasks?.length)
+                    }}
                   />
                 </GalleryItem>
               );
