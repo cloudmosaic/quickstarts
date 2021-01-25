@@ -1,9 +1,9 @@
-import * as React from 'react';
-import * as _ from 'lodash-es';
-import { Converter } from 'showdown';
-import sanitizeHtml from 'sanitize-html';
+import * as React from "react";
+import * as _ from "lodash-es";
+import { Converter } from "showdown";
+import DOMPurify from "dompurify";
 
-const tableTags = ['table', 'thead', 'tbody', 'tr', 'th', 'td'];
+const tableTags = ["table", "thead", "tbody", "tr", "th", "td"];
 
 const markdownConvert = (markdown, extensions?: string[]) => {
   const unsafeHtml = new Converter({
@@ -14,37 +14,40 @@ const markdownConvert = (markdown, extensions?: string[]) => {
     extensions,
   }).makeHtml(markdown);
 
-  return sanitizeHtml(unsafeHtml, {
-    allowedTags: [
-      'b',
-      'i',
-      'strike',
-      's',
-      'del',
-      'em',
-      'strong',
-      'a',
-      'p',
-      'h1',
-      'h2',
-      'h3',
-      'h4',
-      'ul',
-      'ol',
-      'li',
-      'code',
-      'pre',
-      'button',
+  // add hook to transform anchor tags
+  DOMPurify.addHook("beforeSanitizeElements", function (node) {
+    // nodeType 1 = element type
+    if (node.nodeType === 1 && node.nodeName.toLowerCase() === "a") {
+      node.setAttribute("rel", "noopener noreferrer");
+      return node;
+    }
+  });
+
+  return DOMPurify.sanitize(unsafeHtml, {
+    ALLOWED_TAGS: [
+      "b",
+      "i",
+      "strike",
+      "s",
+      "del",
+      "em",
+      "strong",
+      "a",
+      "p",
+      "h1",
+      "h2",
+      "h3",
+      "h4",
+      "ul",
+      "ol",
+      "li",
+      "code",
+      "pre",
+      "button",
       ...tableTags,
     ],
-    allowedAttributes: {
-      a: ['href', 'target', 'rel', 'data-*'],
-      button: ['class', 'data-*'],
-    },
-    allowedSchemes: ['http', 'https', 'mailto'],
-    transformTags: {
-      a: sanitizeHtml.simpleTransform('a', { rel: 'noopener noreferrer' }, true),
-    },
+    ALLOWED_ATTR: ["href", "target", "rel", "class"],
+    ALLOWED_URI_REGEXP: /^(?:(?:https?|mailto):|[^a-z]|[a-z+.\-]+(?:[^a-z+.\-:]|$))/i,
   });
 };
 
@@ -62,7 +65,10 @@ type State = {
   loaded?: boolean;
 };
 
-export class SyncMarkdownView extends React.Component<SyncMarkdownProps, State> {
+export class SyncMarkdownView extends React.Component<
+  SyncMarkdownProps,
+  State
+> {
   private frame: any;
   private timeoutHandle: any;
 
@@ -90,8 +96,9 @@ export class SyncMarkdownView extends React.Component<SyncMarkdownProps, State> 
         this.frame.style.height = `${this.frame.contentWindow.document.body.firstChild.scrollHeight}px`;
       } else {
         // Increase by 15px for the case where a horizontal scrollbar might appear
-        this.frame.style.height = `${this.frame.contentWindow.document.body.firstChild
-          .scrollHeight + 15}px`;
+        this.frame.style.height = `${
+          this.frame.contentWindow.document.body.firstChild.scrollHeight + 15
+        }px`;
       }
     });
   }
@@ -105,21 +112,21 @@ export class SyncMarkdownView extends React.Component<SyncMarkdownProps, State> 
     // Find the app's stylesheets and inject them into the frame to ensure consistent styling.
     // webpack: const extractCSS = new MiniCssExtractPlugin({ filename: 'app-bundle.[contenthash].css' });
     // https://console-openshift-console.apps.rhamilto.devcluster.openshift.com/static/181.app-bundle.5637763d43f192d1cef3.css
-    const filteredLinks = Array.from(document.getElementsByTagName('link')).filter((l) =>
-      _.includes(l.href, 'app-bundle'),
-    );
+    const filteredLinks = Array.from(
+      document.getElementsByTagName("link")
+    ).filter((l) => _.includes(l.href, "app-bundle"));
 
     const linkRefs = _.reduce(
       filteredLinks,
       (refs, link) => `${refs}
         <link rel="stylesheet" href="${link.href}">`,
-      '',
+      ""
     );
     const content = this.props.truncateContent
       ? _.truncate(this.props.content, {
           length: 256,
-          separator: ' ',
-          omission: '\u2026',
+          separator: " ",
+          omission: "\u2026",
         })
       : this.props.content;
 
@@ -130,7 +137,7 @@ export class SyncMarkdownView extends React.Component<SyncMarkdownProps, State> 
       <style type="text/css">
       body {
         background-color: transparent !important;
-        color: ${content ? '#333' : '#999'};
+        color: ${content ? "#333" : "#999"};
         font-family: var(--pf-global--FontFamily--sans-serif);
         min-width: auto !important;
       }
@@ -148,13 +155,14 @@ export class SyncMarkdownView extends React.Component<SyncMarkdownProps, State> 
       th {
         padding-top: 0;
       }
-      ${this.props.styles ? this.props.styles : ''}
+      ${this.props.styles ? this.props.styles : ""}
       </style>
       <body class="pf-m-redhat-font"><div style="overflow-y: auto;">${markdownConvert(
-        content || emptyMsg || 'Not available',
-        this.props.extensions,
+        content || emptyMsg || "Not available",
+        this.props.extensions
       )}</div></body>`;
-    const hasExtension = this.props.extensions?.length > 0 && !!this.props.renderExtension;
+    const hasExtension =
+      this.props.extensions?.length > 0 && !!this.props.renderExtension;
     return (
       // <>
       //   <iframe
@@ -169,10 +177,14 @@ export class SyncMarkdownView extends React.Component<SyncMarkdownProps, State> 
       //     hasExtension &&
       //     this.props.renderExtension(this.frame.contentDocument)}
       // </>
-      <div dangerouslySetInnerHTML={{ __html: markdownConvert(
-        content || emptyMsg || 'Not available',
-        this.props.extensions,
-      ) }} />
+      <div
+        dangerouslySetInnerHTML={{
+          __html: markdownConvert(
+            content || emptyMsg || "Not available",
+            this.props.extensions
+          ),
+        }}
+      />
     );
   }
 }
