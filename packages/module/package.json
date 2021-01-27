@@ -20,7 +20,7 @@
   "scripts": {
     "clean": "rimraf dist",
     "prebuild": "yarn clean",
-    "build": "rollup -c",
+    "build": "rollup -c && yarn post-css",
     "watch": "rollup -cw",
     "test": "jest",
     "eslint": "eslint --ext .tsx,.js ./src/",
@@ -28,7 +28,10 @@
     "format": "prettier --check --write ./src/**/*.{tsx,ts}",
     "type-check": "tsc --noEmit",
     "ci-checks": "yarn type-check && yarn lint && yarn test",
-    "build:ts": "yarn clean && tsc --p tsconfig.json"
+    "build:ts": "yarn clean && tsc --p tsconfig.json",
+    "post-css": "yarn purge-css && yarn clean-css",
+    "purge-css": "purgecss --css dist/quickstarts.css --content dist/**/*.js --output dist",
+    "clean-css": "cleancss dist/quickstarts.css -o dist/quickstarts.min.css"
   },
   "peerDependencies": {
     "react": ">=16.14.0",
@@ -67,6 +70,7 @@
     "@types/victory": "^33.1.4",
     "@typescript-eslint/eslint-plugin": "^4.4.1",
     "@typescript-eslint/parser": "^4.4.1",
+    "clean-css-cli": "^4.3.0",
     "enzyme": "^3.7.0",
     "enzyme-adapter-react-16": "^1.15.5",
     "enzyme-to-json": "^3.6.1",
@@ -76,8 +80,10 @@
     "express": "^4.17.1",
     "imagemin": "^7.0.0",
     "jest": "^26.5.3",
+    "node-sass": "^5.0.0",
     "prettier": "^2.1.2",
     "prop-types": "^15.6.1",
+    "purgecss": "^4.0.0",
     "react": "^16.14.0",
     "react-axe": "^3.5.4",
     "react-docgen-typescript-loader": "^3.7.2",
