@@ -13,11 +13,11 @@ export const QuickStartCatalogPage: React.FC = () => {
         <Text component="h1" className="ocs-page-layout__title">
           {t('quickstart~Quick Starts')}
         </Text>
-        <div className="ocs-page-layout__hint">
+        {/* <div className="ocs-page-layout__hint">
           {t(
             'quickstart~Learn how to create, import, and run applications on OpenShift with step-by-step instructions and tasks.',
           )}
-        </div>
+        </div> */}
       </div>
       <QuickStartsLoader>
         {(quickStarts, loaded) =>

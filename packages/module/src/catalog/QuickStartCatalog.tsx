@@ -101,10 +101,10 @@ const QuickStartCatalog: React.FC<QuickStartCatalogProps> = ({
     <EmptyBox label={t("quickstart~Quick Starts")} />
   ) : (
     <>
-      <QuickStartCatalogFilter
+      {/* <QuickStartCatalogFilter
         quickStartsCount={filteredQuickStarts.length}
         quickStartStatusCount={quickStartStatusCount}
-      />
+      /> */}
       {filteredQuickStarts.length === 0 ? (
         emptyState
       ) : (
