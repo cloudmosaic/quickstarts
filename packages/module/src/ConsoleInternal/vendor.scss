@@ -1,23 +1,8 @@
 // Config
 @import "style/vars";
 
-// @import "~@fortawesome/fontawesome-free/scss/fontawesome";
-// @import "~@fortawesome/fontawesome-free/scss/solid";
-@import '~patternfly/dist/sass/patternfly/variables';
 @import "~bootstrap-sass/assets/stylesheets/bootstrap/variables";
 @import "~bootstrap-sass/assets/stylesheets/bootstrap/mixins";
 @import '~patternfly/dist/sass/patternfly/bootstrap-mixin-overrides';
-@import "~bootstrap-sass/assets/stylesheets/bootstrap/normalize";
-@import "~bootstrap-sass/assets/stylesheets/bootstrap/scaffolding";
 @import "~bootstrap-sass/assets/stylesheets/bootstrap/type";
 @import "~bootstrap-sass/assets/stylesheets/bootstrap/code";
-
-@import '~@patternfly/react-catalog-view-extension/dist/sass/variables';
-@import '~@patternfly/react-catalog-view-extension/dist/sass/catalog-item';
-@import '~@patternfly/react-catalog-view-extension/dist/sass/catalog-tile';
-@import '~@patternfly/react-catalog-view-extension/dist/sass/filter-side-panel';
-@import '~@patternfly/react-catalog-view-extension/dist/sass/properties-side-panel';
-@import '~@patternfly/react-catalog-view-extension/dist/sass/vertical-tabs';
-
-@import "~@patternfly/patternfly/patternfly.scss";
-@import "~@patternfly/patternfly/utilities/Accessibility/accessibility.scss";

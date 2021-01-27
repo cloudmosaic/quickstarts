@@ -20,7 +20,7 @@
   "scripts": {
     "clean": "rimraf dist",
     "prebuild": "yarn clean",
-    "build": "rollup -c",
+    "build": "rollup -c && yarn post-css",
     "watch": "rollup -cw",
     "test": "jest",
     "eslint": "eslint --ext .tsx,.js ./src/",

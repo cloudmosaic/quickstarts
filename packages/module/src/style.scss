@@ -1,12 +1,3 @@
-// Fontpath
-$pf-global--font-path: "~@patternfly/patternfly/assets/fonts";
-// Iconpath
-$fa-font-path: "~@patternfly/patternfly/assets/fonts/webfonts";
-// FontIcon path
-$pf-global--fonticon-path: "~@patternfly/patternfly/assets/pficon";
-// Imagepath
-$pf-global--image-path: "~@patternfly/patternfly/assets/images";
-
 @import './ConsoleInternal/vendor.scss';
 @import './ConsoleInternal/style.scss';
 @import 'ConsoleShared/src/components/layout/PageLayout.scss';

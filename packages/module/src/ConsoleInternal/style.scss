@@ -1,34 +1,14 @@
 @import 'style/vars';
-
-@import '~patternfly/dist/sass/patternfly/variables';
-@import '~@patternfly/react-catalog-view-extension/dist/sass/variables';
-@import "~bootstrap-sass/assets/stylesheets/bootstrap/variables";
-@import "~bootstrap-sass/assets/stylesheets/bootstrap/mixins";
-
-// @import '~@fortawesome/fontawesome-free/scss/variables';
-
 @import 'style/base';
 
 // Mixins
 @import 'style/mixin/break-word';
-// @import 'style/mixin/popover-button';
-// @import 'style/mixin/font-awesome';
-// @import 'style/mixin/prefix';
-// @import 'style/mixin/scroll-shadows';
-// @import 'style/mixin/truncate';
-// @import 'style/mixin/line-clamp';
 
 // Overrides
 @import 'style/overrides';
 
 /* CUSTOM STYLES */
-
-// Base
-// @import 'style/common';
-// @import 'style/icons';
 @import 'style/layout';
-// @import 'style/text';
-// @import 'style/forms';
 
 // React Components
 @import 'components/icon-and-text';
