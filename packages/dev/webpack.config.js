@@ -9,6 +9,11 @@ const staticDir = path.join(process.cwd(), "static/");
 
 module.exports = (_env, argv) => {
   const isProd = argv.mode === "production";
+  const cssLoaders = ["style-loader", "css-loader"];
+  if (isProd) {
+    // push loader for production mode only
+    cssLoaders.push("clean-css-loader");
+  }
 
   return {
     entry: path.resolve(__dirname, "src/index.tsx"),
@@ -37,14 +42,12 @@ module.exports = (_env, argv) => {
         },
         {
           test: /\.css$/,
-          use: [
-            {
-              loader: MiniCssExtractPlugin.loader,
-            },
-            {
-              loader: "css-loader",
-            },
-          ],
+          use: cssLoaders,
+        },
+        {
+          test: /\.css$/,
+          include: stylesheet => stylesheet.includes('@patternfly/react-styles/css/'),
+          use: ["null-loader"]
         },
         {
           test: /\.(png|jpe?g|webp|gif|svg)$/,
