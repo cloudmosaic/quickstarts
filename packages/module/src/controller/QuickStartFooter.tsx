@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useLocation, Link } from 'react-router-dom';
+// import { useLocation, Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Button } from '@patternfly/react-core';
 import { QuickStartStatus } from '../utils/quick-start-types';
@@ -21,8 +21,8 @@ const QuickStartFooter: React.FC<QuickStartFooterProps> = ({
   onNext,
   onBack,
 }) => {
-  const location = useLocation();
-  const { pathname: currentPath } = location;
+  // const location = useLocation();
+  // const { pathname: currentPath } = location;
   const quickStartPath = '/quickstart';
   const { t } = useTranslation();
 
@@ -72,10 +72,13 @@ const QuickStartFooter: React.FC<QuickStartFooterProps> = ({
           {t('quickstart~Back')}
         </Button>
       )}
-      {status === QuickStartStatus.COMPLETE && currentPath !== quickStartPath && (
-        <Link style={{ display: 'inline-block' }} to={quickStartPath}>
+      {status === QuickStartStatus.COMPLETE /*&& currentPath !== quickStartPath*/ && (
+        // <Link style={{ display: 'inline-block' }} to={quickStartPath}>
+        //   {t('quickstart~View all tours')}
+        // </Link>
+        <a style={{ display: 'inline-block' }} href={quickStartPath}>
           {t('quickstart~View all tours')}
-        </Link>
+        </a>
       )}
     </div>
   );

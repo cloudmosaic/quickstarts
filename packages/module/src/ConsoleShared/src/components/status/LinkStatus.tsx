@@ -1,13 +1,16 @@
 import * as React from 'react';
 import * as History from 'history';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import StatusIconAndText from './StatusIconAndText';
 
 const LinkStatus: React.FC<LinkStatusProps> = ({ linkTitle, linkTo, ...other }) =>
   linkTo ? (
-    <Link to={linkTo} title={linkTitle}>
+    // <Link to={linkTo} title={linkTitle}>
+    //   <StatusIconAndText {...other} />
+    // </Link>
+    <a href={linkTo as string} title={linkTitle}>
       <StatusIconAndText {...other} />
-    </Link>
+    </a>
   ) : (
     <StatusIconAndText {...other} />
   );

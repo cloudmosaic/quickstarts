@@ -44,7 +44,7 @@ export default [
       format: "cjs",
       sourcemap: true,
     },
-    external: ["react", "react-dom", "react-router-dom"],
+    external: ["react", "react-dom"],
     plugins: plugins(false),
   },
   {
@@ -54,7 +54,7 @@ export default [
       format: "es",
       sourcemap: true,
     },
-    external: ["react", "react-dom", "react-router-dom"],
+    external: ["react", "react-dom"],
     plugins: plugins(true),
   },
 ];

@@ -26,9 +26,11 @@ import {
   AllQuickStartStates,
   QuickStartContextValues,
   i18n,
-  useLocalStorage
+  useLocalStorage,
+  useValuesForQuickStartContextType,
 } from "@cloudmosaic/quickstarts";
 import { allQuickStarts } from "./quickstarts-data/quick-start-test-data";
+import NestedApp from "./NestedApp";
 
 interface AppState {
   activeItem: number | string;
@@ -40,7 +42,7 @@ const App: React.FunctionComponent = () => {
 
   const [activeQuickStartID, setActiveQuickStartID] = useLocalStorage(
     "quickstartId",
-    ''
+    ""
   );
 
   const [allQuickStartStates, setAllQuickStartStates] = useLocalStorage(
@@ -54,13 +56,13 @@ const App: React.FunctionComponent = () => {
     console.log(allQuickStartStates);
   }, [allQuickStartStates]);
 
-  const valuesForQuickstartContext = useValuesForQuickStartContext(
-    allQuickStarts,
+  const valuesForQuickstartContext = useValuesForQuickStartContext({
     activeQuickStartID,
     setActiveQuickStartID,
     allQuickStartStates,
-    setAllQuickStartStates
-  );
+    setAllQuickStartStates,
+    allQuickStarts
+  });
 
   if (!initialized) return <div>Loading</div>;
 
@@ -101,6 +103,7 @@ const App: React.FunctionComponent = () => {
     <Router>
       <React.Suspense fallback={<div>Loading</div>}>
         <QuickStartContext.Provider value={valuesForQuickstartContext}>
+          {/* <NestedApp /> */}
           <QuickStartDrawer>
             <Page header={AppHeader} sidebar={AppSidebar} isManagedSidebar>
               <Button variant="plain" onClick={() => i18n.changeLanguage("de")}>
