@@ -4,8 +4,6 @@ import {
   Nav,
   NavList,
   NavItem,
-  PageSection,
-  SkipToContent,
   PageSidebar,
   Avatar,
   Brand,
@@ -15,18 +13,15 @@ import {
 } from "@patternfly/react-core";
 import imgBrand from "./assets/images/imgBrand.svg";
 import imgAvatar from "./assets/images/imgAvatar.svg";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import Demos from "./Demos";
 import "./App.css";
 import {
   QuickStartDrawer,
   QuickStartContext,
-  QuickStartCatalogPage,
   useValuesForQuickStartContext,
-  AllQuickStartStates,
-  QuickStartContextValues,
   i18n,
-  useLocalStorage
+  useLocalStorage,
 } from "@cloudmosaic/quickstarts";
 import { allQuickStarts } from "./quickstarts-data/quick-start-test-data";
 
@@ -35,12 +30,14 @@ interface AppState {
   isNavOpen: boolean;
 }
 
-const App: React.FunctionComponent = () => {
+const App: React.FunctionComponent = ({ children }) => {
+  const history = useHistory();
+
   const [initialized, setInitialized] = React.useState(true);
 
   const [activeQuickStartID, setActiveQuickStartID] = useLocalStorage(
     "quickstartId",
-    ''
+    ""
   );
 
   const [allQuickStartStates, setAllQuickStartStates] = useLocalStorage(
@@ -54,13 +51,20 @@ const App: React.FunctionComponent = () => {
     console.log(allQuickStartStates);
   }, [allQuickStartStates]);
 
-  const valuesForQuickstartContext = useValuesForQuickStartContext(
-    allQuickStarts,
+  const { pathname: currentPath } = window.location;
+  const quickStartPath = "/quickstarts";
+
+  const valuesForQuickstartContext = useValuesForQuickStartContext({
     activeQuickStartID,
     setActiveQuickStartID,
     allQuickStartStates,
-    setAllQuickStartStates
-  );
+    setAllQuickStartStates,
+    allQuickStarts,
+    footer: {
+      showAllLink: currentPath !== quickStartPath,
+      onShowAllLinkClick: () => history.push(quickStartPath),
+    },
+  });
 
   if (!initialized) return <div>Loading</div>;
 
@@ -84,46 +88,46 @@ const App: React.FunctionComponent = () => {
       <NavList>
         {Demos.map((demo, index) => (
           <NavItem itemId={index} key={demo.id}>
-            <Link id={`${demo.id}-nav-item-link`} to={`/${demo.id}-nav-link`}>
+            <Link id={`${demo.id}-nav-item-link`} to={`/`}>
               {demo.name}
             </Link>
           </NavItem>
         ))}
+        <NavItem>
+          <Link to="/quickstarts">Quick Starts</Link>
+        </NavItem>
       </NavList>
     </Nav>
   );
 
   const AppSidebar = <PageSidebar isNavOpen nav={AppNav} />;
 
-  // TODO - index doing router is not desired.
-  // Split to App.tsx etc.
   return (
-    <Router>
-      <React.Suspense fallback={<div>Loading</div>}>
-        <QuickStartContext.Provider value={valuesForQuickstartContext}>
-          <QuickStartDrawer>
-            <Page header={AppHeader} sidebar={AppSidebar} isManagedSidebar>
-              <Button variant="plain" onClick={() => i18n.changeLanguage("de")}>
-                Change lng - DE
-              </Button>
-              <Button variant="plain" onClick={() => i18n.changeLanguage("en")}>
-                Change lng - EN
-              </Button>
-              <Button
-                onClick={() =>
-                  valuesForQuickstartContext.setActiveQuickStart(
-                    "add-healthchecks"
-                  )
-                }
-              >
-                Open quickstart
-              </Button>
-              <QuickStartCatalogPage />
-            </Page>
-          </QuickStartDrawer>
-        </QuickStartContext.Provider>
-      </React.Suspense>
-    </Router>
+    <React.Suspense fallback={<div>Loading</div>}>
+      <QuickStartContext.Provider value={valuesForQuickstartContext}>
+        {/* <NestedApp /> */}
+        <QuickStartDrawer>
+          <Page header={AppHeader} sidebar={AppSidebar} isManagedSidebar>
+            <Button variant="plain" onClick={() => i18n.changeLanguage("de")}>
+              Change lng - DE
+            </Button>
+            <Button variant="plain" onClick={() => i18n.changeLanguage("en")}>
+              Change lng - EN
+            </Button>
+            <Button
+              onClick={() =>
+                valuesForQuickstartContext.setActiveQuickStart(
+                  "add-healthchecks"
+                )
+              }
+            >
+              Open quickstart
+            </Button>
+            {children}
+          </Page>
+        </QuickStartDrawer>
+      </QuickStartContext.Provider>
+    </React.Suspense>
   );
 };
 export default App;

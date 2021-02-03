@@ -1,6 +1,6 @@
 {
   "name": "@cloudmosaic/quickstarts",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Quickstarts for MAS",
   "files": [
     "dist"
@@ -35,8 +35,7 @@
   },
   "peerDependencies": {
     "react": ">=16.14.0",
-    "react-dom": ">=16.14.0",
-    "react-router-dom": ">=5.2.0"
+    "react-dom": ">=16.14.0"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.9.0",
@@ -46,6 +45,7 @@
     "bootstrap-sass": "^3.3.7",
     "dayjs": "^1.9.6",
     "dompurify": "^2.2.6",
+    "history": "^5.0.0",
     "i18next": "^19.8.3",
     "i18next-browser-languagedetector": "^6.0.1",
     "i18next-parser": "^3.3.0",
@@ -66,7 +66,6 @@
     "@types/jest": "^26.0.14",
     "@types/react": "^16.8.0",
     "@types/react-dom": "^16.8.0",
-    "@types/react-router-dom": "^5.1.6",
     "@types/victory": "^33.1.4",
     "@typescript-eslint/eslint-plugin": "^4.4.1",
     "@typescript-eslint/parser": "^4.4.1",
@@ -88,7 +87,6 @@
     "react-axe": "^3.5.4",
     "react-docgen-typescript-loader": "^3.7.2",
     "react-dom": "^16.14.0",
-    "react-router-dom": "^5.2.0",
     "regenerator-runtime": "^0.13.7",
     "rimraf": "^3.0.2",
     "rollup": "^2.37.0",

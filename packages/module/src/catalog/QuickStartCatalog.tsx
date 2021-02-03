@@ -20,7 +20,6 @@ import {
   LoadingBox,
   removeQueryArgument,
 } from "@console/internal/components/utils";
-import { useQueryParams } from "@console/shared";
 import { QuickStart } from "../utils/quick-start-types";
 import {
   getQuickStartStatus,
@@ -49,7 +48,7 @@ const QuickStartCatalog: React.FC<QuickStartCatalogProps> = ({
     allQuickStartStates,
     setActiveQuickStart,
   } = React.useContext<QuickStartContextValues>(QuickStartContext);
-  const queryParams = useQueryParams();
+  const queryParams = new URLSearchParams(window.location.search);
   const searchQuery = queryParams.get(QUICKSTART_SEARCH_FILTER_KEY) || "";
   const statusFilters =
     queryParams.get(QUICKSTART_STATUS_FILTER_KEY)?.split(",") || [];
@@ -59,18 +58,35 @@ const QuickStartCatalog: React.FC<QuickStartCatalogProps> = ({
     removeQueryArgument(QUICKSTART_STATUS_FILTER_KEY);
   };
 
-  const filteredQuickStarts = React.useMemo(
-    () =>
-      filterQuickStarts(
-        quickStarts,
-        searchQuery,
-        statusFilters,
-        allQuickStartStates
-      ).sort((q1, q2) =>
-        q1.spec.displayName.localeCompare(q2.spec.displayName)
-      ),
-    [quickStarts, searchQuery, statusFilters, allQuickStartStates]
+  const initialFilteredQuickStarts = filterQuickStarts(
+    quickStarts,
+    searchQuery,
+    statusFilters,
+    allQuickStartStates
+  ).sort((q1, q2) =>
+    q1.spec.displayName.localeCompare(q2.spec.displayName)
   );
+  const [filteredQuickStarts, setFilteredQuickStarts] = React.useState(initialFilteredQuickStarts);
+
+  const onSearchInputChange = (searchValue, statusList) => {
+    const result = filterQuickStarts(
+      quickStarts,
+      searchValue,
+      statusList,
+      allQuickStartStates
+    ).sort((q1, q2) => q1.spec.displayName.localeCompare(q2.spec.displayName));
+    setFilteredQuickStarts(result);
+  };
+
+  const onStatusChange = (searchValue, statusList) => {
+    const result = filterQuickStarts(
+      quickStarts,
+      searchValue,
+      statusList,
+      allQuickStartStates
+    ).sort((q1, q2) => q1.spec.displayName.localeCompare(q2.spec.displayName));
+    setFilteredQuickStarts(result);
+  };
 
   const quickStartStatusCount = React.useMemo(
     () => getQuickStartStatusCount(allQuickStartStates, quickStarts),
@@ -101,35 +117,33 @@ const QuickStartCatalog: React.FC<QuickStartCatalogProps> = ({
     <EmptyBox label={t("quickstart~Quick Starts")} />
   ) : (
     <>
-      {/* <QuickStartCatalogFilter
+      <QuickStartCatalogFilter
         quickStartsCount={filteredQuickStarts.length}
         quickStartStatusCount={quickStartStatusCount}
-      /> */}
-      {filteredQuickStarts.length === 0 ? (
-        emptyState
-      ) : (
-        <div className="ocs-page-layout__content is-dark">
-          <Gallery className="co-quick-start-catalog__gallery" hasGutter>
-            {filteredQuickStarts.map((quickStart) => {
-              const {
-                metadata: { name: id },
-                spec: { tasks },
-              } = quickStart;
+        onSearchInputChange={onSearchInputChange}
+        onStatusChange={onStatusChange}
+      />
+      <div className="ocs-page-layout__content is-dark">
+        <Gallery className="co-quick-start-catalog__gallery" hasGutter>
+          {filteredQuickStarts.map((quickStart) => {
+            const {
+              metadata: { name: id },
+              spec: { tasks },
+            } = quickStart;
 
-              return (
-                <GalleryItem key={id}>
-                  <QuickStartTile
-                    quickStart={quickStart}
-                    isActive={id === activeQuickStartID}
-                    status={getQuickStartStatus(allQuickStartStates, id)}
-                    onClick={() => setActiveQuickStart(id, tasks?.length)}
-                  />
-                </GalleryItem>
-              );
-            })}
-          </Gallery>
-        </div>
-      )}
+            return (
+              <GalleryItem key={id}>
+                <QuickStartTile
+                  quickStart={quickStart}
+                  isActive={id === activeQuickStartID}
+                  status={getQuickStartStatus(allQuickStartStates, id)}
+                  onClick={() => setActiveQuickStart(id, tasks?.length)}
+                />
+              </GalleryItem>
+            );
+          })}
+        </Gallery>
+      </div>
     </>
   );
 };

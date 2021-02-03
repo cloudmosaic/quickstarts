@@ -13,12 +13,11 @@ or
 `npm install @cloudmosaic/quickstarts --save`
 ```
 
-The package currently has these peer dependencies (react-router-dom will probably get dropped soon):
+The package currently has these peer dependencies:
 
 ```
 "react": ">=16.14.0",
-"react-dom": ">=16.14.0",
-"react-router-dom": ">=5.2.0"
+"react-dom": ">=16.14.0"
 ```
 
 Additionally for styles the package depends on (might bundle these up as vendor.css in the future):

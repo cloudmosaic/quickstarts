@@ -4,7 +4,7 @@ import peerDepsExternal from "rollup-plugin-peer-deps-external";
 import typescript from "rollup-plugin-typescript2";
 import scss from "./rollup-plugin-scss";
 import json from "@rollup/plugin-json";
-// import visualizer from "rollup-plugin-visualizer";
+import visualizer from "rollup-plugin-visualizer";
 // import analyze from "rollup-plugin-analyzer";
 
 import packageJson from "./package.json";
@@ -32,7 +32,7 @@ const plugins = (esBundle) => {
     typescript({ typescript: require("typescript") }),
     json(),
     // analyze({ summaryOnly: true, limit: 10 }),
-    // visualizer(),
+    visualizer(),
   ];
 };
 
@@ -44,7 +44,7 @@ export default [
       format: "cjs",
       sourcemap: true,
     },
-    external: ["react", "react-dom", "react-router-dom"],
+    external: ["react", "react-dom"],
     plugins: plugins(false),
   },
   {
@@ -54,7 +54,7 @@ export default [
       format: "es",
       sourcemap: true,
     },
-    external: ["react", "react-dom", "react-router-dom"],
+    external: ["react", "react-dom"],
     plugins: plugins(true),
   },
 ];

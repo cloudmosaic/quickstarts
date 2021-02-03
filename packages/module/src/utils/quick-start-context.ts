@@ -7,9 +7,14 @@ import {
   QuickStart,
 } from "./quick-start-types";
 
+type FooterProps = {
+  showAllLink?: boolean;
+  onShowAllLinkClick?: () => void
+};
+
 export type QuickStartContextValues = {
-  allQuickStarts: QuickStart[];
-  activeQuickStartID: string;
+  allQuickStarts?: QuickStart[];
+  activeQuickStartID?: string;
   allQuickStartStates?: AllQuickStartStates;
   activeQuickStartState?: QuickStartState;
   setActiveQuickStart?: (quickStartId: string, totalTasks?: number) => void;
@@ -20,11 +25,17 @@ export type QuickStartContextValues = {
   setQuickStartTaskNumber?: (quickStartId: string, taskNumber: number) => void;
   setQuickStartTaskStatus?: (taskStatus: QuickStartTaskStatus) => void;
   getQuickStartForId?: (id: string) => QuickStartState;
+  footer?: FooterProps
 };
 
 export const QuickStartContext = createContext<QuickStartContextValues>({
   allQuickStarts: [],
   activeQuickStartID: "",
+  allQuickStartStates: {},
+  activeQuickStartState: {},
+  setActiveQuickStart: () => {},
+  startQuickStart: () => {},
+  restartQuickStart: () => {}
 });
 
 const getDefaultQuickStartState = (
@@ -43,15 +54,25 @@ const getDefaultQuickStartState = (
   return defaultQuickStartState;
 };
 
-export const useValuesForQuickStartContext = (
-  allQuickStarts: QuickStart[],
-  activeQuickStartID: string,
-  setActiveQuickStartID: React.Dispatch<React.SetStateAction<string>>,
-  allQuickStartStates: AllQuickStartStates,
-  setAllQuickStartStates: React.Dispatch<
+export type useValuesForQuickStartContextType = {
+  allQuickStarts?: QuickStart[],
+  activeQuickStartID?: string,
+  setActiveQuickStartID?: React.Dispatch<React.SetStateAction<string>>,
+  allQuickStartStates?: AllQuickStartStates,
+  setAllQuickStartStates?: React.Dispatch<
     React.SetStateAction<AllQuickStartStates>
-  >
-): QuickStartContextValues => {
+  >,
+  footer?: FooterProps;
+};
+
+export const useValuesForQuickStartContext = ({
+  allQuickStarts,
+  activeQuickStartID,
+  setActiveQuickStartID,
+  allQuickStartStates,
+  setAllQuickStartStates,
+  footer
+}: useValuesForQuickStartContextType): QuickStartContextValues => {
   const setActiveQuickStart = useCallback(
     (quickStartId: string, totalTasks?: number) => {
       setActiveQuickStartID((id) => (id !== quickStartId ? quickStartId : ""));
@@ -234,5 +255,6 @@ export const useValuesForQuickStartContext = (
     setQuickStartTaskNumber,
     setQuickStartTaskStatus,
     getQuickStartForId,
+    footer
   };
 };

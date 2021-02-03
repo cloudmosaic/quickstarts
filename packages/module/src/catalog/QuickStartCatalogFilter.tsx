@@ -9,7 +9,6 @@ import {
   SelectVariant,
   SelectOption,
 } from '@patternfly/react-core';
-import { useQueryParams } from '@console/shared';
 import { removeQueryArgument, setQueryArgument } from '@console/internal/components/utils';
 import { QuickStartStatus } from '../utils/quick-start-types';
 import { QUICKSTART_SEARCH_FILTER_KEY, QUICKSTART_STATUS_FILTER_KEY } from '../utils/const';
@@ -19,15 +18,19 @@ import './QuickStartCatalogFilter.scss';
 type QuickStartCatalogFilterProps = {
   quickStartsCount: number;
   quickStartStatusCount: Record<QuickStartStatus, number>;
+  onSearchInputChange: any;
+  onStatusChange: any;
 };
 
 const QuickStartCatalogFilter: React.FC<QuickStartCatalogFilterProps> = ({
   quickStartsCount,
   quickStartStatusCount,
+  onSearchInputChange = () => {},
+  onStatusChange = () => {}
 }) => {
   const { t } = useTranslation();
   const [isDropdownOpen, setIsDropdownOpen] = React.useState(false);
-  const queryParams = useQueryParams();
+  const queryParams = new URLSearchParams(window.location.search);
   const searchQuery = queryParams.get(QUICKSTART_SEARCH_FILTER_KEY) || '';
   const statusFilters = queryParams.get(QUICKSTART_STATUS_FILTER_KEY)?.split(',') || [];
   const statusTypes = {
@@ -41,6 +44,8 @@ const QuickStartCatalogFilter: React.FC<QuickStartCatalogFilterProps> = ({
       statusCount: quickStartStatusCount[QuickStartStatus.NOT_STARTED],
     }),
   };
+
+  const [searchInputText, setSearchInputText] = React.useState(searchQuery);
 
   const [selectedFilters, setSelectedFilters] = React.useState(
     statusFilters.map((filter) => statusTypes[filter]),
@@ -59,6 +64,7 @@ const QuickStartCatalogFilter: React.FC<QuickStartCatalogFilterProps> = ({
       } else {
         removeQueryArgument(QUICKSTART_STATUS_FILTER_KEY);
       }
+      onStatusChange(searchInputText, selectedFiltersList);
     },
     [statusFilters, statusTypes],
   );
@@ -73,6 +79,8 @@ const QuickStartCatalogFilter: React.FC<QuickStartCatalogFilterProps> = ({
     } else {
       removeQueryArgument(QUICKSTART_SEARCH_FILTER_KEY);
     }
+    setSearchInputText(val);
+    onSearchInputChange(val, selectedFilters);
   };
 
   return (
@@ -81,7 +89,7 @@ const QuickStartCatalogFilter: React.FC<QuickStartCatalogFilterProps> = ({
         <ToolbarItem className="co-quick-start-catalog-filter__input">
           <SearchInput
             placeholder={t('quickstart~Filter by keyword...')}
-            value={searchQuery}
+            value={searchInputText}
             onChange={handleTextChange}
             onClear={() => handleTextChange('')}
           />
