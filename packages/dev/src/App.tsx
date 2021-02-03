@@ -13,7 +13,7 @@ import {
 } from "@patternfly/react-core";
 import imgBrand from "./assets/images/imgBrand.svg";
 import imgAvatar from "./assets/images/imgAvatar.svg";
-import { Link, useHistory, useRouteMatch } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import Demos from "./Demos";
 import "./App.css";
 import {
@@ -101,9 +101,6 @@ const App: React.FunctionComponent = ({ children }) => {
   );
 
   const AppSidebar = <PageSidebar isNavOpen nav={AppNav} />;
-
-  let match = useRouteMatch();
-  debugger;
 
   return (
     <React.Suspense fallback={<div>Loading</div>}>
