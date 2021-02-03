@@ -48,16 +48,15 @@ import {
   QuickStartCatalogPage,
   useValuesForQuickStartContext,
   useLocalStorage,
+  QuickStartContextValues,
+  QuickStartContext,
 } from "@cloudmosaic/quickstarts";
 // for how these yaml files should look see below
-import quickstartOne from '.yamls/quickstart-one.yaml';
-import quickstartTwo from '.yamls/quickstart-two.yaml';
+import quickstartOne from ".yamls/quickstart-one.yaml";
+import quickstartTwo from ".yamls/quickstart-two.yaml";
 
 const App = () => {
-  const allQuickStarts = [
-      quickstartOne,
-      quickstartTwo
-  ];
+  const allQuickStarts = [quickstartOne, quickstartTwo];
   const [activeQuickStartID, setActiveQuickStartID] = useLocalStorage(
     "quickstartId",
     ""
@@ -66,13 +65,19 @@ const App = () => {
     "quickstarts",
     {}
   );
-  const valuesForQuickstartContext = useValuesForQuickStartContext(
+  const { pathname: currentPath } = window.location;
+  const quickStartPath = "/quickstarts";
+  const valuesForQuickstartContext = useValuesForQuickStartContext({
     allQuickStarts,
     activeQuickStartID,
     setActiveQuickStartID,
     allQuickStartStates,
-    setAllQuickStartStates
-  );
+    setAllQuickStartStates,
+    footer: {
+      showAllLink: currentPath !== quickStartPath,
+      onShowAllLinkClick: () => history.push(quickStartPath),
+    },
+  });
 
   return (
     <QuickStartContext.Provider value={valuesForQuickstartContext}>
@@ -88,25 +93,45 @@ const App = () => {
           </button>
           <QuickStartCatalogPage />
         </div>
+        <SomeNestedComponent />
       </QuickStartDrawer>
     </QuickStartContext.Provider>
+  );
+};
+
+const SomeNestedComponent = () => {
+  const qsContext = React.useContext<QuickStartContextValues>(
+    QuickStartContext
+  );
+  return (
+    <button
+      onClick={() =>
+        qsContext.setActiveQuickStart("a quickstart id")
+      }
+    >
+      Open a quickstart from a nested component
+    </button>
   );
 };
 ```
 
 ## Webpack
+
 You can reduce the size of your CSS bundle by using `clean-css-loader` and `null-loader`:
 `yarn add -D clean-css-loader null-loader` or `npm install --save-dev clean-css-loader null-loader`
 In the webpack config:
+
 ```js
 const isProd = argv.mode === "production";
 const cssLoaders = ["style-loader", "css-loader"];
 if (isProd) {
-// push loader for production mode only
-    cssLoaders.push("clean-css-loader");
+  // push loader for production mode only
+  cssLoaders.push("clean-css-loader");
 }
 ```
+
 In the rules array:
+
 ```js
 {
     test: /\.css$/,
@@ -120,5 +145,6 @@ In the rules array:
 ```
 
 ## yaml
+
 This section will get more info in the future. For now you can view sample yamls here:
 https://github.com/cloudmosaic/quickstarts/tree/main/packages/dev/src/quickstarts-data/mocks/yamls
