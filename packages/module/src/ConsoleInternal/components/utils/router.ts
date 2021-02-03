@@ -1,23 +1,21 @@
-// import _startsWith from 'lodash-es/startsWith';
-// import _each from 'lodash-es/each';
-// import { createBrowserHistory, createMemoryHistory, History } from 'history';
+import { createBrowserHistory, createMemoryHistory, History } from 'history';
 
-// type AppHistory = History & { pushPath: History['push'] };
+type AppHistory = History & { pushPath: History['push'] };
 
-// let createHistory;
+let createHistory;
 
-// try {
-//   if (process.env.NODE_ENV === 'test') {
-//     // Running in node. Can't use browser history
-//     createHistory = createMemoryHistory;
-//   } else {
-//     createHistory = createBrowserHistory;
-//   }
-// } catch (unused) {
-//   createHistory = createBrowserHistory;
-// }
+try {
+  if (process.env.NODE_ENV === 'test') {
+    // Running in node. Can't use browser history
+    createHistory = createMemoryHistory;
+  } else {
+    createHistory = createBrowserHistory;
+  }
+} catch (unused) {
+  createHistory = createBrowserHistory;
+}
 
-// export const history: AppHistory = createHistory({ basename: window.SERVER_FLAGS.basePath });
+export const history: AppHistory = createHistory(/*{ basename: window.SERVER_FLAGS.basePath }*/);
 
 // const removeBasePath = (url = '/') =>
 //   _startsWith(url, window.SERVER_FLAGS.basePath)
@@ -32,9 +30,6 @@
 // history.push = (url) => (history as any).__push__(removeBasePath(url));
 // (history as any).pushPath = (path) => (history as any).__push__(path);
 
-// export const getQueryArgument = (arg: string) =>
-//   new URLSearchParams(window.location.search).get(arg);
-
 export const setQueryArgument = (k: string, v: string) => {
   const params = new URLSearchParams(window.location.search);
   if (params.get(k) !== v) {
@@ -44,21 +39,6 @@ export const setQueryArgument = (k: string, v: string) => {
     history.replace(`${url.pathname}?${params.toString()}${url.hash}`);
   }
 };
-
-// export const setAllQueryArguments = (newParams: { [k: string]: string }) => {
-//   const params = new URLSearchParams();
-//   let update = false;
-//   _each(newParams, (v, k) => {
-//     if (params.get(k) !== v) {
-//       update = true;
-//       params.set(k, v);
-//     }
-//   });
-//   if (update) {
-//     const url = new URL(window.location.href);
-//     history.replace(`${url.pathname}?${params.toString()}${url.hash}`);
-//   }
-// };
 
 export const removeQueryArgument = (k: string) => {
   const params = new URLSearchParams(window.location.search);

@@ -7,6 +7,11 @@ import {
   QuickStart,
 } from "./quick-start-types";
 
+type FooterProps = {
+  showAllLink?: boolean;
+  onShowAllLinkClick?: () => void
+};
+
 export type QuickStartContextValues = {
   allQuickStarts?: QuickStart[];
   activeQuickStartID?: string;
@@ -20,6 +25,7 @@ export type QuickStartContextValues = {
   setQuickStartTaskNumber?: (quickStartId: string, taskNumber: number) => void;
   setQuickStartTaskStatus?: (taskStatus: QuickStartTaskStatus) => void;
   getQuickStartForId?: (id: string) => QuickStartState;
+  footer?: FooterProps
 };
 
 export const QuickStartContext = createContext<QuickStartContextValues>({
@@ -55,7 +61,8 @@ export type useValuesForQuickStartContextType = {
   allQuickStartStates?: AllQuickStartStates,
   setAllQuickStartStates?: React.Dispatch<
     React.SetStateAction<AllQuickStartStates>
-  >
+  >,
+  footer?: FooterProps;
 };
 
 export const useValuesForQuickStartContext = ({
@@ -63,7 +70,8 @@ export const useValuesForQuickStartContext = ({
   activeQuickStartID,
   setActiveQuickStartID,
   allQuickStartStates,
-  setAllQuickStartStates
+  setAllQuickStartStates,
+  footer
 }: useValuesForQuickStartContextType): QuickStartContextValues => {
   const setActiveQuickStart = useCallback(
     (quickStartId: string, totalTasks?: number) => {
@@ -247,5 +255,6 @@ export const useValuesForQuickStartContext = ({
     setQuickStartTaskNumber,
     setQuickStartTaskStatus,
     getQuickStartForId,
+    footer
   };
 };
