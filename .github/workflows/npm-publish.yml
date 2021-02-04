@@ -27,7 +27,7 @@ jobs:
           node-version: 12
           registry-url: https://registry.npmjs.org/
       - run: yarn build
-      - run: npm publish
+      - run: cd packages/module && npm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
 
