@@ -50,7 +50,7 @@ const App: React.FunctionComponent = ({ children }) => {
   const quickStartPath = "/quickstarts";
 
   const valuesForQuickstartContext = useValuesForQuickStartContext({
-    allQuickStarts: allQuickStarts,
+    allQuickStarts,
     activeQuickStartID,
     setActiveQuickStartID,
     allQuickStartStates,

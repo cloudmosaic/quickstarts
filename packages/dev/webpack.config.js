@@ -102,28 +102,7 @@ module.exports = (_env, argv) => {
       }),
       new CopyPlugin({
         patterns: [{ from: staticDir, to: "" }],
-      }),
-      new CopyPlugin({
-        patterns: [
-          {
-            from: path.resolve(__dirname, "src/quickstarts-data"),
-            to: 'quickstarts-data',
-            // transform(content) {
-            //   return JSON.stringify(yaml.load(content));
-            // },
-            noErrorOnMissing: true
-          }
-        ]
-      }),
-      // new CopyPlugin({
-      //   patterns: [
-      //     {
-      //       from: path.resolve(__dirname, "css"),
-      //       to: 'css',
-      //       noErrorOnMissing: true
-      //     }
-      //   ]
-      // })
+      })
     ],
     stats: "minimal",
   };
