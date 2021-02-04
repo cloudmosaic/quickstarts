@@ -7,3 +7,4 @@ export * from './utils/quick-start-context';
 export * from './utils/quick-start-types';
 export * from './utils/useLocalStorage';
 export { default as i18n } from './i18n/i18n';
+export * from './utils/ascii-doc-parser';

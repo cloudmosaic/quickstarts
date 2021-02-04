@@ -6,6 +6,8 @@ import addHealthchecksQuickstart from './mocks/yamls/add-healthchecks-quickstart
 import installAssociatePipelineQuickstart from './mocks/yamls/install-associate-pipeline-quickstart.yaml';
 import sampleApplicationQuickstart from './mocks/yamls/sample-application-quickstart.yaml';
 import serverlessApplicationQuickstart from './mocks/yamls/serverless-application-quickstart.yaml';
+import addHealthchecksQuickstartADoc from "raw-loader!./mocks/asciidoc/add-healthchecks-quickstart.adoc";
+import { AsciiDocParser } from '@cloudmosaic/quickstarts';
 
 export const allQuickStarts: QuickStart[] = [
   explorePipelinesQuickStart,
@@ -14,5 +16,6 @@ export const allQuickStarts: QuickStart[] = [
   addHealthchecksQuickstart,
   installAssociatePipelineQuickstart,
   sampleApplicationQuickstart,
-  serverlessApplicationQuickstart
+  serverlessApplicationQuickstart,
+  AsciiDocParser(addHealthchecksQuickstartADoc)
 ];
