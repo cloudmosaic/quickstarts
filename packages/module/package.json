@@ -35,13 +35,15 @@
   },
   "peerDependencies": {
     "react": ">=16.14.0",
-    "react-dom": ">=16.14.0"
+    "react-dom": ">=16.14.0",
+    "asciidoctor": ">=2.2.1"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.9.0",
     "@patternfly/react-catalog-view-extension": "^4.8.126",
     "@patternfly/react-core": "^4.84.4",
     "@patternfly/react-table": "4.19.45",
+    "asciidoctor": "^2.2.1",
     "bootstrap-sass": "^3.3.7",
     "dayjs": "^1.9.6",
     "dompurify": "^2.2.6",

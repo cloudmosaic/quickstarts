@@ -1,13 +1,13 @@
-import * as React from 'react';
-import { CatalogTile } from '@patternfly/react-catalog-view-extension';
-import { RocketIcon } from '@patternfly/react-icons';
-import { FallbackImg } from '@console/shared';
-import { QuickStartStatus, QuickStart } from '../utils/quick-start-types';
-import QuickStartTileHeader from './QuickStartTileHeader';
-import QuickStartTileDescription from './QuickStartTileDescription';
-import QuickStartTileFooter from './QuickStartTileFooter';
+import * as React from "react";
+import { CatalogTile } from "@patternfly/react-catalog-view-extension";
+import { RocketIcon } from "@patternfly/react-icons";
+import { FallbackImg } from "@console/shared";
+import { QuickStartStatus, QuickStart } from "../utils/quick-start-types";
+import QuickStartTileHeader from "./QuickStartTileHeader";
+import QuickStartTileDescription from "./QuickStartTileDescription";
+import QuickStartTileFooter from "./QuickStartTileFooter";
 
-import './QuickStartTile.scss';
+import "./QuickStartTile.scss";
 
 type QuickStartTileProps = {
   quickStart: QuickStart;
@@ -24,7 +24,14 @@ const QuickStartTile: React.FC<QuickStartTileProps> = ({
 }) => {
   const {
     metadata: { name: id },
-    spec: { icon, tasks, displayName, description, durationMinutes, prerequisites },
+    spec: {
+      icon,
+      tasks,
+      displayName,
+      description,
+      durationMinutes,
+      prerequisites,
+    },
   } = quickStart;
 
   const quickStartIcon = (
@@ -40,12 +47,27 @@ const QuickStartTile: React.FC<QuickStartTileProps> = ({
       icon={quickStartIcon}
       className="co-quick-start-tile"
       featured={isActive}
-      title={<QuickStartTileHeader name={displayName} status={status} duration={durationMinutes} />}
+      title={
+        <QuickStartTileHeader
+          name={displayName}
+          status={status}
+          duration={durationMinutes}
+        />
+      }
       onClick={onClick}
       description={
-        <QuickStartTileDescription description={description} prerequisites={prerequisites} />
+        <QuickStartTileDescription
+          description={description}
+          prerequisites={prerequisites}
+        />
       }
-      footer={<QuickStartTileFooter quickStartId={id} status={status} totalTasks={tasks.length} />}
+      footer={
+        <QuickStartTileFooter
+          quickStartId={id}
+          status={status}
+          totalTasks={tasks?.length}
+        />
+      }
     />
   );
 };

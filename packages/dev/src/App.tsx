@@ -21,14 +21,9 @@ import {
   QuickStartContext,
   useValuesForQuickStartContext,
   i18n,
-  useLocalStorage,
+  useLocalStorage
 } from "@cloudmosaic/quickstarts";
 import { allQuickStarts } from "./quickstarts-data/quick-start-test-data";
-
-interface AppState {
-  activeItem: number | string;
-  isNavOpen: boolean;
-}
 
 const App: React.FunctionComponent = ({ children }) => {
   const history = useHistory();
@@ -55,11 +50,11 @@ const App: React.FunctionComponent = ({ children }) => {
   const quickStartPath = "/quickstarts";
 
   const valuesForQuickstartContext = useValuesForQuickStartContext({
+    allQuickStarts: allQuickStarts,
     activeQuickStartID,
     setActiveQuickStartID,
     allQuickStartStates,
     setAllQuickStartStates,
-    allQuickStarts,
     footer: {
       showAllLink: currentPath !== quickStartPath,
       onShowAllLinkClick: () => history.push(quickStartPath),

@@ -2,8 +2,8 @@
 import { AccessReviewResourceAttributes } from '../ConsoleInternal/module/k8s/types';
 
 export type QuickStart = {
-  apiVersion: string;
-  kind: string;
+  apiVersion?: string;
+  kind?: string;
   metadata: {
     name: string;
   };
@@ -11,7 +11,7 @@ export type QuickStart = {
 };
 
 export type QuickStartSpec = {
-  version: number;
+  version?: number;
   displayName: string;
   durationMinutes: number;
   icon: string;
@@ -26,14 +26,14 @@ export type QuickStartSpec = {
 
 export type QuickStartTask = {
   title?: string;
-  description: string;
+  description?: string;
   review?: QuickStartTaskReview;
   summary?: QuickStartTaskSummary;
 };
 
 export type QuickStartTaskReview = {
-  instructions: string;
-  failedTaskHelp: string;
+  instructions?: string;
+  failedTaskHelp?: string;
 };
 
 export type QuickStartTaskSummary = {

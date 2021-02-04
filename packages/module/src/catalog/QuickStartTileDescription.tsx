@@ -24,7 +24,9 @@ const QuickStartTileDescription: React.FC<QuickStartTileDescriptionProps> = ({
           <>
             <Text component={TextVariants.h5}>{t('quickstart~Prerequisites')}</Text>
             {prerequisites.map((prerequisite, idx) => (
-              <Text key={idx} component={TextVariants.small}>{prerequisite}</Text>
+              <div>
+                <Text key={idx} component={TextVariants.small}>{prerequisite}</Text>
+              </div>
             ))}
           </>
         )}
