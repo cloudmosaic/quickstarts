@@ -18,7 +18,7 @@
   },
   "homepage": "https://github.com/cloudmosaic/quickstarts#readme",
   "scripts": {
-    "clean": "rimraf dist",
+    "clean": "rm -rf dist",
     "prebuild": "yarn clean",
     "build": "rollup -c && yarn post-css",
     "watch": "rollup -cw",
