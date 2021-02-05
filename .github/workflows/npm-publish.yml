@@ -27,6 +27,7 @@ jobs:
         with:
           node-version: 12
           registry-url: https://registry.npmjs.org/
+      - run: yarn install
       - run: yarn build
       - run: cd packages/module && npm publish
         env:
@@ -41,6 +42,7 @@ jobs:
         with:
           node-version: 12
           registry-url: https://npm.pkg.github.com/
+      - run: yarn install
       - run: yarn build
       - run: cd packages/module && npm publish
         env:
