@@ -37,10 +37,12 @@ import "./QuickStartCatalog.scss";
 
 type QuickStartCatalogProps = {
   quickStarts: QuickStart[];
+  showFilter?: boolean;
 };
 
 const QuickStartCatalog: React.FC<QuickStartCatalogProps> = ({
   quickStarts,
+  showFilter,
 }) => {
   const { t } = useTranslation();
   const {
@@ -58,15 +60,17 @@ const QuickStartCatalog: React.FC<QuickStartCatalogProps> = ({
     removeQueryArgument(QUICKSTART_STATUS_FILTER_KEY);
   };
 
-  const initialFilteredQuickStarts = filterQuickStarts(
-    quickStarts,
-    searchQuery,
-    statusFilters,
-    allQuickStartStates
-  ).sort((q1, q2) =>
-    q1.spec.displayName.localeCompare(q2.spec.displayName)
+  const initialFilteredQuickStarts = showFilter
+    ? filterQuickStarts(
+        quickStarts,
+        searchQuery,
+        statusFilters,
+        allQuickStartStates
+      ).sort((q1, q2) => q1.spec.displayName.localeCompare(q2.spec.displayName))
+    : quickStarts;
+  const [filteredQuickStarts, setFilteredQuickStarts] = React.useState(
+    initialFilteredQuickStarts
   );
-  const [filteredQuickStarts, setFilteredQuickStarts] = React.useState(initialFilteredQuickStarts);
 
   const onSearchInputChange = (searchValue, statusList) => {
     const result = filterQuickStarts(
@@ -117,33 +121,39 @@ const QuickStartCatalog: React.FC<QuickStartCatalogProps> = ({
     <EmptyBox label={t("quickstart~Quick Starts")} />
   ) : (
     <>
-      <QuickStartCatalogFilter
-        quickStartsCount={filteredQuickStarts.length}
-        quickStartStatusCount={quickStartStatusCount}
-        onSearchInputChange={onSearchInputChange}
-        onStatusChange={onStatusChange}
-      />
-      <div className="ocs-page-layout__content is-dark">
-        <Gallery className="co-quick-start-catalog__gallery" hasGutter>
-          {filteredQuickStarts.map((quickStart) => {
-            const {
-              metadata: { name: id },
-              spec: { tasks },
-            } = quickStart;
+      {showFilter && (
+        <QuickStartCatalogFilter
+          quickStartsCount={filteredQuickStarts.length}
+          quickStartStatusCount={quickStartStatusCount}
+          onSearchInputChange={onSearchInputChange}
+          onStatusChange={onStatusChange}
+        />
+      )}
+      {filteredQuickStarts.length === 0 ? (
+        emptyState
+      ) : (
+        <div className="ocs-page-layout__content is-dark">
+          <Gallery className="co-quick-start-catalog__gallery" hasGutter>
+            {filteredQuickStarts.map((quickStart) => {
+              const {
+                metadata: { name: id },
+                spec: { tasks },
+              } = quickStart;
 
-            return (
-              <GalleryItem key={id}>
-                <QuickStartTile
-                  quickStart={quickStart}
-                  isActive={id === activeQuickStartID}
-                  status={getQuickStartStatus(allQuickStartStates, id)}
-                  onClick={() => setActiveQuickStart(id, tasks?.length)}
-                />
-              </GalleryItem>
-            );
-          })}
-        </Gallery>
-      </div>
+              return (
+                <GalleryItem key={id}>
+                  <QuickStartTile
+                    quickStart={quickStart}
+                    isActive={id === activeQuickStartID}
+                    status={getQuickStartStatus(allQuickStartStates, id)}
+                    onClick={() => setActiveQuickStart(id, tasks?.length)}
+                  />
+                </GalleryItem>
+              );
+            })}
+          </Gallery>
+        </div>
+      )}
     </>
   );
 };

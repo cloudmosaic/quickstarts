@@ -47,6 +47,7 @@ const markdownConvert = (markdown, extensions?: string[]) => {
       "pre",
       "button",
       ...tableTags,
+      "div",
     ],
     ALLOWED_ATTR: ["href", "target", "rel", "class"],
     ALLOWED_URI_REGEXP: /^(?:(?:https?|mailto):|[^a-z]|[a-z+.\-]+(?:[^a-z+.\-:]|$))/i,

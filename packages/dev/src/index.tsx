@@ -21,7 +21,7 @@ ReactDOM.render(
       </Route>
       <Route exact path="/quickstarts">
         <App>
-          <QuickStartCatalogPage />
+          <QuickStartCatalogPage showFilter />
         </App>
       </Route>
     </Switch>

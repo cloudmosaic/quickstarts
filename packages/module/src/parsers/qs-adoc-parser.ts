@@ -4,7 +4,7 @@ import {
   QuickStartTask,
   QuickStartTaskReview,
   QuickStartTaskSummary,
-} from "./quick-start-types";
+} from "../utils/quick-start-types";
 
 const processor = Processor();
 const asciiOptions = {
@@ -14,9 +14,6 @@ const asciiOptions = {
   // add header/footer when true
   standalone: false,
   safe: "unsafe",
-  // attributes: {
-  //   "qs-custom": "asd",
-  // },
   // base_dir: "quickstarts-data/asciidoc/",
   sourcemap: true,
 };
@@ -37,8 +34,11 @@ const getListItems = (html: string) => {
   return items;
 };
 
-export const AsciiDocParser = (file: string) => {
-  const fullAdoc = processor.load(file, asciiOptions);
+export const QuickstartAsciiDocParser = (file: string, options: any = {}) => {
+  const fullAdoc = processor.load(file, {
+    ...asciiOptions,
+    ...options,
+  });
   const taskBlocks = fullAdoc.getBlocks();
   let qsTasks: QuickStartTask[] = [];
   taskBlocks.forEach((taskBlock) => {
