@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Text, TextVariants } from '@patternfly/react-core';
+import QuickStartMarkdownView from '../QuickStartMarkdownView';
 
 import './QuickStartTileDescription.scss';
 
@@ -16,16 +17,18 @@ const QuickStartTileDescription: React.FC<QuickStartTileDescriptionProps> = ({
   const { t } = useTranslation();
   return (
     <>
-      <Text component={TextVariants.p} className="oc-quick-start-tile-description">
-        {description}
-      </Text>
+      <div className="oc-quick-start-tile-description">
+        <QuickStartMarkdownView content={description} />
+      </div>
       <div className="co-quick-start-tile-description">
         {prerequisites && (
           <>
             <Text component={TextVariants.h5}>{t('quickstart~Prerequisites')}</Text>
             {prerequisites.map((prerequisite, idx) => (
-              <div>
-                <Text key={idx} component={TextVariants.small}>{prerequisite}</Text>
+              <div key={`${idx} - ${prerequisite}`}>
+                <Text component={TextVariants.small}>
+                  <QuickStartMarkdownView content={prerequisite} />
+                </Text>
               </div>
             ))}
           </>
