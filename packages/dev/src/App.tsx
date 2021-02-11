@@ -9,7 +9,6 @@ import {
   Brand,
   PageHeader,
   PageHeaderTools,
-  PageSection,
 } from "@patternfly/react-core";
 import imgBrand from "./assets/images/imgBrand.svg";
 import imgAvatar from "./assets/images/imgAvatar.svg";
@@ -101,7 +100,7 @@ const App: React.FunctionComponent = ({ children }) => {
       <QuickStartContext.Provider value={valuesForQuickstartContext}>
         <QuickStartDrawer>
           <Page header={AppHeader} sidebar={AppSidebar} isManagedSidebar>
-            <PageSection>{children}</PageSection>
+            {children}
           </Page>
         </QuickStartDrawer>
       </QuickStartContext.Provider>

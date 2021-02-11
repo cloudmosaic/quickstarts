@@ -9,7 +9,7 @@ import {
 
 type FooterProps = {
   showAllLink?: boolean;
-  onShowAllLinkClick?: () => void
+  onShowAllLinkClick?: () => void | null
 };
 
 export type QuickStartContextValues = {

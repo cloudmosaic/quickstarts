@@ -25,9 +25,12 @@ const QuickStartFooter: React.FC<QuickStartFooterProps> = ({
   onBack,
 }) => {
   const { t } = useTranslation();
-  const {
-    footer: { onShowAllLinkClick, showAllLink },
-  } = React.useContext<QuickStartContextValues>(QuickStartContext);
+  const { footer } = React.useContext<QuickStartContextValues>(
+    QuickStartContext
+  );
+
+  const showAllLink = footer?.showAllLink;
+  const onShowAllLinkClick = footer?.onShowAllLinkClick;
 
   const PrimaryButtonText = {
     START: t("quickstart~Start tour"),
@@ -76,11 +79,13 @@ const QuickStartFooter: React.FC<QuickStartFooterProps> = ({
           {t("quickstart~Back")}
         </Button>
       )}
-      {status === QuickStartStatus.COMPLETE && showAllLink && (
-        <Button variant="link" isInline onClick={onShowAllLinkClick}>
-          {t("quickstart~View all tours")}
-        </Button>
-      )}
+      {status === QuickStartStatus.COMPLETE &&
+        showAllLink &&
+        onShowAllLinkClick && (
+          <Button variant="link" isInline onClick={onShowAllLinkClick}>
+            {t("quickstart~View all tours")}
+          </Button>
+        )}
     </div>
   );
 };
