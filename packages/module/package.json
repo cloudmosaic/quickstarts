@@ -1,6 +1,6 @@
 {
   "name": "@cloudmosaic/quickstarts",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Quickstarts for MAS",
   "files": [
     "dist"
@@ -34,9 +34,9 @@
     "clean-css": "cleancss dist/quickstarts.css -o dist/quickstarts.min.css"
   },
   "peerDependencies": {
+    "asciidoctor": ">=2.2.1",
     "react": ">=16.14.0",
-    "react-dom": ">=16.14.0",
-    "asciidoctor": ">=2.2.1"
+    "react-dom": ">=16.14.0"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.9.0",
