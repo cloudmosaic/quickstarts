@@ -102,6 +102,9 @@ module.exports = (_env, argv) => {
       }),
       new CopyPlugin({
         patterns: [{ from: staticDir, to: "" }],
+      }),
+      new CopyPlugin({
+        patterns: [{ from: path.resolve(__dirname, "_redirects"), to: "" }],
       })
     ],
     stats: "minimal",
