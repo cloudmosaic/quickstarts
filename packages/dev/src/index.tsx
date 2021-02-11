@@ -8,15 +8,14 @@ import ReactDOM from "react-dom";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import App from "./App";
 import { QuickStartCatalogPage } from "@cloudmosaic/quickstarts";
+import { Home } from "./Home";
 
 ReactDOM.render(
   <Router>
     <Switch>
       <Route exact path="/">
         <App>
-            <h1>Quick starts demo app</h1>
-            <p>Click the button above to open a quick start</p>
-            <p>To view all quick starts, click the left "Quick Starts" nav item</p>
+          <Home />
         </App>
       </Route>
       <Route exact path="/quickstarts">

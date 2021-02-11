@@ -9,7 +9,7 @@ import {
   Brand,
   PageHeader,
   PageHeaderTools,
-  Button,
+  PageSection,
 } from "@patternfly/react-core";
 import imgBrand from "./assets/images/imgBrand.svg";
 import imgAvatar from "./assets/images/imgAvatar.svg";
@@ -20,8 +20,7 @@ import {
   QuickStartDrawer,
   QuickStartContext,
   useValuesForQuickStartContext,
-  i18n,
-  useLocalStorage
+  useLocalStorage,
 } from "@cloudmosaic/quickstarts";
 import { allQuickStarts } from "./quickstarts-data/quick-start-test-data";
 
@@ -100,25 +99,9 @@ const App: React.FunctionComponent = ({ children }) => {
   return (
     <React.Suspense fallback={<div>Loading</div>}>
       <QuickStartContext.Provider value={valuesForQuickstartContext}>
-        {/* <NestedApp /> */}
         <QuickStartDrawer>
           <Page header={AppHeader} sidebar={AppSidebar} isManagedSidebar>
-            <Button variant="plain" onClick={() => i18n.changeLanguage("de")}>
-              Change lng - DE
-            </Button>
-            <Button variant="plain" onClick={() => i18n.changeLanguage("en")}>
-              Change lng - EN
-            </Button>
-            <Button
-              onClick={() =>
-                valuesForQuickstartContext.setActiveQuickStart(
-                  "add-healthchecks"
-                )
-              }
-            >
-              Open quickstart
-            </Button>
-            {children}
+            <PageSection>{children}</PageSection>
           </Page>
         </QuickStartDrawer>
       </QuickStartContext.Provider>
