@@ -72,6 +72,20 @@ const QuickStartCatalog: React.FC<QuickStartCatalogProps> = ({
     initialFilteredQuickStarts
   );
 
+  React.useEffect(() => {
+    const filteredQuickStarts = showFilter
+      ? filterQuickStarts(
+          quickStarts,
+          searchQuery,
+          statusFilters,
+          allQuickStartStates
+        ).sort((q1, q2) =>
+          q1.spec.displayName.localeCompare(q2.spec.displayName)
+        )
+      : quickStarts;
+    setFilteredQuickStarts(filteredQuickStarts);
+  }, [quickStarts]);
+
   const onSearchInputChange = (searchValue, statusList) => {
     const result = filterQuickStarts(
       quickStarts,
