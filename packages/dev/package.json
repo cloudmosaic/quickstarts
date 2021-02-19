@@ -9,7 +9,7 @@
     "serve": "serve public"
   },
   "dependencies": {
-    "@cloudmosaic/quickstarts": "0.0.6",
+    "@cloudmosaic/quickstarts": "0.0.7",
     "@patternfly/react-core": "^4.84.4",
     "asciidoctor": "^2.2.1",
     "react": "^16.14.0",
