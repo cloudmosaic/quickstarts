@@ -42,9 +42,7 @@
     "prod:compile:extension": "tsc -p ./",
     "prod:compile:views": "webpack --mode production",
     "watch:extension": "tsc -watch -p ./",
-    "watch:views": "webpack --watch --mode development",
-    "postinstall": "node ./node_modules/vscode/bin/install",
-    "test": "npm run compile && node ./node_modules/vscode/bin/test"
+    "watch:views": "webpack --watch --mode development"
   },
   "devDependencies": {
     "@types/js-yaml": "^4.0.0",
