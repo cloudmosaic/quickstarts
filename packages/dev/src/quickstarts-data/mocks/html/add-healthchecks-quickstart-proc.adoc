@@ -1,5 +1,5 @@
 [id="proc-adding-health-checks_{context}"]
-= [adoc] Adding health checks to your sample application
+= [adoc html] Adding health checks to your sample application
 :icons: font
 
 [.qs-icon.hide]
@@ -14,7 +14,7 @@
 
 [.qs-description._abstract]
 --
-[adoc] You just created a sample application. Now, let’s add health checks to it.
+You just created a sample application. Now, let’s add health checks to it.
 --
 
 [.qs-prerequisites]

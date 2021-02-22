@@ -6,7 +6,7 @@
 
 :qs-icon:
 
-:qs-description: [adoc] You just created a sample application. Now, let’s add health checks to it.
+:qs-description: You just created a sample application. Now, let’s add health checks to it.
 
 :qs-prerequisites: * Prereq 1 \
 + \
