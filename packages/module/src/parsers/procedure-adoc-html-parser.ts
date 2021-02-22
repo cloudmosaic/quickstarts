@@ -1,7 +1,10 @@
 import {QuickStart, QuickStartTask} from "@quickstarts/utils/quick-start-types";
 
 
-export const ProcedureAdocHtmlParser = (body: string, id: string, options: any = {}) => {
+export const ProcedureAdocHtmlParser = (body: string, id: string, options: any = {}, environmentVariables: {[name: string]: string}) => {
+
+  const replaceEnvironmentVariables = (s: string | undefined) => s?.replace(/\${\w+}/, (substring, name) => environmentVariables[name] ? environmentVariables[name]  : substring);
+
 
   const bodyDOM = document.createElement('body');
   bodyDOM.innerHTML = body;
@@ -25,7 +28,7 @@ export const ProcedureAdocHtmlParser = (body: string, id: string, options: any =
   procedures.forEach((procedure, index) => {
     qsTasks.push({
       title: procedure.querySelector(".qs-task-title")?.textContent.trim(),
-      description: procedure.querySelector(".qs-task-description")?.innerHTML.trim() + procedure.querySelector(".olist")?.innerHTML.trim(),
+      description: procedure.querySelector(".qs-task-description")?.innerHTML.trim() + replaceEnvironmentVariables(procedure.querySelector(".olist")?.innerHTML.trim()),
       review: {
         instructions: procedure.querySelector(".qs-review.instructions")?.innerHTML.trim() || "Have you completed these steps?",
         failedTaskHelp: procedure.querySelector(".qs-review.failed")?.innerHTML.trim() ||"This task isn’t verified yet. Try the task again.",

@@ -1,7 +1,6 @@
 import {
   QuickStart,
   QuickstartAsciiDocParser,
-  ProcedureAdocHtmlParser,
   ProcedureAsciiDocParser
 } from "@cloudmosaic/quickstarts";
 import { explorePipelinesQuickStart } from "./mocks/json/explore-pipeline-quickstart";
@@ -17,6 +16,7 @@ import sampleA from "raw-loader!./mocks/asciidoc/business-central-editing-data-s
 import sampleB from "raw-loader!./mocks/asciidoc/case-management-dynamic-user-task-API-proc.adoc";
 import sampleC from "raw-loader!./mocks/asciidoc/template-deploy-replicas-auth-proc.adoc";
 import sampleD from "raw-loader!./mocks/asciidoc/add-healthchecks-quickstart-proc.html.adoc";
+import {ProcedureAdocHtmlParser} from "./procedure-adoc-html-parser";
 
 
 export const allAsciiDocImports = {
@@ -81,5 +81,7 @@ export const allQuickStarts: QuickStart[] = [
   ProcedureAsciiDocParser(sampleA, allAsciiDocImports.sampleA.options),
   ProcedureAsciiDocParser(sampleB, allAsciiDocImports.sampleB.options),
   ProcedureAsciiDocParser(sampleC, allAsciiDocImports.sampleC.options),
-  ProcedureAdocHtmlParser(sampleD, "abc-123")
+  ProcedureAdocHtmlParser(sampleD, "abc-123", {
+    BOOTSTRAP_SERVER_HOST: "foo.kafka.devshift.net:443"
+  })
 ];

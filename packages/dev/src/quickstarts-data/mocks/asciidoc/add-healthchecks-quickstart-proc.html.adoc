@@ -111,6 +111,14 @@
             <li>
               <p>Click on the <strong>nodejs-sample</strong> deployment to view its details.</p>
             </li>
+            <li>
+              <p> Run <code>
+kafkacat -t my-topic -b "${BOOTSTRAP_SERVER_HOST}" \
+-X security.protocol=SASL_SSL -X sasl.mechanisms=PLAIN \
+-X sasl.username=<USER> \
+-X sasl.password=<PASSWORD> -P</code>
+</p>
+            </li>
           </ol>
         </div>
         <p>A side panel is displayed containing the details of your sample application.</p>
