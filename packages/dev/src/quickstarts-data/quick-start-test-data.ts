@@ -1,8 +1,8 @@
 import {
   QuickStart,
   QuickstartAsciiDocParser,
-  ProcedureAsciiDocParser,
-  ProcedureAdocHtmlParser
+  ProcedureAsciiDocParser, ProcedureAdocHtmlParser,
+
 } from "@cloudmosaic/quickstarts";
 import { explorePipelinesQuickStart } from "./mocks/json/explore-pipeline-quickstart";
 import { exploreServerlessQuickStart } from "./mocks/json/explore-serverless-quickstart";
@@ -16,7 +16,7 @@ import template from "raw-loader!./mocks/asciidoc/TEMPLATE_PROCEDURE.adoc";
 import sampleA from "raw-loader!./mocks/asciidoc/business-central-editing-data-sources-proc.adoc";
 import sampleB from "raw-loader!./mocks/asciidoc/case-management-dynamic-user-task-API-proc.adoc";
 import sampleC from "raw-loader!./mocks/asciidoc/template-deploy-replicas-auth-proc.adoc";
-import sampleD from "raw-loader!./mocks/html/add-healthchecks-quickstart-proc.html";
+import sampleD from "raw-loader!./mocks/html/adding_health_checks.quickstart.html";
 
 export const allAsciiDocImports = {
   'template': {

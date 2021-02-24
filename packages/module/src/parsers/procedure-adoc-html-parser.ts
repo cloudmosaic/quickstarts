@@ -16,7 +16,7 @@ export const ProcedureAdocHtmlParser = (
   bodyDOM.innerHTML = body;
 
   const displayName = replaceEnvironmentVariables(
-    bodyDOM.querySelector("header").textContent.trim()
+    bodyDOM.querySelector("header")?.textContent.trim()
   );
   const introduction = replaceEnvironmentVariables(
     bodyDOM.querySelector(".qs-intro")?.innerHTML.trim()
@@ -40,6 +40,8 @@ export const ProcedureAdocHtmlParser = (
 
   let qsTasks: QuickStartTask[] = [];
   procedures.forEach((procedure, index) => {
+    const verificationBlock =
+      procedure.querySelector(".olist.qs-task-verification ol");
     qsTasks.push({
       title: replaceEnvironmentVariables(
         procedure.querySelector(".qs-task-title")?.textContent.trim()
@@ -49,13 +51,10 @@ export const ProcedureAdocHtmlParser = (
           procedure.querySelector(".qs-task-description")?.innerHTML.trim()
         ) +
         replaceEnvironmentVariables(
-          procedure.querySelector(".olist")?.innerHTML.trim()
+          procedure.querySelector(".olist.qs-task-procedure ol")?.outerHTML.trim()
         ),
       review: {
-        instructions:
-          replaceEnvironmentVariables(
-            procedure.querySelector(".qs-review.instructions")?.innerHTML.trim()
-          ) || "Have you completed these steps?",
+        instructions: verificationBlock ? replaceEnvironmentVariables(`<ul>${verificationBlock.innerHTML}</ul>`) : "Have you completed these steps?",
         failedTaskHelp:
           replaceEnvironmentVariables(
             procedure.querySelector(".qs-review.failed")?.innerHTML.trim()
