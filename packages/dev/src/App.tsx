@@ -81,14 +81,11 @@ const App: React.FunctionComponent = ({ children }) => {
       <NavList>
         {Demos.map((demo, index) => (
           <NavItem itemId={index} key={demo.id}>
-            <Link id={`${demo.id}-nav-item-link`} to={`/`}>
+            <Link id={`${demo.id}-nav-item-link`} to={demo.to} data-quickstart-id={demo.id}>
               {demo.name}
             </Link>
           </NavItem>
         ))}
-        <NavItem>
-          <Link to="/quickstarts">Quick Starts</Link>
-        </NavItem>
       </NavList>
     </Nav>
   );

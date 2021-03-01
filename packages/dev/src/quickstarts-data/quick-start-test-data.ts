@@ -8,6 +8,7 @@ import { explorePipelinesQuickStart } from "./mocks/json/explore-pipeline-quicks
 import { exploreServerlessQuickStart } from "./mocks/json/explore-serverless-quickstart";
 import { monitorSampleAppQuickStart } from "./mocks/json/monitor-sampleapp-quickstart";
 import addHealthchecksQuickstart from "./mocks/yamls/add-healthchecks-quickstart.yaml";
+import demo from "./mocks/yamls/demo.yaml";
 import installAssociatePipelineQuickstart from "./mocks/yamls/install-associate-pipeline-quickstart.yaml";
 import sampleApplicationQuickstart from "./mocks/yamls/sample-application-quickstart.yaml";
 import serverlessApplicationQuickstart from "./mocks/yamls/serverless-application-quickstart.yaml";
@@ -72,6 +73,7 @@ export const allQuickStarts: QuickStart[] = [
   exploreServerlessQuickStart,
   monitorSampleAppQuickStart,
   addHealthchecksQuickstart,
+  demo,
   installAssociatePipelineQuickstart,
   sampleApplicationQuickstart,
   serverlessApplicationQuickstart,

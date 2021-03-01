@@ -45,6 +45,7 @@
     "@patternfly/react-table": "4.19.45",
     "asciidoctor": "^2.2.1",
     "bootstrap-sass": "^3.3.7",
+    "classnames": "^2.2.6",
     "dayjs": "^1.9.6",
     "dompurify": "^2.2.6",
     "history": "^5.0.0",

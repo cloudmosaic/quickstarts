@@ -115,6 +115,16 @@ const SomeNestedComponent = () => {
 };
 ```
 
+## Features
+
+### Highlighting elements (Supported in yaml+markdown)
+
+You can highlight an element on the page from the quick start. The element that should be highlightable needs an attribute like this:
+`data-quickstart-id="highlight-me"`
+
+In the quickstart .yaml file, you can add this type of markdown text to target this element:
+`Highlight [my element]{{highlight highlight-me}}`
+
 ## Webpack
 
 You can reduce the size of your CSS bundle by using `clean-css-loader` and `null-loader`:

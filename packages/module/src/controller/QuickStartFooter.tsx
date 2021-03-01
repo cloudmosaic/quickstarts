@@ -11,6 +11,7 @@ import "./QuickStartFooter.scss";
 
 export type QuickStartFooterProps = {
   status: QuickStartStatus;
+  footerClass: string;
   taskNumber: number;
   totalTasks: number;
   onNext: () => void;
@@ -23,6 +24,7 @@ const QuickStartFooter: React.FC<QuickStartFooterProps> = ({
   totalTasks,
   onNext,
   onBack,
+  footerClass,
 }) => {
   const { t } = useTranslation();
   const { footer } = React.useContext<QuickStartContextValues>(
@@ -54,7 +56,7 @@ const QuickStartFooter: React.FC<QuickStartFooterProps> = ({
   ]);
 
   return (
-    <div className="co-quick-start-footer">
+    <div className={`co-quick-start-footer ${footerClass}`}>
       <Button
         style={{
           marginRight: "var(--pf-global--spacer--md)",

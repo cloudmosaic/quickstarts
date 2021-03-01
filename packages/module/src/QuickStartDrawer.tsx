@@ -18,7 +18,7 @@ export const QuickStartDrawer: React.FC = ({ children }) => {
   const allContext = React.useContext<QuickStartContextValues>(
     QuickStartContext
   );
-  console.log(allContext);
+  // console.log(allContext);
   const {
     activeQuickStartID,
     activeQuickStartState,

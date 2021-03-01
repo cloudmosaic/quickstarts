@@ -29,7 +29,10 @@ const plugins = (esBundle) => {
       preferBuiltins: true,
     }),
     commonjs(),
-    typescript({ typescript: require("typescript") }),
+    typescript({
+      typescript: require("typescript"),
+      tsconfig: "tsconfig.json"
+    }),
     json(),
     // analyze({ summaryOnly: true, limit: 10 }),
     visualizer(),
