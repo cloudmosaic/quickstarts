@@ -96,7 +96,7 @@
     "rollup-plugin-analyzer": "^4.0.0",
     "rollup-plugin-peer-deps-external": "^2.2.4",
     "rollup-plugin-scss": "^2.6.1",
-    "rollup-plugin-typescript2": "github:ezolenko/rollup-plugin-typescript2#master",
+    "rollup-plugin-typescript2": "^0.29.0",
     "rollup-plugin-visualizer": "^4.2.0",
     "ts-jest": "^26.4.1",
     "tslib": "^2.0.3",

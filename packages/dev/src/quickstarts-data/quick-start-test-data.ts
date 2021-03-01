@@ -69,20 +69,20 @@ export const allAsciiDocImports = {
 }
 
 export const allQuickStarts: QuickStart[] = [
-  // explorePipelinesQuickStart,
-  // exploreServerlessQuickStart,
-  // monitorSampleAppQuickStart,
-  // addHealthchecksQuickstart,
+  explorePipelinesQuickStart,
+  exploreServerlessQuickStart,
+  monitorSampleAppQuickStart,
+  addHealthchecksQuickstart,
   demo,
-  // installAssociatePipelineQuickstart,
-  // sampleApplicationQuickstart,
-  // serverlessApplicationQuickstart,
-  // QuickstartAsciiDocParser(addHealthchecksQuickstartADoc),
-  // ProcedureAsciiDocParser(template, allAsciiDocImports.template.options),
-  // ProcedureAsciiDocParser(sampleA, allAsciiDocImports.sampleA.options),
-  // ProcedureAsciiDocParser(sampleB, allAsciiDocImports.sampleB.options),
-  // ProcedureAsciiDocParser(sampleC, allAsciiDocImports.sampleC.options),
-  // ProcedureAdocHtmlParser(sampleD, "abc-123", {
-  //   BOOTSTRAP_SERVER_HOST: "foo.kafka.devshift.net:443"
-  // })
+  installAssociatePipelineQuickstart,
+  sampleApplicationQuickstart,
+  serverlessApplicationQuickstart,
+  QuickstartAsciiDocParser(addHealthchecksQuickstartADoc),
+  ProcedureAsciiDocParser(template, allAsciiDocImports.template.options),
+  ProcedureAsciiDocParser(sampleA, allAsciiDocImports.sampleA.options),
+  ProcedureAsciiDocParser(sampleB, allAsciiDocImports.sampleB.options),
+  ProcedureAsciiDocParser(sampleC, allAsciiDocImports.sampleC.options),
+  ProcedureAdocHtmlParser(sampleD, "abc-123", {
+    BOOTSTRAP_SERVER_HOST: "foo.kafka.devshift.net:443"
+  })
 ];
