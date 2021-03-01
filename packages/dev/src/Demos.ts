@@ -5,6 +5,8 @@ interface DemoInterface {
   id: string;
   /** The name of the demo */
   name: string;
+  /** href */
+  to: string;
   /** Demo component associated with the demo  */
   componentType: any;
 }
@@ -13,6 +15,13 @@ export const Demos: DemoInterface[] = [
   {
     id: 'page-demo',
     name: 'Page Demo',
+    to: '/',
+    componentType: Examples.PageDemo
+  },
+  {
+    id: 'quickstarts',
+    name: 'Quick starts',
+    to: '/quickstarts',
     componentType: Examples.PageDemo
   }
 ];

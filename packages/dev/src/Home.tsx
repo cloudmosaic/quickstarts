@@ -47,6 +47,7 @@ export const Home: React.FunctionComponent = () => {
             <Button
               variant="secondary"
               onClick={() => i18n.changeLanguage("de")}
+              data-quickstart-id="change-lng-de"
             >
               Change lng - DE
             </Button>
@@ -55,6 +56,7 @@ export const Home: React.FunctionComponent = () => {
             <Button
               variant="secondary"
               onClick={() => i18n.changeLanguage("en")}
+              data-quickstart-id="change-lng-en"
             >
               Change lng - EN
             </Button>
@@ -63,7 +65,7 @@ export const Home: React.FunctionComponent = () => {
             <FormInput inputValue={inputValue} setInputValue={setInputValue} />
           </StackItem>
           <StackItem>
-            <Button onClick={() => reloadQuickStart()}>
+            <Button onClick={() => reloadQuickStart()} data-quickstart-id="reload-qs">
               Reload and toggle quick start 'Managing data sources'
             </Button>
           </StackItem>
