@@ -33,6 +33,9 @@ const QuickStartPanelContent: React.FC<QuickStartPanelContentProps> = ({
   const [contentRef, setContentRef] = React.useState<HTMLDivElement>();
   const shadows = useScrollShadows(contentRef);
   const quickStart = quickStarts.find((qs) => qs.metadata.name === activeQuickStartID);
+  const nextQuickStarts: QuickStart[] = quickStarts.filter((qs: QuickStart) =>
+    quickStart?.spec.nextQuickStart?.includes(qs.metadata.name),
+  );
 
   const headerClasses = classNames({
     'pf-u-box-shadow-sm-bottom': shadows === Shadows.top || shadows === Shadows.both,
@@ -43,7 +46,7 @@ const QuickStartPanelContent: React.FC<QuickStartPanelContentProps> = ({
   });
 
   return quickStart ? (
-    <DrawerPanelContent className="co-quick-start-panel-content">
+    <DrawerPanelContent isResizable className="co-quick-start-panel-content">
       <div className={`co-quick-start-panel-content-head ${headerClasses}`}>
         <DrawerHead>
           <div className="co-quick-start-panel-content__title">
@@ -72,6 +75,7 @@ const QuickStartPanelContent: React.FC<QuickStartPanelContentProps> = ({
         /> */}
         <QuickStartController 
           quickStart={quickStart}
+          nextQuickStarts={nextQuickStarts}
           footerClass={footerClass}
           contentRef={setContentRef}
         />
