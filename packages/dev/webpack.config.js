@@ -45,17 +45,6 @@ module.exports = (_env, argv) => {
           use: cssLoaders,
         },
         {
-          test: /\.s[ac]ss$/i,
-          use: [
-            // Creates `style` nodes from JS strings
-            'style-loader',
-            // Translates CSS into CommonJS
-            'css-loader',
-            // Compiles Sass to CSS
-            'sass-loader'
-          ]
-        },
-        {
           test: /\.css$/,
           include: stylesheet => stylesheet.includes('@patternfly/react-styles/css/'),
           use: ["null-loader"]
