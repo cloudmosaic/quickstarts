@@ -105,7 +105,10 @@ module.exports = (_env, argv) => {
       }),
       new CopyPlugin({
         patterns: [{ from: path.resolve(__dirname, "_redirects"), to: "" }],
-      })
+      }),
+      new CopyPlugin({
+        patterns: [{ from: "src/quickstarts-data/getting-started/images", to: "images" }],
+      }),
     ],
     stats: "minimal",
   };

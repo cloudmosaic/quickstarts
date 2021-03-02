@@ -26,11 +26,11 @@ OpenShift Streams will take care of the rest and deliver a running Kafka instanc
 . When you're in the `OpenShift Streams` environment, you will see a left menu panel. This panel provides access to all resources related to the service, including the `Quick Starts` and `Documentation`.
 . In the lower left of the screen you'll see a lightbulb icon. This icon gives access to the `Resource Center`. Here you can find the latest information about the service, like product updates, upcoming events, etc.
 +
-image::rhosak-crc-resource-center.png[]
+image::rhosak-crc-resource-center.png[link="{imagesdir}/rhosak-crc-resource-center.png",window=_blank]
 +
 . The center of the page shows you the list of Kafka instances that are currently running within your organisation. If this is your, or your organisations, first interaction with `OpenShift Streams`, this list will be empty.
 + 
-image::rhosak-kafka-overview.png[]
+image::rhosak-kafka-overview.png[link="{imagesdir}/rhosak-kafka-overview.png",window=_blank]
 +
 . To create your first Kafka instance, click on the `Create Kafka instance` button at the top of the screen. This will open a form in which you can specify the configuration of your Kafka instance, like the cloud provider you would like your Kafka instance to be deployed on, and the region in which your instance needs to be deployed.
 +
