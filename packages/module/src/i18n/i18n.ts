@@ -84,8 +84,8 @@ i18n
   );
 
 i18n.on("languageChanged", function (lng) {
-  console.log(`current lng: ${i18n.language}`);
-  console.log(`switching lng: ${lng}`);
+  // console.log(`current lng: ${i18n.language}`);
+  // console.log(`switching lng: ${lng}`);
   // i18n.changeLanguage(lng);
   dayjs.locale(lng);
 });
