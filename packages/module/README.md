@@ -16,8 +16,8 @@ or
 The package currently has these peer dependencies:
 
 ```
-"react": ">=16.14.0",
-"react-dom": ">=16.14.0"
+"react": ">=16.8.0",
+"react-dom": ">=16.8.0"
 ```
 
 Additionally for styles the package depends on (might bundle these up as vendor.css in the future):

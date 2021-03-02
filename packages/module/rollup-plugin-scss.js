@@ -117,6 +117,7 @@ export default function css(options = {}) {
       // Combine all stylesheets
       let scss = "";
       for (const id in styles) {
+        // scss += styles[id] || "";
         // console.log(id);
         if (id.indexOf("@patternfly") === -1) {
           scss += styles[id] || "";

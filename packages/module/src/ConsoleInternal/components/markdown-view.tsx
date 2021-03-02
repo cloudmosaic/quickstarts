@@ -92,7 +92,7 @@ export const SyncMarkdownView: React.FC<SyncMarkdownProps> = ({
           omission: '\u2026',
         })
       : content;
-    return markdownConvert(truncatedContent || emptyMsg || t('public~Not available'), extensions);
+    return markdownConvert(truncatedContent || emptyMsg || t('Not available'), extensions);
   }, [content, emptyMsg, extensions, t, truncateContent]);
   const innerProps: InnerSyncMarkdownProps = {
     renderExtension: extensions?.length > 0 ? renderExtension : undefined,

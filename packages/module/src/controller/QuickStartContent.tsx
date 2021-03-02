@@ -1,13 +1,14 @@
-import * as React from 'react';
-import { QuickStartTaskStatus, QuickStart } from '../utils/quick-start-types';
-import QuickStartIntroduction from './QuickStartIntroduction';
-import QuickStartTasks from './QuickStartTasks';
-import QuickStartConclusion from './QuickStartConclusion';
+import * as React from "react";
+import { QuickStartTaskStatus, QuickStart } from "../utils/quick-start-types";
+import QuickStartIntroduction from "./QuickStartIntroduction";
+import QuickStartTasks from "./QuickStartTasks";
+import QuickStartConclusion from "./QuickStartConclusion";
 
-import './QuickStartContent.scss';
+import "./QuickStartContent.scss";
 
 type QuickStartContentProps = {
   quickStart: QuickStart;
+  nextQuickStarts?: QuickStart[];
   taskNumber: number;
   allTaskStatuses: QuickStartTaskStatus[];
   onTaskSelect: (selectedTaskNumber: number) => void;
@@ -15,16 +16,27 @@ type QuickStartContentProps = {
   onQuickStartChange?: (quickStartId: string) => void;
 };
 
-const QuickStartContent = React.forwardRef<HTMLDivElement, QuickStartContentProps>(
+const QuickStartContent = React.forwardRef<
+  HTMLDivElement,
+  QuickStartContentProps
+>(
   (
-    { quickStart, taskNumber, allTaskStatuses, onTaskSelect, onTaskReview, onQuickStartChange },
-    ref,
+    {
+      quickStart,
+      nextQuickStarts = [],
+      taskNumber,
+      allTaskStatuses,
+      onTaskSelect,
+      onTaskReview,
+      onQuickStartChange,
+    },
+    ref
   ) => {
     const {
-      spec: { introduction, tasks, conclusion, nextQuickStart = [] },
+      spec: { introduction, tasks, conclusion },
     } = quickStart;
     const totalTasks = tasks.length;
-    const nextQS = nextQuickStart.length > 0 && nextQuickStart[0];
+    const nextQS = nextQuickStarts.length > 0 && nextQuickStarts[0];
 
     return (
       <div className="co-quick-start-content" ref={ref}>
@@ -57,7 +69,7 @@ const QuickStartContent = React.forwardRef<HTMLDivElement, QuickStartContentProp
         )}
       </div>
     );
-  },
+  }
 );
 
 export default QuickStartContent;

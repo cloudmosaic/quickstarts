@@ -1,3 +1,23 @@
-@import './ConsoleInternal/vendor.scss';
-@import './ConsoleInternal/style.scss';
-@import 'ConsoleShared/src/components/layout/PageLayout.scss';
+.co-quick-start-catalog__gallery,
+.co-quick-start-panel-content {
+    @import '~@patternfly/patternfly/base/patternfly-common.scss';
+    @import './ConsoleInternal/vendor.scss';
+    @import './ConsoleInternal/style.scss';
+    @import './ConsoleShared/src/components/layout/PageLayout.scss';
+
+    // .co-quick-start-panel-content-head,
+    // .co-quick-start-panel-content__body {
+    //     @import './ConsoleInternal/style.scss';
+    //     @import './ConsoleShared/src/components/layout/PageLayout.scss';
+    // }
+}
+
+// @import './patternfly.scss';
+
+// $pf-global--font-path: "~@patternfly/patternfly/assets/fonts";
+// $fa-font-path: "~@patternfly/patternfly/assets/fonts/webfonts";
+// $pf-global--fonticon-path: "~@patternfly/patternfly/assets/pficon";
+// $pf-global--image-path: "~@patternfly/patternfly/assets/images";
+
+// @import "~@patternfly/patternfly/patternfly.scss";
+// @import "~@patternfly/patternfly/utilities/Accessibility/accessibility.scss";

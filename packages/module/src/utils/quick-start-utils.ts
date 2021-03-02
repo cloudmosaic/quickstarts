@@ -1,5 +1,8 @@
 import { QuickStart, QuickStartStatus, AllQuickStartStates } from './quick-start-types';
 
+export const getQuickStartByName = (name: string, quickStarts: QuickStart[]): QuickStart =>
+  quickStarts.find((quickStart) => quickStart.metadata.name === name);
+
 export const getQuickStartStatus = (
   allQuickStartStates: AllQuickStartStates,
   quickStartID: string,
