@@ -53,8 +53,9 @@ const markdownConvert = (markdown, extensions?: string[]) => {
       "button",
       ...tableTags,
       "div",
+      "img"
     ],
-    ALLOWED_ATTR: ["href", "target", "rel", "class"],
+    ALLOWED_ATTR: ["href", "target", "rel", "class", "src", "alt"],
     ALLOWED_URI_REGEXP: /^(?:(?:https?|mailto):|[^a-z]|[a-z+.\-]+(?:[^a-z+.\-:]|$))/i,
   });
 };

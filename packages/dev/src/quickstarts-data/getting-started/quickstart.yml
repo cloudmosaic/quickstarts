@@ -1,0 +1,27 @@
+apiVersion: console.openshift.io/v1
+kind: QuickStarts
+metadata:
+  name: getting-started
+spec:
+  version: 0.1
+  displayName: !snippet/title README.adoc#getting-started
+  durationMinutes: 10
+  icon: ''
+  description: !snippet README.adoc#description
+  prerequisites:
+    - A Red Hat identity
+    - Access to the Red Hat OpenShift Streams for Apache Kafka environment at https://cloud.redhat.com
+  introduction: |-
+    Welcome to the Red Hat OpenShift Streams for Apache Kafka Getting Started Guide.
+    
+    In this guide we will walk you through the basics you need to know to get started with our Apache Kafka cloud service.
+  tasks:
+    - !snippet/proc README.adoc#task-1
+    - !snippet/proc README.adoc#task-2
+    - !snippet/proc README.adoc#task-3
+    - !snippet/proc README.adoc#task-4
+  conclusion: Congratulations! You've successfully completed the Red Hat OpenShift Streams for Apache Kafka Getting Started Guide, and are now ready to use the service.
+  nextQuickStart:
+    - 'kafkacat'
+    - 'kafka-bin-scripts'
+    - 'quarkus-kafka'

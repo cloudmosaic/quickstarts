@@ -36,13 +36,16 @@
   "peerDependencies": {
     "asciidoctor": ">=2.2.1",
     "react": ">=16.8.0",
-    "react-dom": ">=16.8.0"
+    "react-dom": ">=16.8.0",
+    "@patternfly/patternfly": ">=4.87.3",
+    "@patternfly/react-core": ">=4.97.2",
+    "@patternfly/react-catalog-view-extension": ">=4.10.2"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.9.0",
+    "@patternfly/patternfly": "^4.87.3",
     "@patternfly/react-catalog-view-extension": "^4.10.2",
     "@patternfly/react-core": "^4.97.2",
-    "@patternfly/react-table": "4.23.2",
     "asciidoctor": "^2.2.1",
     "bootstrap-sass": "^3.3.7",
     "classnames": "^2.2.6",

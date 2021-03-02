@@ -8,16 +8,19 @@ https://quickstarts.netlify.app/
 Note: These instructions can change over time as the module gets more refined
 
 ```bash
-`yarn add @cloudmosaic/quickstarts`
+`yarn add @cloudmosaic/quickstarts @patternfly/patternfly`
 or
-`npm install @cloudmosaic/quickstarts --save`
+`npm install @cloudmosaic/quickstarts @patternfly/patternfly --save`
 ```
 
 The package currently has these peer dependencies:
 
 ```
+"asciidoctor": ">=2.2.1",
 "react": ">=16.8.0",
-"react-dom": ">=16.8.0"
+"react-dom": ">=16.8.0",
+"@patternfly/patternfly": ">=4.87.3",
+"@patternfly/react-core": ">=4.97.2"
 ```
 
 Additionally for styles the package depends on (might bundle these up as vendor.css in the future):
