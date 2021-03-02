@@ -17,7 +17,7 @@ export const Home: React.FunctionComponent = () => {
 
   console.log(getQuickStartStatus(qsContext.allQuickStartStates, 'managing-business-central-data-sources-proc'));
   console.log(getQuickStartStatusCount(qsContext.allQuickStartStates, qsContext.allQuickStarts));
-  debugger;
+
   const reloadQuickStart = () => {
     const updatedOptions = {
       attributes: {

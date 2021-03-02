@@ -70,8 +70,6 @@ export const allAsciiDocImports = {
   }
 }
 
-console.log(duncanExample);
-
 export const allQuickStarts: QuickStart[] = [
   explorePipelinesQuickStart,
   exploreServerlessQuickStart,
