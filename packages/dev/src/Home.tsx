@@ -2,15 +2,21 @@ import React from "react";
 import { Button, PageSection, Stack, StackItem } from "@patternfly/react-core";
 import {
   QuickStartContext,
+  QuickStartContextValues,
   i18n,
   ProcedureAsciiDocParser,
+  getQuickStartStatus,
+  getQuickStartStatusCount
 } from "@cloudmosaic/quickstarts";
 import { allAsciiDocImports } from "./quickstarts-data/quick-start-test-data";
 import { FormInput } from "./FormInput";
 
 export const Home: React.FunctionComponent = () => {
   const [inputValue, setInputValue] = React.useState("");
-  const qsContext = React.useContext(QuickStartContext);
+  const qsContext: QuickStartContextValues = React.useContext(QuickStartContext);
+
+  console.log(getQuickStartStatus(qsContext.allQuickStartStates, 'managing-business-central-data-sources-proc'));
+  console.log(getQuickStartStatusCount(qsContext.allQuickStartStates, qsContext.allQuickStarts));
 
   const reloadQuickStart = () => {
     const updatedOptions = {
