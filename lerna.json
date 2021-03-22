@@ -1,0 +1,16 @@
+{
+  "lerna": "3.10.5",
+  "npmClient": "yarn",
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "command": {
+    "publish": {
+      "message": "chore(release): releasing packages [ci skip]",
+      "conventionalCommits": true
+    }
+  },
+  "version": "independent",
+  "useWorkspaces": true
+}

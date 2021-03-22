@@ -9,11 +9,10 @@
   ],
   "scripts": {
     "build": "yarn workspace @cloudmosaic/quickstarts build",
-    "start": "yarn workspace @cloudmosaic/quickstarts-dev start",
-    "watch": "yarn build && concurrently --kill-others \"yarn workspace @cloudmosaic/quickstarts watch\" \"yarn start\"",
+    "start": "lerna run --parallel start",
     "build:dev": "yarn workspace @cloudmosaic/quickstarts-dev build"
   },
   "devDependencies": {
-    "concurrently": "^5.3.0"
+    "lerna": "^4.0.0"
   }
 }

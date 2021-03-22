@@ -1,0 +1,29 @@
+{
+  "name": "@cloudmosaic/chrome",
+  "private": true,
+  "version": "0.0.1",
+  "scripts": {
+    "build": "webpack --mode production",
+    "start": "webpack watch"
+  },
+  "dependencies": {
+    "@patternfly/react-core": "^4.84.4",
+    "asciidoctor": "^2.2.1",
+    "react": "^16.14.0",
+    "react-dom": "^16.14.0"
+  },
+  "devDependencies": {
+    "@types/react": "^16.8.0",
+    "@types/react-dom": "^17.0.0",
+    "@types/react-router-dom": "^5.1.6",
+    "clean-webpack-plugin": "^3.0.0",
+    "copy-webpack-plugin": "^6.2.1",
+    "css-loader": "^5.0.0",
+    "mini-css-extract-plugin": "^1.0.0",
+    "null-loader": "^4.0.1",
+    "ts-loader": "^8.0.5",
+    "typescript": "^4.0.3",
+    "webpack": "^5.1.3",
+    "webpack-cli": "^4.0.0"
+  }
+}
