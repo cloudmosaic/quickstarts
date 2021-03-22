@@ -5,7 +5,6 @@ spec:
   durationMinutes: 5
   icon: ''
   description: This demo will walk you through quick start features
-  prerequisites: []
   introduction: |-
     ### This demo will walk you through quick start features
   tasks:

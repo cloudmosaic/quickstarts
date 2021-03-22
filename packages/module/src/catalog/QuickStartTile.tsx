@@ -6,6 +6,11 @@ import { QuickStartStatus, QuickStart } from "../utils/quick-start-types";
 import QuickStartTileHeader from "./QuickStartTileHeader";
 import QuickStartTileDescription from "./QuickStartTileDescription";
 import QuickStartTileFooter from "./QuickStartTileFooter";
+import QuickStartTileFooterExternal from "./QuickStartTileFooterExternal";
+import {
+  QuickStartContext,
+  QuickStartContextValues,
+} from "../utils/quick-start-context";
 
 import "./QuickStartTile.scss";
 
@@ -13,14 +18,12 @@ type QuickStartTileProps = {
   quickStart: QuickStart;
   status: QuickStartStatus;
   isActive: boolean;
-  onClick: () => void;
 };
 
 const QuickStartTile: React.FC<QuickStartTileProps> = ({
   quickStart,
   status,
-  isActive,
-  onClick,
+  isActive
 }) => {
   const {
     metadata: { name: id },
@@ -31,8 +34,14 @@ const QuickStartTile: React.FC<QuickStartTileProps> = ({
       description,
       durationMinutes,
       prerequisites,
+      link,
+      type
     },
   } = quickStart;
+
+  const {
+    setActiveQuickStart,
+  } = React.useContext<QuickStartContextValues>(QuickStartContext);
 
   const quickStartIcon = (
     <FallbackImg
@@ -44,6 +53,11 @@ const QuickStartTile: React.FC<QuickStartTileProps> = ({
 
   return (
     <CatalogTile
+      // @ts-ignore
+      component="div"
+      style={{
+        cursor: 'pointer'
+      }}
       icon={quickStartIcon}
       className="co-quick-start-tile"
       featured={isActive}
@@ -52,9 +66,16 @@ const QuickStartTile: React.FC<QuickStartTileProps> = ({
           name={displayName}
           status={status}
           duration={durationMinutes}
+          type={type}
         />
       }
-      onClick={onClick}
+      onClick={() => {
+        if (link) {
+          window.open(link.href);
+        } else {
+          setActiveQuickStart(id, tasks?.length);
+        }
+      }}
       description={
         <QuickStartTileDescription
           description={description}
@@ -62,11 +83,15 @@ const QuickStartTile: React.FC<QuickStartTileProps> = ({
         />
       }
       footer={
-        <QuickStartTileFooter
-          quickStartId={id}
-          status={status}
-          totalTasks={tasks?.length}
-        />
+        link ? (
+          <QuickStartTileFooterExternal link={link} />
+        ) : (
+          <QuickStartTileFooter
+            quickStartId={id}
+            status={status}
+            totalTasks={tasks?.length}
+          />
+        )
       }
     />
   );

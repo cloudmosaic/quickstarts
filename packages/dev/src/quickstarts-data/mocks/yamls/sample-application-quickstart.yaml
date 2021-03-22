@@ -9,7 +9,6 @@ spec:
   icon: ''
   description: Is this the first time you’ve used OpenShift? Let's start with a simple
     sample app to learn the basics.
-  prerequisites: ['']
   introduction: '### This Quick Start shows you how to deploy a sample application
     to OpenShift.'
   tasks:

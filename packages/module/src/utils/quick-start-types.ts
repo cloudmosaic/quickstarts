@@ -22,6 +22,8 @@ export type QuickStartSpec = {
   conclusion?: string;
   nextQuickStart?: string[];
   accessReviewResources?: AccessReviewResourceAttributes[];
+  link?: QuickStartExternal;
+  type?: QuickStartType;
 };
 
 export type QuickStartTask = {
@@ -56,4 +58,14 @@ export enum QuickStartTaskStatus {
   REVIEW = 'Review',
   SUCCESS = 'Success',
   FAILED = 'Failed',
+}
+
+export type QuickStartExternal = {
+  href: string;
+  text?: string;
+}
+
+export type QuickStartType = {
+  text: string;
+  color?: 'blue' | 'cyan' | 'green' | 'orange' | 'purple' | 'red' | 'grey';
 }
