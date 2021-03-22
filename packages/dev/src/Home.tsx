@@ -8,45 +8,49 @@ import {
   getQuickStartStatus,
   getQuickStartStatusCount
 } from "@cloudmosaic/quickstarts";
-import { allAsciiDocImports } from "./quickstarts-data/quick-start-test-data";
+// import { allAsciiDocImports } from "./quickstarts-data/quick-start-test-data";
 import { FormInput } from "./FormInput";
 
 export const Home: React.FunctionComponent = () => {
   const [inputValue, setInputValue] = React.useState("");
   const qsContext: QuickStartContextValues = React.useContext(QuickStartContext);
 
-  console.log(getQuickStartStatus(qsContext.allQuickStartStates, 'managing-business-central-data-sources-proc'));
-  console.log(getQuickStartStatusCount(qsContext.allQuickStartStates, qsContext.allQuickStarts));
+  // console.log(getQuickStartStatus(qsContext.allQuickStartStates, 'managing-business-central-data-sources-proc'));
+  // console.log(getQuickStartStatusCount(qsContext.allQuickStartStates, qsContext.allQuickStarts));
 
-  const reloadQuickStart = () => {
-    const updatedOptions = {
-      attributes: {
-        ...allAsciiDocImports.sampleA.options.attributes,
-        CENTRAL: inputValue || "CENTRAL",
-      },
-    };
-    qsContext.allQuickStarts[9] = ProcedureAsciiDocParser(
-      allAsciiDocImports.sampleA.file,
-      updatedOptions
-    );
-    openQuickStart();
-  };
+  // const reloadQuickStart = () => {
+  //   const updatedOptions = {
+  //     attributes: {
+  //       ...allAsciiDocImports.sampleA.options.attributes,
+  //       CENTRAL: inputValue || "CENTRAL",
+  //     },
+  //   };
+  //   qsContext.allQuickStarts[9] = ProcedureAsciiDocParser(
+  //     allAsciiDocImports.sampleA.file,
+  //     updatedOptions
+  //   );
+  //   openQuickStart();
+  // };
 
-  const openQuickStart = () => {
-    if (qsContext.activeQuickStartID) {
-      qsContext.restartQuickStart(
-        "managing-business-central-data-sources-proc",
-        -1
-      );
-    } else {
-      qsContext.setActiveQuickStart(
-        "managing-business-central-data-sources-proc"
-      );
-    }
-  };
+  // const openQuickStart = () => {
+  //   if (qsContext.activeQuickStartID) {
+  //     qsContext.restartQuickStart(
+  //       "managing-business-central-data-sources-proc",
+  //       -1
+  //     );
+  //   } else {
+  //     qsContext.setActiveQuickStart(
+  //       "managing-business-central-data-sources-proc"
+  //     );
+  //   }
+  // };
 
   return (
     <>
+      <PageSection>
+        <h1>Quick starts demo app</h1>
+        <p>To view all quick starts, click the left "Quick Starts" nav item</p>
+      </PageSection>
       <PageSection>
         <Stack hasGutter>
           <StackItem>
@@ -67,20 +71,15 @@ export const Home: React.FunctionComponent = () => {
               Change lng - EN
             </Button>
           </StackItem>
-          <StackItem>
+          {/* <StackItem>
             <FormInput inputValue={inputValue} setInputValue={setInputValue} />
           </StackItem>
           <StackItem>
             <Button onClick={() => reloadQuickStart()} data-quickstart-id="reload-qs">
               Reload and toggle quick start 'Managing data sources'
             </Button>
-          </StackItem>
+          </StackItem> */}
         </Stack>
-      </PageSection>
-      <PageSection>
-        <h1>Quick starts demo app</h1>
-        <p>Click the button above to open a quick start</p>
-        <p>To view all quick starts, click the left "Quick Starts" nav item</p>
       </PageSection>
     </>
   );

@@ -29,7 +29,7 @@
     "type-check": "tsc --noEmit",
     "ci-checks": "yarn type-check && yarn lint && yarn test",
     "build:ts": "yarn clean && tsc --p tsconfig.json",
-    "post-css": "yarn purge-css && yarn clean-css",
+    "post-css": "yarn clean-css",
     "purge-css": "purgecss --css dist/quickstarts.css --content dist/**/*.js --output dist",
     "clean-css": "cleancss dist/quickstarts.css -o dist/quickstarts.min.css"
   },

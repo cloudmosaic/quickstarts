@@ -47,8 +47,7 @@ const QuickStartCatalog: React.FC<QuickStartCatalogProps> = ({
   const { t } = useTranslation();
   const {
     activeQuickStartID,
-    allQuickStartStates,
-    setActiveQuickStart,
+    allQuickStartStates
   } = React.useContext<QuickStartContextValues>(QuickStartContext);
   const queryParams = new URLSearchParams(window.location.search);
   const searchQuery = queryParams.get(QUICKSTART_SEARCH_FILTER_KEY) || "";
@@ -150,8 +149,7 @@ const QuickStartCatalog: React.FC<QuickStartCatalogProps> = ({
           <Gallery className="co-quick-start-catalog__gallery" hasGutter>
             {filteredQuickStarts.map((quickStart) => {
               const {
-                metadata: { name: id },
-                spec: { tasks },
+                metadata: { name: id }
               } = quickStart;
 
               return (
@@ -160,7 +158,6 @@ const QuickStartCatalog: React.FC<QuickStartCatalogProps> = ({
                     quickStart={quickStart}
                     isActive={id === activeQuickStartID}
                     status={getQuickStartStatus(allQuickStartStates, id)}
-                    onClick={() => setActiveQuickStart(id, tasks?.length)}
                   />
                 </GalleryItem>
               );

@@ -13,7 +13,6 @@ export const exploreServerlessQuickStart: QuickStart = {
     durationMinutes: 10,
     icon: serverlessIcon,
     description: `Install the OpenShift Serverless Operator to deploy stateless, event-trigger-based applications.`,
-    prerequisites: [''],
     introduction: `Red Hat® OpenShift® Serverless lets you run stateless, serverless workloads on a single multi-cloud container platform.
 
 Serverless reduces the need to manage infrastructure or perform back-end development. Scaling is automated, and applications can run on any cloud, hybrid, or on-premises environment. Choosing Serverless means simplicity, portability, and efficiency.

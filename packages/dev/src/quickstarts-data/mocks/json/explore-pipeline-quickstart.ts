@@ -13,7 +13,6 @@ export const explorePipelinesQuickStart: QuickStart = {
     durationMinutes: 10,
     icon: pipelineIcon,
     description: `Install the OpenShift® Pipelines Operator to build Pipelines using Tekton.`,
-    prerequisites: [''],
     introduction: `OpenShift® Pipelines is a cloud-native, continuous integration and continuous delivery (CI/CD) solution based on Kubernetes resources. It uses Tekton building blocks to automate deployments across multiple Kubernetes distributions by abstracting away the underlying implementation details.
 * OpenShift Pipelines is a serverless CI/CD system that runs pipelines with all the required dependencies in isolated containers.
 * They are designed for decentralized teams that work on a microservice-based architecture.
