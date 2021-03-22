@@ -13,7 +13,6 @@ const QuickStartTileFooterExternal: React.FC<QuickStartTileFooterProps> = ({
 }) => {
   const { t } = useTranslation();
   const { href, text } = link;
-  debugger;
 
   return (
     <Flex justifyContent={{ default: 'justifyContentSpaceBetween' }}>
