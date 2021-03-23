@@ -21,7 +21,8 @@ import {
   useValuesForQuickStartContext,
   useLocalStorage,
 } from "@cloudmosaic/quickstarts";
-import { allQuickStarts } from "./quickstarts-data/quick-start-test-data";
+import { allQuickStarts as yamlQuickStarts } from "./quickstarts-data/quick-start-test-data";
+import { loadJSONQuickStarts } from "./quickstarts-data/mas-guides/quickstartLoader";
 
 const App: React.FunctionComponent = ({ children }) => {
   const history = useHistory();
@@ -43,6 +44,20 @@ const App: React.FunctionComponent = ({ children }) => {
     // callback on state change
     console.log(allQuickStartStates);
   }, [allQuickStartStates]);
+
+  const [
+    allQuickStartsLoaded,
+    setAllQuickStartsLoaded,
+  ] = React.useState<boolean>(false);
+  const [allQuickStarts, setAllQuickStarts] = React.useState<any[]>([]);
+  React.useEffect(() => {
+    const load = async () => {
+      const masGuidesQuickstarts = await loadJSONQuickStarts("");
+      setAllQuickStarts(yamlQuickStarts.concat(masGuidesQuickstarts));
+      setAllQuickStartsLoaded(true);
+    };
+    load();
+  }, []);
 
   const { pathname: currentPath } = window.location;
   const quickStartPath = "/quickstarts";
@@ -81,7 +96,11 @@ const App: React.FunctionComponent = ({ children }) => {
       <NavList>
         {Demos.map((demo, index) => (
           <NavItem itemId={index} key={demo.id}>
-            <Link id={`${demo.id}-nav-item-link`} to={demo.to} data-quickstart-id={demo.id}>
+            <Link
+              id={`${demo.id}-nav-item-link`}
+              to={demo.to}
+              data-quickstart-id={demo.id}
+            >
               {demo.name}
             </Link>
           </NavItem>
@@ -94,13 +113,15 @@ const App: React.FunctionComponent = ({ children }) => {
 
   return (
     <React.Suspense fallback={<div>Loading</div>}>
-      <QuickStartContext.Provider value={valuesForQuickstartContext}>
-        <QuickStartDrawer>
-          <Page header={AppHeader} sidebar={AppSidebar} isManagedSidebar>
-            {children}
-          </Page>
-        </QuickStartDrawer>
-      </QuickStartContext.Provider>
+      {allQuickStartsLoaded && (
+        <QuickStartContext.Provider value={valuesForQuickstartContext}>
+          <QuickStartDrawer>
+            <Page header={AppHeader} sidebar={AppSidebar} isManagedSidebar>
+              {children}
+            </Page>
+          </QuickStartDrawer>
+        </QuickStartContext.Provider>
+      )}
     </React.Suspense>
   );
 };
