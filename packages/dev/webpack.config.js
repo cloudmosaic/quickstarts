@@ -112,11 +112,9 @@ module.exports = (_env, argv) => {
         patterns: [{ from: "src/quickstarts-data/mas-guides/getting-started/images", to: "" }],
       }),
       new AssetsPlugin({
+        path: "public",
         keepInMemory: _env === "development",
         removeFullPathAutoPrefix: true
-      }),
-      new CopyPlugin({
-        patterns: [{ from: "webpack-assets.json", to: "" }],
       }),
       new CopyPlugin({
         patterns: [
