@@ -53,7 +53,6 @@ const App: React.FunctionComponent = ({ children }) => {
   React.useEffect(() => {
     const load = async () => {
       const masGuidesQuickstarts = await loadJSONQuickStarts("");
-      debugger;
       setAllQuickStarts(yamlQuickStarts.concat(masGuidesQuickstarts));
       setAllQuickStartsLoaded(true);
     };
