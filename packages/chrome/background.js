@@ -1,9 +1,10 @@
-// this is the background code...
-
-// listen for our browerAction to be clicked
+// listen for clicking addon button in browser's UI
 chrome.browserAction.onClicked.addListener(function (tab) {
-	// for the current tab, inject the "inject.js" file & execute it
+  // add a stylesheet + script
+  chrome.tabs.insertCSS(tab.id, {
+    file: 'dist/chrome.css'
+  });
 	chrome.tabs.executeScript(tab.id, {
-		file: 'inject.js'
+		file: 'dist/chrome.js'
 	});
 });

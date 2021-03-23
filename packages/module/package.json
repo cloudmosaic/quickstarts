@@ -21,7 +21,7 @@
     "clean": "rm -rf dist",
     "prebuild": "yarn clean",
     "build": "rollup -c && yarn post-css",
-    "watch": "rollup -cw",
+    "start": "rollup -cw",
     "test": "jest",
     "eslint": "eslint --ext .tsx,.js ./src/",
     "lint": "yarn eslint",
