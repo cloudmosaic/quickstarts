@@ -4,7 +4,7 @@ import {
   QuickStartTask,
   QuickStartTaskReview,
   QuickStartTaskSummary,
-} from "../utils/quick-start-types";
+} from "@cloudmosaic/quickstarts/src/utils/quick-start-types";
 
 const processor = Processor();
 const asciiOptions = {

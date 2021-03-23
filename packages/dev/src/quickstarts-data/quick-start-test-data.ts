@@ -1,9 +1,11 @@
 import {
-  QuickStart,
+  QuickStart
+} from "@cloudmosaic/quickstarts";
+import {
   QuickstartAsciiDocParser,
   ProcedureAsciiDocParser,
   ProcedureAdocHtmlParser,
-} from "@cloudmosaic/quickstarts";
+} from "./mocks/parsers";
 
 import { explorePipelinesQuickStart } from "./mocks/json/explore-pipeline-quickstart";
 import { exploreServerlessQuickStart } from "./mocks/json/explore-serverless-quickstart";
@@ -18,7 +20,7 @@ import external from "./mocks/yamls/external.yaml";
 
 // import addHealthchecksQuickstartADoc from "raw-loader!./mocks/asciidoc/add-healthchecks-quickstart.adoc";
 // import template from "raw-loader!./mocks/asciidoc/TEMPLATE_PROCEDURE.adoc";
-// import sampleA from "raw-loader!./mocks/asciidoc/business-central-editing-data-sources-proc.adoc";
+import sampleA from "raw-loader!./mocks/asciidoc/business-central-editing-data-sources-proc.adoc";
 // import sampleB from "raw-loader!./mocks/asciidoc/case-management-dynamic-user-task-API-proc.adoc";
 // import sampleC from "raw-loader!./mocks/asciidoc/template-deploy-replicas-auth-proc.adoc";
 
@@ -28,7 +30,7 @@ import external from "./mocks/yamls/external.yaml";
 // import masGettingStarted from "./mas-guides/getting-started/output/getting-started.quickstart.json";
 // import masKafkaBinScripts from "./mas-guides/kafka-bin-scripts/output/kafka-bin-scripts.quickstart.json";
 
-// export const allAsciiDocImports = {
+export const allAsciiDocImports = {
 //   'template': {
 //     file: template,
 //     options: {
@@ -38,16 +40,16 @@ import external from "./mocks/yamls/external.yaml";
 //       },
 //     }
 //   },
-//   'sampleA': {
-//     file: sampleA,
-//     options: {
-//       attributes: {
-//         CENTRAL: "CENTRAL",
-//         "qs-duration-minutes": 25,
-//         "qs-conclusion": `You have learned how to manage data sources.`,
-//       },
-//     }
-//   },
+  'sampleA': {
+    file: sampleA,
+    options: {
+      attributes: {
+        CENTRAL: "CENTRAL",
+        "qs-duration-minutes": 25,
+        "qs-conclusion": `You have learned how to manage data sources.`,
+      },
+    }
+  },
 //   'sampleB': {
 //     file: sampleB,
 //     options: {
@@ -75,7 +77,7 @@ import external from "./mocks/yamls/external.yaml";
 //       },
 //     }
 //   }
-// }
+}
 
 export const allQuickStarts: QuickStart[] = [
   // explorePipelinesQuickStart,
@@ -89,7 +91,7 @@ export const allQuickStarts: QuickStart[] = [
   external,
   // QuickstartAsciiDocParser(addHealthchecksQuickstartADoc),
   // ProcedureAsciiDocParser(template, allAsciiDocImports.template.options),
-  // ProcedureAsciiDocParser(sampleA, allAsciiDocImports.sampleA.options),
+  ProcedureAsciiDocParser(sampleA, allAsciiDocImports.sampleA.options),
   // ProcedureAsciiDocParser(sampleB, allAsciiDocImports.sampleB.options),
   // ProcedureAsciiDocParser(sampleC, allAsciiDocImports.sampleC.options),
   // ProcedureAdocHtmlParser(sampleD, "abc-123", {

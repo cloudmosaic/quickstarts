@@ -33,7 +33,7 @@
   },
   "include": [
     "src/**/*"
-  ],
+, "../dev/src/quickstarts-data/parsers"  ],
   "exclude": [
     "node_modules",
     "**/__tests__"

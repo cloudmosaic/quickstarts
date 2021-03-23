@@ -34,7 +34,6 @@
     "clean-css": "cleancss dist/quickstarts.css -o dist/quickstarts.min.css"
   },
   "peerDependencies": {
-    "asciidoctor": ">=2.2.1",
     "react": ">=16.8.0",
     "react-dom": ">=16.8.0",
     "@patternfly/patternfly": ">=4.90.5",
@@ -46,7 +45,6 @@
     "@patternfly/patternfly": "^4.90.5",
     "@patternfly/react-catalog-view-extension": "^4.10.13",
     "@patternfly/react-core": "^4.101.3",
-    "asciidoctor": "^2.2.1",
     "bootstrap-sass": "^3.3.7",
     "classnames": "^2.2.6",
     "dayjs": "^1.9.6",

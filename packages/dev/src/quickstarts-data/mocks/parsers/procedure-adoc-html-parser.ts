@@ -1,4 +1,4 @@
-import { QuickStart, QuickStartTask } from "../utils/quick-start-types";
+import { QuickStart, QuickStartTask } from "@cloudmosaic/quickstarts/src/utils/quick-start-types";
 
 export const ProcedureAdocHtmlParser = (
   body: string,
