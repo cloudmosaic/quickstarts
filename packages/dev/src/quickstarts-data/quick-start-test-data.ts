@@ -4,7 +4,6 @@ import {
   ProcedureAsciiDocParser,
   ProcedureAdocHtmlParser,
 } from "@cloudmosaic/quickstarts";
-import { ProcQuickStartParser } from './procedure-parser';
 
 import { explorePipelinesQuickStart } from "./mocks/json/explore-pipeline-quickstart";
 import { exploreServerlessQuickStart } from "./mocks/json/explore-serverless-quickstart";
@@ -23,9 +22,11 @@ import external from "./mocks/yamls/external.yaml";
 // import sampleB from "raw-loader!./mocks/asciidoc/case-management-dynamic-user-task-API-proc.adoc";
 // import sampleC from "raw-loader!./mocks/asciidoc/template-deploy-replicas-auth-proc.adoc";
 
-import sampleD from "raw-loader!./mocks/html/adding_health_checks.quickstart.html";
+// import sampleD from "raw-loader!./mocks/html/adding_health_checks.quickstart.html";
 
-import duncanExample from "./getting-started/output/getting-started.quickstart.json";
+// import { ProcQuickStartParser } from './mas-guides/procedure-parser';
+// import masGettingStarted from "./mas-guides/getting-started/output/getting-started.quickstart.json";
+// import masKafkaBinScripts from "./mas-guides/kafka-bin-scripts/output/kafka-bin-scripts.quickstart.json";
 
 // export const allAsciiDocImports = {
 //   'template': {
@@ -91,8 +92,9 @@ export const allQuickStarts: QuickStart[] = [
   // ProcedureAsciiDocParser(sampleA, allAsciiDocImports.sampleA.options),
   // ProcedureAsciiDocParser(sampleB, allAsciiDocImports.sampleB.options),
   // ProcedureAsciiDocParser(sampleC, allAsciiDocImports.sampleC.options),
-  ProcedureAdocHtmlParser(sampleD, "abc-123", {
-    BOOTSTRAP_SERVER_HOST: "foo.kafka.devshift.net:443"
-  }),
-  ProcQuickStartParser(duncanExample)
+  // ProcedureAdocHtmlParser(sampleD, "abc-123", {
+  //   BOOTSTRAP_SERVER_HOST: "foo.kafka.devshift.net:443"
+  // }),
+  // ProcQuickStartParser(masGettingStarted),
+  // ProcQuickStartParser(masKafkaBinScripts)
 ];

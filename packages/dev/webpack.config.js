@@ -4,6 +4,8 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
+const {buildQuickStart} = require('./src/quickstarts-data/mas-guides/quickstart-adoc');
+const AssetsPlugin = require('assets-webpack-plugin');
 
 const staticDir = path.join(process.cwd(), "static/");
 
@@ -107,7 +109,34 @@ module.exports = (_env, argv) => {
         patterns: [{ from: path.resolve(__dirname, "_redirects"), to: "" }],
       }),
       new CopyPlugin({
-        patterns: [{ from: "src/quickstarts-data/getting-started/images", to: "images" }],
+        patterns: [{ from: "src/quickstarts-data/mas-guides/getting-started/images", to: "" }],
+      }),
+      new AssetsPlugin({
+        keepInMemory: _env === "development",
+        removeFullPathAutoPrefix: true
+      }),
+      new CopyPlugin({
+        patterns: [{ from: "webpack-assets.json", to: "" }],
+      }),
+      new CopyPlugin({
+        patterns: [
+          {
+            from: 'src/quickstarts-data/mas-guides/**/quickstart.yml',
+            to: ({_context, absoluteFilename}) => {
+              // The dirname of quickstart is used as the output key
+              const dirName = path.basename(path.dirname(absoluteFilename));
+              if (_env === "development") {
+                return `${dirName}.quickstart.json`
+              }
+              return `${dirName}.[contenthash].quickstart.json`
+            },
+            transform: (content, absoluteFilename) => {
+              const basePath = path.dirname(absoluteFilename);
+              return buildQuickStart(content, absoluteFilename, basePath, {});
+            },
+            noErrorOnMissing: true
+          }
+        ]
       }),
     ],
     stats: "minimal",
