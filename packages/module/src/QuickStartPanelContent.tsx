@@ -24,7 +24,7 @@ type QuickStartPanelContentProps = {
   handleClose: HandleClose;
 };
 
-const QuickStartPanelContent: React.FC<QuickStartPanelContentProps> = ({
+export const QuickStartPanelContent: React.FC<QuickStartPanelContentProps> = ({
   quickStarts = [],
   handleClose,
   activeQuickStartID,
@@ -84,4 +84,3 @@ const QuickStartPanelContent: React.FC<QuickStartPanelContentProps> = ({
   ) : null;
 };
 
-export default QuickStartPanelContent;

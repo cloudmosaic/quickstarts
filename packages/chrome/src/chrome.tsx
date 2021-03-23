@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import '@patternfly/react-core/dist/styles/base.css';
 import drawerStyles from '@patternfly/react-styles/css/components/Drawer/drawer';
-import { QuickStart } from './components/QuickStart';
+import { QuickStartPanel } from './components/QuickStartPanel';
 
 console.log('chrome here!');
 (window as any).quickstarts = {};
@@ -20,19 +20,22 @@ function makeDiv(className: string | string[]) {
   }
   return div;
 }
+
 // Wrap everything in a patternfly page drawer 
 const pageDrawer = makeDiv('pf-c-page__drawer');
 const drawer = makeDiv([drawerStyles.drawer, drawerStyles.modifiers.inline, drawerStyles.modifiers.expanded]);
 drawer.id = 'quickstartDrawer';
+pageDrawer.append(drawer);
 const drawerMain = makeDiv(drawerStyles.drawerMain);
+drawer.append(drawerMain);
 const drawerContent = makeDiv(drawerStyles.drawerContent);
 const drawerContentBody = makeDiv(drawerStyles.drawerBody);
-const drawerPanel = makeDiv(drawerStyles.drawerPanel);
-
-pageDrawer.append(drawer);
-drawer.append(drawerMain);
 drawerContent.append(drawerContentBody);
+const drawerPanel = document.createElement('div');
+drawerPanel.style.display = 'contents';
 drawerMain.append(drawerContent, drawerPanel);
+
+// Move existing content into drawerContentBody
 const toMove = document.getElementById('root');
 if (toMove) {
   drawerContentBody.appendChild(toMove);
@@ -45,5 +48,5 @@ else {
 }
 page.append(pageDrawer);
 
-ReactDOM.render(<QuickStart />, drawerPanel);
+ReactDOM.render(<QuickStartPanel />, drawerPanel);
 

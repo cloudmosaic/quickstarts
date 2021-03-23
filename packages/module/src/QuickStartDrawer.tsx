@@ -9,7 +9,7 @@ import {
   QuickStartContextValues,
 } from "./utils/quick-start-context";
 import { QuickStartStatus } from "./utils/quick-start-types";
-import QuickStartPanelContent from "./QuickStartPanelContent";
+import { QuickStartPanelContent } from "./QuickStartPanelContent";
 import QuickStartCloseModal from "./QuickStartCloseModal";
 import QuickStartsLoader from "./loader/QuickStartsLoader";
 import "./QuickStartDrawer.scss";

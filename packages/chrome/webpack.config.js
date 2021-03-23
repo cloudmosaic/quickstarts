@@ -22,7 +22,10 @@ module.exports = (_env, argv) => {
       rules: [
         {
           test: /\.[tj]sx?$/,
-          include: [path.join(__dirname, "src")],
+          include: [
+            path.join(__dirname, "src"),
+            path.join(__dirname, "../dev/src")
+          ],
           use: { loader: "ts-loader" },
         },
         {
@@ -38,6 +41,11 @@ module.exports = (_env, argv) => {
           test: /\.(png|jpe?g|webp|gif|svg|woff(2)?|ttf|eot)$/,
           type: 'asset/inline'
         },
+        // Quickstarts are yaml?
+        {
+          test: /\.ya?ml$/,
+          use: 'js-yaml-loader',
+        }
       ],
     },
     resolve: {

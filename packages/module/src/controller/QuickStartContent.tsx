@@ -24,7 +24,7 @@ const QuickStartContent = React.forwardRef<
     {
       quickStart,
       nextQuickStarts = [],
-      taskNumber,
+      taskNumber = -1,
       allTaskStatuses,
       onTaskSelect,
       onTaskReview,

@@ -5,7 +5,7 @@
   "scripts": {
     "prebuild": "rm -rf public",
     "build": "webpack --mode production",
-    "start": "webpack serve --hot --color --progress --config webpack.config.js",
+    "start": "webpack serve --hot --color --config webpack.config.js",
     "serve": "serve public"
   },
   "dependencies": {
