@@ -1,6 +1,6 @@
 {
   "name": "@cloudmosaic/quickstarts",
-  "version": "0.0.13",
+  "version": "0.0.14",
   "description": "Quickstarts for MAS",
   "files": [
     "dist"
@@ -34,19 +34,17 @@
     "clean-css": "cleancss dist/quickstarts.css -o dist/quickstarts.min.css"
   },
   "peerDependencies": {
-    "asciidoctor": ">=2.2.1",
-    "react": ">=16.8.0",
-    "react-dom": ">=16.8.0",
     "@patternfly/patternfly": ">=4.90.5",
+    "@patternfly/react-catalog-view-extension": ">=4.10.13",
     "@patternfly/react-core": ">=4.101.3",
-    "@patternfly/react-catalog-view-extension": ">=4.10.13"
+    "react": ">=16.8.0",
+    "react-dom": ">=16.8.0"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.9.0",
     "@patternfly/patternfly": "^4.90.5",
     "@patternfly/react-catalog-view-extension": "^4.10.13",
     "@patternfly/react-core": "^4.101.3",
-    "asciidoctor": "^2.2.1",
     "bootstrap-sass": "^3.3.7",
     "classnames": "^2.2.6",
     "dayjs": "^1.9.6",
@@ -70,6 +68,7 @@
     "@types/enzyme-adapter-react-16": "^1.0.6",
     "@types/history": "^4.7.8",
     "@types/jest": "^26.0.14",
+    "@types/node": "^14.14.35",
     "@types/react": "^16.8.0",
     "@types/react-dom": "^16.8.0",
     "@types/victory": "^33.1.4",

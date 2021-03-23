@@ -13,7 +13,7 @@ export type QuickStart = {
 export type QuickStartSpec = {
   version?: number;
   displayName: string;
-  durationMinutes: number;
+  durationMinutes?: number;
   icon: string;
   description: string;
   prerequisites?: string[];

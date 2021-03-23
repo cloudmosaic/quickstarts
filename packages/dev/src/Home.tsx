@@ -3,17 +3,19 @@ import { Button, PageSection, Stack, StackItem } from "@patternfly/react-core";
 import {
   QuickStartContext,
   QuickStartContextValues,
-  i18n,
-  ProcedureAsciiDocParser,
-  getQuickStartStatus,
-  getQuickStartStatusCount
+  i18n
 } from "@cloudmosaic/quickstarts";
+// import {
+//   ProcedureAsciiDocParser,
+//   getQuickStartStatus,
+//   getQuickStartStatusCount
+// } from "./quickstarts-data/mocks/parsers";
 // import { allAsciiDocImports } from "./quickstarts-data/quick-start-test-data";
-import { FormInput } from "./FormInput";
+// import { FormInput } from "./FormInput";
 
 export const Home: React.FunctionComponent = () => {
-  const [inputValue, setInputValue] = React.useState("");
-  const qsContext: QuickStartContextValues = React.useContext(QuickStartContext);
+  // const [inputValue, setInputValue] = React.useState("");
+  // const qsContext: QuickStartContextValues = React.useContext(QuickStartContext);
 
   // console.log(getQuickStartStatus(qsContext.allQuickStartStates, 'managing-business-central-data-sources-proc'));
   // console.log(getQuickStartStatusCount(qsContext.allQuickStartStates, qsContext.allQuickStarts));

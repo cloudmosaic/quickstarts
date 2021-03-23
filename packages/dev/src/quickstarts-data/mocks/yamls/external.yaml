@@ -2,7 +2,6 @@ metadata:
   name: external
 spec:
   displayName: Links to external resource
-  durationMinutes: 5
   icon: ''
   description: This card lists an external resource
   link: 

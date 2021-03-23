@@ -135,6 +135,7 @@ const IFrameMarkdownView: React.FC<InnerSyncMarkdownProps> = ({
     frame.style.height = `${frame.contentWindow.document.body.firstElementChild.scrollHeight}px`;
 
     // Let the new height take effect, then reset again once we recompute
+    // @ts-ignore
     updateTimeoutHandle.current = setTimeout(() => {
       if (exactHeight) {
         frame.style.height = `${frame.contentWindow.document.body.firstElementChild.scrollHeight}px`;
