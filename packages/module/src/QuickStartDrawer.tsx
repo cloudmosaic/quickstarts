@@ -3,6 +3,7 @@ import {
   Drawer,
   DrawerContent,
   DrawerContentBody,
+  DrawerPanelContent,
 } from "@patternfly/react-core";
 import {
   QuickStartContext,
@@ -45,11 +46,13 @@ export const QuickStartDrawer: React.FC = ({ children }) => {
   const panelContent = (
     <QuickStartsLoader>
       {(quickStarts) => (
-        <QuickStartPanelContent
-          quickStarts={quickStarts}
-          handleClose={handleClose}
-          activeQuickStartID={activeQuickStartID}
-        />
+        <DrawerPanelContent isResizable className="co-quick-start-panel-content">
+          <QuickStartPanelContent
+            quickStarts={quickStarts}
+            handleClose={handleClose}
+            activeQuickStartID={activeQuickStartID}
+          />
+        </DrawerPanelContent>
       )}
     </QuickStartsLoader>
   );

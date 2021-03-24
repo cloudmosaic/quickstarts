@@ -11,7 +11,6 @@ import { allQuickStarts } from "@cloudmosaic/quickstarts-dev/src/quickstarts-dat
 export const QuickStartPanel = () => {
   const onClose = () => document.getElementById('quickstartDrawer').classList.remove('pf-m-expanded');
 
-  console.log('quickStarts', allQuickStarts)
   const [activeQuickStartID, setActiveQuickStartID] = useLocalStorage(
     "quickstartId",
     ""

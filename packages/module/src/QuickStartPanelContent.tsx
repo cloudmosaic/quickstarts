@@ -2,7 +2,6 @@ import * as React from 'react';
 import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
 import {
-  DrawerPanelContent,
   DrawerPanelBody,
   DrawerHead,
   DrawerActions,
@@ -46,7 +45,7 @@ export const QuickStartPanelContent: React.FC<QuickStartPanelContentProps> = ({
   });
 
   return quickStart ? (
-    <DrawerPanelContent isResizable className="co-quick-start-panel-content">
+    <React.Fragment>
       <div className={`co-quick-start-panel-content-head ${headerClasses}`}>
         <DrawerHead>
           <div className="co-quick-start-panel-content__title">
@@ -80,7 +79,7 @@ export const QuickStartPanelContent: React.FC<QuickStartPanelContentProps> = ({
           contentRef={setContentRef}
         />
       </DrawerPanelBody>
-    </DrawerPanelContent>
+    </React.Fragment>
   ) : null;
 };
 

@@ -31,8 +31,7 @@ drawer.append(drawerMain);
 const drawerContent = makeDiv(drawerStyles.drawerContent);
 const drawerContentBody = makeDiv(drawerStyles.drawerBody);
 drawerContent.append(drawerContentBody);
-const drawerPanel = document.createElement('div');
-drawerPanel.style.display = 'contents';
+const drawerPanel = makeDiv(drawerStyles.drawerPanel);
 drawerMain.append(drawerContent, drawerPanel);
 
 // Move existing content into drawerContentBody
