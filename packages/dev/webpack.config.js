@@ -117,6 +117,9 @@ module.exports = (_env, argv) => {
         removeFullPathAutoPrefix: true
       }),
       new CopyPlugin({
+        patterns: [{ from: "public/webpack-assets.json", to: "" }],
+      }),
+      new CopyPlugin({
         patterns: [
           {
             from: 'src/quickstarts-data/mas-guides/**/quickstart.yml',
