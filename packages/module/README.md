@@ -10,13 +10,12 @@ Note: These instructions can change over time as the module gets more refined
 ```bash
 `yarn add @cloudmosaic/quickstarts @patternfly/patternfly`
 or
-`npm install @cloudmosaic/quickstarts @patternfly/patternfly --save`
+`npm install @cloudmosaic/quickstarts @patternfly/patternfly`
 ```
 
 The package currently has these peer dependencies:
 
 ```
-"asciidoctor": ">=2.2.1",
 "react": ">=16.8.0",
 "react-dom": ">=16.8.0",
 "@patternfly/patternfly": ">=4.87.3",
@@ -120,13 +119,21 @@ const SomeNestedComponent = () => {
 
 ## Features
 
-### Highlighting elements (Supported in yaml+markdown)
+### Highlighting elements in yaml+markdown
 
 You can highlight an element on the page from the quick start. The element that should be highlightable needs an attribute like this:
 `data-quickstart-id="highlight-me"`
 
 In the quickstart .yaml file, you can add this type of markdown text to target this element:
 `Highlight [my element]{{highlight highlight-me}}`
+
+### Highlighting elements in asciidoc/adoc
+
+. To highlight items from a quick start, first the target item needs to have a data attribute: **data-quickstart-id="something"**
+. Then in asciidoc, the trigger element needs to have the `data-highlight__something` class/role, where the part after `data-highlight__` matches the data-quickstart-id of the target
+Here are some examples:
+* `link:[Click me to highlight the logo, role="data-highlight__logo"]`
+* `link:[Click me to highlight the Home nav item, role="data-highlight__home"]`
 
 ## Webpack
 
