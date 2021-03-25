@@ -34,6 +34,8 @@ If you already have the Kafka Bin Scripts installed on your system, you can cont
 * tbd
 
 .Procedure
+. [.data-highlight_quickstarts]#Click here# to highlight the Quick starts nav item
+. [.data-highlight_custom-catalog]#Click here# to highlight the Quick starts nav item
 . Download the latest Kafka distribution from https://kafka.apache.org/downloads[here].
 . Extract the downloaded archive with your tool of choice.
 . In a terminal, navigate into the Apache Kafka folder. From this folder, navigate into the `bin` folder.

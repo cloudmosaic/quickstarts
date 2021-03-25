@@ -84,7 +84,7 @@ const App: React.FunctionComponent = ({ children }) => {
 
   const AppHeader = (
     <PageHeader
-      logo={<Brand src={imgBrand} alt="Patternfly Logo" />}
+      logo={<Brand src={imgBrand} alt="Patternfly Logo" data-quickstart-id="logo" />}
       headerTools={AppToolbar}
       showNavToggle
       isNavOpen

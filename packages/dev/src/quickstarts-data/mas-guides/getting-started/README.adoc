@@ -59,6 +59,18 @@ endif::[]
 
 A Kafka instance in {product} includes a Kafka cluster, bootstrap server, and other required configurations for connecting to Kafka producer and consumer services. You can use the {product} web console to create and configure a Kafka instance for your applications or services.
 
+. To highlight items from a quick start, first the target item needs to have a data attribute: *data-quickstart-id="something"*
+. Then in asciidoc, the trigger element needs to have the *`+data-highlight__something+`* class/role, where the part after *`+data-highlight__+`* matches the data-quickstart-id of the target
+Here are some examples:
+* `+link:[Click me to highlight the logo, role="data-highlight__logo"]+`
+** link:[Click me to highlight the logo, role="data-highlight__logo"]
+* `+link:[Click me to highlight the Home nav item, role="data-highlight__home"]+`
+** link:[Click me to highlight the Home nav item, role="data-highlight__home"]
+* `+link:[Click here to highlight the Quick starts nav item, role="data-highlight__quickstarts"]+`
+** link:[Click here to highlight the Quick starts nav item, role="data-highlight__quickstarts"]
+* `+link:[Click here to highlight the Custom catalog nav item, role="data-highlight__custom-catalog"]+`
+** link:[Click here to highlight the Custom catalog nav item, role="data-highlight__custom-catalog"]
+
 ifndef::qs[]
 .Prerequisites
 * You are logged in to the {product} web console at {service-url}.
