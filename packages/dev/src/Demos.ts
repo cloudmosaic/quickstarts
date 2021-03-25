@@ -8,21 +8,24 @@ interface DemoInterface {
   /** href */
   to: string;
   /** Demo component associated with the demo  */
-  componentType: any;
+  componentType?: any;
 }
 /** Add the name of the demo and it's component here to have them show up in the demo app */
 export const Demos: DemoInterface[] = [
   {
-    id: 'page-demo',
-    name: 'Page Demo',
-    to: '/',
-    componentType: Examples.PageDemo
+    id: 'home',
+    name: 'Home',
+    to: '/'
   },
   {
     id: 'quickstarts',
     name: 'Quick starts',
-    to: '/quickstarts',
-    componentType: Examples.PageDemo
+    to: '/quickstarts'
+  },
+  {
+    id: 'custom-catalog',
+    name: 'Custom catalog',
+    to: '/custom-catalog'
   }
 ];
 

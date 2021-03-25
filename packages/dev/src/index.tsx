@@ -7,8 +7,14 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import App from "./App";
-import { QuickStartCatalogPage } from "@cloudmosaic/quickstarts";
+import {
+  QuickStartsLoader,
+  QuickStartCatalogPage,
+  QuickStart,
+  LoadingBox,
+} from "@cloudmosaic/quickstarts";
 import { Home } from "./Home";
+import { CustomCatalog } from "./CustomCatalog";
 
 ReactDOM.render(
   <Router>
@@ -20,7 +26,31 @@ ReactDOM.render(
       </Route>
       <Route exact path="/quickstarts">
         <App>
-          <QuickStartCatalogPage showFilter />
+          <QuickStartsLoader>
+            {(quickStarts: QuickStart[], loaded: boolean) =>
+              loaded ? (
+                <QuickStartCatalogPage
+                  quickStarts={quickStarts}
+                  showFilter
+                />
+              ) : (
+                <LoadingBox />
+              )
+            }
+          </QuickStartsLoader>
+        </App>
+      </Route>
+      <Route exact path="/custom-catalog">
+        <App>
+          <QuickStartsLoader>
+            {(quickStarts: QuickStart[], loaded: boolean) =>
+              loaded ? (
+                <CustomCatalog quickStarts={quickStarts} />
+              ) : (
+                <LoadingBox />
+              )
+            }
+          </QuickStartsLoader>
         </App>
       </Route>
     </Switch>

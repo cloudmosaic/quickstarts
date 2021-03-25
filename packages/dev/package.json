@@ -4,12 +4,12 @@
   "version": "0.0.1",
   "scripts": {
     "prebuild": "rm -rf public",
-    "build": "webpack --mode production",
+    "build": "webpack --mode production && cp webpack-assets.json public/webpack-assets.json",
     "start": "webpack serve --hot --color --progress --config webpack.config.js",
     "serve": "serve public"
   },
   "dependencies": {
-    "@cloudmosaic/quickstarts": "0.0.14",
+    "@cloudmosaic/quickstarts": "0.0.15",
     "@patternfly/react-core": "^4.101.3",
     "asciidoctor": "^2.2.1",
     "react": "^16.14.0",
