@@ -9,12 +9,12 @@ import {
   getQuickStartStatusCount,
   filterQuickStarts,
   QuickStartCatalogEmptyState,
-  removeQueryArgument,
   QUICKSTART_SEARCH_FILTER_KEY,
   QUICKSTART_STATUS_FILTER_KEY,
   QuickStartCatalogFilterSearchWrapper,
   QuickStartCatalogFilterStatusWrapper,
-  QuickStartCatalogFilterCountWrapper
+  QuickStartCatalogFilterCountWrapper,
+  clearQuickStartFilters
 } from "@cloudmosaic/quickstarts";
 import {
   PageSection,
@@ -151,8 +151,7 @@ export const CustomCatalog: React.FC<CustomCatalogProps> = ({
   );
 
   const clearFilters = () => {
-    removeQueryArgument(QUICKSTART_SEARCH_FILTER_KEY);
-    removeQueryArgument(QUICKSTART_STATUS_FILTER_KEY);
+    clearQuickStartFilters();
     setFilteredQuickStarts(
       quickStarts.sort((q1, q2) =>
         q1.spec.displayName.localeCompare(q2.spec.displayName)

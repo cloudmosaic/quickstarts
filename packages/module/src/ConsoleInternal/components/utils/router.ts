@@ -1,4 +1,5 @@
 import { createBrowserHistory, createMemoryHistory, History } from 'history';
+import { QUICKSTART_SEARCH_FILTER_KEY, QUICKSTART_STATUS_FILTER_KEY } from '../../../utils/const'
 
 type AppHistory = History & { pushPath: History['push'] };
 
@@ -49,3 +50,8 @@ export const removeQueryArgument = (k: string) => {
     history.replace(`${url.pathname}?${params.toString()}${url.hash}`);
   }
 };
+
+export const clearQuickStartFilters = () => {
+  removeQueryArgument(QUICKSTART_SEARCH_FILTER_KEY);
+  removeQueryArgument(QUICKSTART_STATUS_FILTER_KEY);
+}

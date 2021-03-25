@@ -82,33 +82,27 @@ interface QuickStartCatalogFilterSearchWrapperProps {
 }
 export const QuickStartCatalogFilterSearchWrapper: React.FC<QuickStartCatalogFilterSearchWrapperProps> = ({
   onSearchInputChange = () => {},
-  useQueryParams = true,
+  useQueryParams = true
 }) => {
   React.useEffect(() => {
     //   use this effect to clear the search when a `clear all` action is performed higher up
-    let unlisten;
-    if (useQueryParams) {
-      unlisten = history.listen(({ action, location }) => {
-        const searchParams = new URLSearchParams(location.search);
-        const searchQuery =
-          searchParams.get(QUICKSTART_SEARCH_FILTER_KEY) || "";
-        if (searchQuery === "") {
-          setSearchInputText("");
-          onSearchInputChange("");
-        }
-      });
-    } else {
-      unlisten = () => {};
-    }
+    const unlisten = history.listen(({ action, location }) => {
+      const searchParams = new URLSearchParams(location.search);
+      const searchQuery = searchParams.get(QUICKSTART_SEARCH_FILTER_KEY) || "";
+      if (searchQuery === "") {
+        setSearchInputText("");
+        onSearchInputChange("");
+      }
+    });
     return () => {
       unlisten();
     };
-  }, [useQueryParams]);
+  });
   const initialSearchParams = new URLSearchParams(window.location.search);
   const initialSearchQuery =
     initialSearchParams.get(QUICKSTART_SEARCH_FILTER_KEY) || "";
   const [searchInputText, setSearchInputText] = React.useState<string>(
-    useQueryParams ? initialSearchQuery : ""
+    initialSearchQuery
   );
   const handleTextChange = (val: string) => {
     if (useQueryParams) {
@@ -156,25 +150,20 @@ export const QuickStartCatalogFilterStatusWrapper: React.FC<QuickStartCatalogFil
 }) => {
   React.useEffect(() => {
     //   use this effect to clear the status when a `clear all` action is performed higher up
-    let unlisten;
-    if (useQueryParams) {
-      unlisten = history.listen(({ action, location }) => {
-        const searchParams = new URLSearchParams(location.search);
-        const updatedStatusFilters =
-          searchParams.get(QUICKSTART_STATUS_FILTER_KEY)?.split(",") || [];
-        if (updatedStatusFilters.length === 0) {
-          setStatusFilters([]);
-          setSelectedFilters([]);
-          onStatusChange([]);
-        }
-      });
-    } else {
-      unlisten = () => {};
-    }
+    const unlisten = history.listen(({ action, location }) => {
+      const searchParams = new URLSearchParams(location.search);
+      const updatedStatusFilters =
+        searchParams.get(QUICKSTART_STATUS_FILTER_KEY)?.split(",") || [];
+      if (updatedStatusFilters.length === 0) {
+        setStatusFilters([]);
+        setSelectedFilters([]);
+        onStatusChange([]);
+      }
+    });
     return () => {
       unlisten();
     };
-  }, [useQueryParams]);
+  });
   const { t } = useTranslation();
   const statusTypes = {
     [QuickStartStatus.COMPLETE]: t(
@@ -201,12 +190,10 @@ export const QuickStartCatalogFilterStatusWrapper: React.FC<QuickStartCatalogFil
     initialSearchParams.get(QUICKSTART_STATUS_FILTER_KEY)?.split(",") || [];
 
   const [statusFilters, setStatusFilters] = React.useState<string[]>(
-    useQueryParams ? initialStatusFilters : []
+    initialStatusFilters
   );
   const [selectedFilters, setSelectedFilters] = React.useState<string[]>(
-    useQueryParams
-      ? initialStatusFilters.map((filter) => statusTypes[filter])
-      : []
+    initialStatusFilters.map((filter) => statusTypes[filter])
   );
   const [isDropdownOpen, setIsDropdownOpen] = React.useState(false);
 
