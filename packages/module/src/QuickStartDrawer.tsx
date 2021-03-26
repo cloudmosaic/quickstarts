@@ -12,8 +12,8 @@ import { QuickStartStatus } from "./utils/quick-start-types";
 import QuickStartPanelContent from "./QuickStartPanelContent";
 import QuickStartCloseModal from "./QuickStartCloseModal";
 import QuickStartsLoader from "./loader/QuickStartsLoader";
-import { history } from "./ConsoleInternal/components/utils/router";
 import { QUICKSTART_ID_FILTER_KEY } from "./utils/const";
+import { getQuickStartByName } from "./utils/quick-start-utils";
 import "./QuickStartDrawer.scss";
 
 export const QuickStartDrawer: React.FC = ({ children }) => {
@@ -24,7 +24,11 @@ export const QuickStartDrawer: React.FC = ({ children }) => {
     const params = new URLSearchParams(window.location.search);
     const quickStartId = params.get(QUICKSTART_ID_FILTER_KEY) || "";
     if (quickStartId && allContext.activeQuickStartID !== quickStartId) {
-      allContext.setActiveQuickStart(quickStartId);
+      const activeQuickStart = getQuickStartByName(quickStartId, allContext.allQuickStarts);
+      if (activeQuickStart && !activeQuickStart.spec.link) {
+        // don't try to load a quick start that is actually just an external resource
+        allContext.setActiveQuickStart(quickStartId);
+      }
     }
   }, []);
 
