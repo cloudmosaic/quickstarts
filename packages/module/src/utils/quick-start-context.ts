@@ -6,6 +6,8 @@ import {
   QuickStartTaskStatus,
   QuickStart,
 } from "./quick-start-types";
+import { setQueryArgument, removeQueryArgument } from "../ConsoleInternal/components/utils/router";
+import { QUICKSTART_ID_FILTER_KEY } from "./const";
 
 type FooterProps = {
   showAllLink?: boolean;
@@ -25,7 +27,8 @@ export type QuickStartContextValues = {
   setQuickStartTaskNumber?: (quickStartId: string, taskNumber: number) => void;
   setQuickStartTaskStatus?: (taskStatus: QuickStartTaskStatus) => void;
   getQuickStartForId?: (id: string) => QuickStartState;
-  footer?: FooterProps
+  footer?: FooterProps,
+  useQueryParams?: boolean;
 };
 
 export const QuickStartContext = createContext<QuickStartContextValues>({
@@ -63,6 +66,7 @@ export type useValuesForQuickStartContextType = {
     React.SetStateAction<AllQuickStartStates>
   >,
   footer?: FooterProps;
+  useQueryParams?: boolean;
 };
 
 export const useValuesForQuickStartContext = ({
@@ -71,11 +75,20 @@ export const useValuesForQuickStartContext = ({
   setActiveQuickStartID,
   allQuickStartStates,
   setAllQuickStartStates,
-  footer
+  footer,
+  useQueryParams = true
 }: useValuesForQuickStartContextType): QuickStartContextValues => {
   const setActiveQuickStart = useCallback(
     (quickStartId: string, totalTasks?: number) => {
-      setActiveQuickStartID((id) => (id !== quickStartId ? quickStartId : ""));
+      setActiveQuickStartID((id) => {
+        if (!quickStartId || id === quickStartId) {
+          useQueryParams && removeQueryArgument(QUICKSTART_ID_FILTER_KEY);
+          return "";
+        } else {
+          useQueryParams && setQueryArgument(QUICKSTART_ID_FILTER_KEY, quickStartId);
+          return quickStartId;
+        }
+      });
       setAllQuickStartStates((qs) =>
         !quickStartId || qs[quickStartId]
           ? qs
@@ -89,8 +102,10 @@ export const useValuesForQuickStartContext = ({
     (quickStartId: string, totalTasks?: number) => {
       setActiveQuickStartID((id) => {
         if (!id || id !== quickStartId) {
+          useQueryParams && setQueryArgument(QUICKSTART_ID_FILTER_KEY, quickStartId);
           return quickStartId;
         }
+        useQueryParams && setQueryArgument(QUICKSTART_ID_FILTER_KEY, id);
         return id;
       });
       setAllQuickStartStates((qs) => {
@@ -119,8 +134,10 @@ export const useValuesForQuickStartContext = ({
     (quickStartId: string, totalTasks: number) => {
       setActiveQuickStartID((id) => {
         if (!id || id !== quickStartId) {
+          useQueryParams && setQueryArgument(QUICKSTART_ID_FILTER_KEY, quickStartId);
           return quickStartId;
         }
+        useQueryParams && setQueryArgument(QUICKSTART_ID_FILTER_KEY, id);
         return id;
       });
       setAllQuickStartStates((qs) => ({
@@ -255,6 +272,7 @@ export const useValuesForQuickStartContext = ({
     setQuickStartTaskNumber,
     setQuickStartTaskStatus,
     getQuickStartForId,
-    footer
+    footer,
+    useQueryParams
   };
 };

@@ -12,13 +12,22 @@ import { QuickStartStatus } from "./utils/quick-start-types";
 import QuickStartPanelContent from "./QuickStartPanelContent";
 import QuickStartCloseModal from "./QuickStartCloseModal";
 import QuickStartsLoader from "./loader/QuickStartsLoader";
+import { history } from "./ConsoleInternal/components/utils/router";
+import { QUICKSTART_ID_FILTER_KEY } from "./utils/const";
 import "./QuickStartDrawer.scss";
 
 export const QuickStartDrawer: React.FC = ({ children }) => {
   const allContext = React.useContext<QuickStartContextValues>(
     QuickStartContext
   );
-  // console.log(allContext);
+  React.useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const quickStartId = params.get(QUICKSTART_ID_FILTER_KEY) || "";
+    if (quickStartId && allContext.activeQuickStartID !== quickStartId) {
+      allContext.setActiveQuickStart(quickStartId);
+    }
+  }, []);
+
   const {
     activeQuickStartID,
     activeQuickStartState,

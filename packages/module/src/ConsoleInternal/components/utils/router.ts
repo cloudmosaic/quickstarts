@@ -32,6 +32,9 @@ export const history: AppHistory = createHistory(/*{ basename: window.SERVER_FLA
 // (history as any).pushPath = (path) => (history as any).__push__(path);
 
 export const setQueryArgument = (k: string, v: string) => {
+  if (!v) {
+    return removeQueryArgument(k);
+  }
   const params = new URLSearchParams(window.location.search);
   if (params.get(k) !== v) {
     params.set(k, v);
