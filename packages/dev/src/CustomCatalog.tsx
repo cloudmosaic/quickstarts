@@ -125,7 +125,7 @@ export const CustomCatalog: React.FC<CustomCatalogProps> = ({
           <Text component="h2">Documentation</Text>
           <Text component="p">Technical information for using the service</Text>
         </TextContent>
-        <Gallery hasGutter>
+        <Gallery className="co-quick-start-catalog__gallery" hasGutter>
           {quickStarts
             .filter(
               (quickStart) => quickStart.spec.type?.text === "Documentation"
@@ -165,14 +165,12 @@ export const CustomCatalog: React.FC<CustomCatalogProps> = ({
         <TextContent>
           <Text component="h1">Resources</Text>
         </TextContent>
-        <Toolbar
-          inset={{
-            default: "insetNone",
-            md: "insetNone",
-            xl: "insetNone",
-            "2xl": "insetNone",
-          }}
-        >
+      </PageSection>
+      <Divider component="div" />
+      <PageSection padding={{
+        default: "noPadding"
+      }}>
+        <Toolbar usePageInsets>
           <ToolbarContent>
             <QuickStartCatalogFilterSearchWrapper
               onSearchInputChange={onSearchInputChange}
@@ -187,6 +185,7 @@ export const CustomCatalog: React.FC<CustomCatalogProps> = ({
           </ToolbarContent>
         </Toolbar>
       </PageSection>
+      <Divider component="div" />
       {filteredQuickStarts.length === 0 ? (
         <PageSection><QuickStartCatalogEmptyState clearFilters={clearFilters} /></PageSection>
       ) : filteredQuickStarts.length !== quickStarts.length ? (

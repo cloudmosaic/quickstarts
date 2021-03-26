@@ -1,6 +1,6 @@
 {
   "name": "@cloudmosaic/quickstarts",
-  "version": "0.0.15",
+  "version": "0.0.16",
   "description": "Quickstarts for MAS",
   "files": [
     "dist"

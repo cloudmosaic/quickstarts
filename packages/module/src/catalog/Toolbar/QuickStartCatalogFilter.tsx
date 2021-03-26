@@ -1,9 +1,5 @@
 import * as React from "react";
-import {
-  Toolbar,
-  ToolbarProps,
-  ToolbarContent
-} from "@patternfly/react-core";
+import { Toolbar, ToolbarProps, ToolbarContent } from "@patternfly/react-core";
 import { QuickStartStatus } from "../../utils/quick-start-types";
 import {
   QuickStartCatalogFilterSearchWrapper,
@@ -28,15 +24,7 @@ const QuickStartCatalogFilter: React.FC<QuickStartCatalogFilterProps> = ({
   ...props
 }) => {
   return (
-    <Toolbar
-      inset={{
-        default: "insetNone",
-        md: "insetNone",
-        xl: "insetNone",
-        "2xl": "insetNone",
-      }}
-      {...props}
-    >
+    <Toolbar usePageInsets {...props}>
       <ToolbarContent>
         <QuickStartCatalogFilterSearchWrapper
           onSearchInputChange={onSearchInputChange}
