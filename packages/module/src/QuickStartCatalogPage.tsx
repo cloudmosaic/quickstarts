@@ -25,6 +25,7 @@ import {
   Text,
   PageSection,
   PageSectionVariants,
+  Divider,
 } from "@patternfly/react-core";
 import { SearchIcon } from "@patternfly/react-icons";
 import { removeQueryArgument } from "@console/internal/components/utils";
@@ -34,6 +35,7 @@ type QuickStartCatalogPageProps = {
   quickStarts: QuickStart[];
   showFilter?: boolean;
   sortFnc?: (q1: QuickStart, q2: QuickStart) => number;
+  title?: string;
 };
 
 export const QuickStartCatalogEmptyState = ({ clearFilters }) => {
@@ -62,6 +64,7 @@ export const QuickStartCatalogPage: React.FC<QuickStartCatalogPageProps> = ({
   quickStarts,
   showFilter,
   sortFnc = (q1, q2) => q1.spec.displayName.localeCompare(q2.spec.displayName),
+  title,
 }) => {
   const { t } = useTranslation();
   const { allQuickStartStates } = React.useContext<QuickStartContextValues>(
@@ -70,13 +73,15 @@ export const QuickStartCatalogPage: React.FC<QuickStartCatalogPageProps> = ({
 
   const initialQueryParams = new URLSearchParams(window.location.search);
   const initialSearchQuery =
-  initialQueryParams.get(QUICKSTART_SEARCH_FILTER_KEY) || "";
+    initialQueryParams.get(QUICKSTART_SEARCH_FILTER_KEY) || "";
   const [searchInputText, setSearchInputText] = React.useState<string>(
     initialSearchQuery
   );
   const initialStatusFilters =
     initialQueryParams.get(QUICKSTART_STATUS_FILTER_KEY)?.split(",") || [];
-  const [statusFilters, setStatusFilters] = React.useState<string[]>(initialStatusFilters);
+  const [statusFilters, setStatusFilters] = React.useState<string[]>(
+    initialStatusFilters
+  );
 
   const initialFilteredQuickStarts = showFilter
     ? filterQuickStarts(
@@ -143,17 +148,27 @@ export const QuickStartCatalogPage: React.FC<QuickStartCatalogPageProps> = ({
     <>
       <PageSection variant={PageSectionVariants.light}>
         <TextContent>
-          <Text component="h1">{t("quickstart~Quick Starts")}</Text>
+          <Text component="h1">{title || t("quickstart~Quick Starts")}</Text>
         </TextContent>
-        {showFilter && (
-          <QuickStartCatalogFilter
-            quickStartsCount={filteredQuickStarts.length}
-            quickStartStatusCount={quickStartStatusCount}
-            onSearchInputChange={onSearchInputChange}
-            onStatusChange={onStatusChange}
-          />
-        )}
       </PageSection>
+      <Divider component="div" />
+      {showFilter && (
+        <>
+          <PageSection
+            padding={{
+              default: "noPadding",
+            }}
+          >
+            <QuickStartCatalogFilter
+              quickStartsCount={filteredQuickStarts.length}
+              quickStartStatusCount={quickStartStatusCount}
+              onSearchInputChange={onSearchInputChange}
+              onStatusChange={onStatusChange}
+            />
+          </PageSection>
+          <Divider component="div" />
+        </>
+      )}
       <PageSection>
         {filteredQuickStarts.length === 0 ? (
           <QuickStartCatalogEmptyState clearFilters={clearFilters} />
