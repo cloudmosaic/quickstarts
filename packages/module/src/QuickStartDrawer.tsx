@@ -16,7 +16,11 @@ import { QUICKSTART_ID_FILTER_KEY } from "./utils/const";
 import { getQuickStartByName } from "./utils/quick-start-utils";
 import "./QuickStartDrawer.scss";
 
-export const QuickStartDrawer: React.FC = ({ children }) => {
+export interface QuickStartDrawerProps extends React.HTMLProps<HTMLDivElement> {
+  children: React.ReactNode;
+}
+
+export const QuickStartDrawer: React.FC<QuickStartDrawerProps> = ({ children, ...props }) => {
   const allContext = React.useContext<QuickStartContextValues>(
     QuickStartContext
   );
@@ -69,7 +73,7 @@ export const QuickStartDrawer: React.FC = ({ children }) => {
 
   return (
     <>
-      <Drawer isExpanded={!!activeQuickStartID} isInline>
+      <Drawer isExpanded={!!activeQuickStartID} isInline {...props}>
         <DrawerContent panelContent={panelContent}>
           <DrawerContentBody className="co-quick-start-drawer__body">
             {children}
