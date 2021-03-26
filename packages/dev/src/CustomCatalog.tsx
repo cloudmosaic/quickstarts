@@ -93,7 +93,7 @@ export const CustomCatalog: React.FC<CustomCatalogProps> = ({
           <Text component="h2">Quick starts</Text>
           <Text component="p">Step-by-step instructions and tasks</Text>
         </TextContent>
-        <Gallery hasGutter>
+        <Gallery className="co-quick-start-catalog__gallery" hasGutter>
           {quickStarts
             .filter(
               (quickStart) =>

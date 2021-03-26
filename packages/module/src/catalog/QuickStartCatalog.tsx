@@ -23,7 +23,7 @@ const QuickStartCatalog: React.FC<QuickStartCatalogProps> = ({
   } = React.useContext<QuickStartContextValues>(QuickStartContext);
 
   return (
-    <Gallery /*className="co-quick-start-catalog__gallery"*/ hasGutter>
+    <Gallery className="co-quick-start-catalog__gallery" hasGutter>
       {quickStarts.map((quickStart) => {
         const {
           metadata: { name: id },
