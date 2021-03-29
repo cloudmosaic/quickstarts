@@ -4,7 +4,7 @@ import { SyncMarkdownView } from "@console/internal/components/markdown-view";
 import { MarkdownHighlightExtension } from "@console/shared";
 import { HIGHLIGHT_REGEXP } from "@console/shared/src/components/markdown-highlight-extension/highlight-consts";
 
-const EXTENSION_NAME = "quickstart";
+export const EXTENSION_NAME = "quickstart";
 extension(EXTENSION_NAME, () => {
   return [
     {
@@ -22,6 +22,8 @@ extension(EXTENSION_NAME, () => {
     },
   ];
 });
+
+export const removeParagraphWrap = (markdown: string) => markdown.replace(/^<p>|<\/p>$/g, '');
 
 type QuickStartMarkdownViewProps = {
   content: string;
