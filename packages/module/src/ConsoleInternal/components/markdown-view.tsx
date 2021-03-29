@@ -12,7 +12,7 @@ import './_markdown-view.scss';
 
 const tableTags = ["table", "thead", "tbody", "tr", "th", "td"];
 
-const markdownConvert = (markdown, extensions?: string[]) => {
+export const markdownConvert = (markdown, extensions?: string[]) => {
   const unsafeHtml = new Converter({
     tables: true,
     openLinksInNewWindow: true,

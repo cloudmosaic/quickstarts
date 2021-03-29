@@ -4,6 +4,8 @@ import { useTranslation } from 'react-i18next';
 import { Title, WizardNavItem } from '@patternfly/react-core';
 import { CheckCircleIcon, TimesCircleIcon } from '@patternfly/react-icons';
 import { QuickStartTaskStatus } from '../utils/quick-start-types';
+import { markdownConvert } from '../ConsoleInternal/components/markdown-view';
+import { removeParagraphWrap } from '../QuickStartMarkdownView';
 
 import './QuickStartTaskHeader.scss';
 
@@ -72,7 +74,7 @@ const QuickStartTaskHeader: React.FC<QuickStartTaskHeaderProps> = ({
     <span className="co-quick-start-task-header">
       <Title headingLevel="h3" size={size} className={classNames}>
         <TaskIcon taskIndex={taskIndex} taskStatus={taskStatus} isActiveTask={isActiveTask} />
-        {title}
+        <span dangerouslySetInnerHTML={{ __html: removeParagraphWrap(markdownConvert(title)) }} />
         {isActiveTask && subtitle && (
           <>
             {' '}
