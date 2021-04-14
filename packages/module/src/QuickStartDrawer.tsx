@@ -18,9 +18,10 @@ import "./QuickStartDrawer.scss";
 
 export interface QuickStartDrawerProps extends React.HTMLProps<HTMLDivElement> {
   children: React.ReactNode;
+  appendTo?: HTMLElement | (() => HTMLElement);
 }
 
-export const QuickStartDrawer: React.FC<QuickStartDrawerProps> = ({ children, ...props }) => {
+export const QuickStartDrawer: React.FC<QuickStartDrawerProps> = ({ children, appendTo, ...props }) => {
   const allContext = React.useContext<QuickStartContextValues>(
     QuickStartContext
   );
@@ -66,6 +67,7 @@ export const QuickStartDrawer: React.FC<QuickStartDrawerProps> = ({ children, ..
           quickStarts={quickStarts}
           handleClose={handleClose}
           activeQuickStartID={activeQuickStartID}
+          appendTo={appendTo}
         />
       )}
     </QuickStartsLoader>
