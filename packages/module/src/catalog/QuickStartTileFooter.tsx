@@ -42,28 +42,28 @@ const QuickStartTileFooter: React.FC<QuickStartTileFooterProps> = ({
     <Flex justifyContent={{ default: 'justifyContentSpaceBetween' }}>
       {status === QuickStartStatus.NOT_STARTED && (
         <FlexItem>
-          <Button onClick={start} variant="link" isInline>
+          <Button onClick={start} variant="link" isInline data-testid="qs-card-notStarted-start">
             {t('quickstart~Start the tour')}
           </Button>
         </FlexItem>
       )}
       {status === QuickStartStatus.IN_PROGRESS && activeQuickStartID !== quickStartId && (
         <FlexItem>
-          <Button variant="link" isInline>
+          <Button variant="link" isInline data-testid="qs-card-inProgress-resume">
             {t('quickstart~Resume the tour')}
           </Button>
         </FlexItem>
       )}
       {status === QuickStartStatus.COMPLETE && (
         <FlexItem>
-          <Button onClick={restart} variant="link" isInline>
+          <Button onClick={restart} variant="link" isInline data-testid="qs-card-complete-restart">
             {t('quickstart~Start the tour')}
           </Button>
         </FlexItem>
       )}
       {status === QuickStartStatus.IN_PROGRESS && (
         <FlexItem>
-          <Button onClick={restart} variant="link" isInline>
+          <Button onClick={restart} variant="link" isInline data-testid="qs-card-inProgress-restart">
             {t('quickstart~Restart the tour')}
           </Button>
         </FlexItem>

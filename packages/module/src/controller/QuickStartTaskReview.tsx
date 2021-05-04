@@ -46,6 +46,7 @@ const QuickStartTaskReview: React.FC<QuickStartTaskReviewProps> = ({
         <Radio
           id="review-success"
           name="review-success"
+          data-testid="qs-drawer-check-yes"
           label={t('quickstart~Yes')}
           className="co-quick-start-task-review__radio"
           isChecked={taskStatus === QuickStartTaskStatus.SUCCESS}
@@ -54,6 +55,7 @@ const QuickStartTaskReview: React.FC<QuickStartTaskReviewProps> = ({
         <Radio
           id="review-failed"
           name="review-failed"
+          data-testid="qs-drawer-check-no"
           label={t('quickstart~No')}
           className="co-quick-start-task-review__radio"
           isChecked={taskStatus === QuickStartTaskStatus.FAILED}

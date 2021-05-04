@@ -6,6 +6,7 @@ import {
   QuickStartContext,
   QuickStartContextValues,
 } from "../utils/quick-start-context";
+import { camelize } from "../utils/quick-start-utils";
 
 import "./QuickStartFooter.scss";
 
@@ -65,6 +66,7 @@ const QuickStartFooter: React.FC<QuickStartFooterProps> = ({
         variant="primary"
         onClick={onNext}
         isInline
+        data-testid={`qs-drawer-${camelize(getPrimaryButtonText())}`}
       >
         {getPrimaryButtonText()}
       </Button>
@@ -77,6 +79,7 @@ const QuickStartFooter: React.FC<QuickStartFooterProps> = ({
           variant="secondary"
           onClick={onBack}
           isInline
+          data-testid="qs-drawer-back"
         >
           {t("quickstart~Back")}
         </Button>
@@ -84,7 +87,7 @@ const QuickStartFooter: React.FC<QuickStartFooterProps> = ({
       {status === QuickStartStatus.COMPLETE &&
         showAllLink &&
         onShowAllLinkClick && (
-          <Button variant="link" isInline onClick={onShowAllLinkClick}>
+          <Button variant="link" isInline onClick={onShowAllLinkClick} data-testid="qs-drawer-viewAllTours">
             {t("quickstart~View all tours")}
           </Button>
         )}
