@@ -16,6 +16,7 @@ import { QuickStart } from "./utils/quick-start-types";
 import "./QuickStartPanelContent.scss";
 // js: Remove AsyncComponent and import QuickStartController directly
 import QuickStartController from "./QuickStartController";
+import { camelize } from "./utils/quick-start-utils";
 
 type HandleClose = () => void;
 
@@ -60,7 +61,7 @@ const QuickStartPanelContent: React.FC<QuickStartPanelContentProps> = ({
   });
 
   const content = quickStart ? (
-    <DrawerPanelContent isResizable className="co-quick-start-panel-content">
+    <DrawerPanelContent isResizable className="co-quick-start-panel-content" data-testid={`qs-drawer-${camelize(quickStart.spec.displayName)}`}>
       <div className={`co-quick-start-panel-content-head ${headerClasses}`}>
         <DrawerHead>
           <div className="co-quick-start-panel-content__title">
@@ -78,7 +79,7 @@ const QuickStartPanelContent: React.FC<QuickStartPanelContentProps> = ({
             </Title>
           </div>
           <DrawerActions>
-            <DrawerCloseButton onClick={handleClose} />
+            <DrawerCloseButton onClick={handleClose} data-testid="qs-drawer-close" />
           </DrawerActions>
         </DrawerHead>
       </div>

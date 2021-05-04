@@ -51,6 +51,7 @@ const QuickStartTileDescription: React.FC<QuickStartTileDescriptionProps> = ({
               variant="link"
               isInline
               className="co-quick-start-tile-prerequisites__icon"
+              data-testid="qs-card-prereqs"
               onClick={(e) => {
                 e.preventDefault();
                 e.stopPropagation();

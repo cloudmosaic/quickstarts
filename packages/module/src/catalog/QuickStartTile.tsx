@@ -11,6 +11,7 @@ import {
   QuickStartContext,
   QuickStartContextValues,
 } from "../utils/quick-start-context";
+import { camelize } from "../utils/quick-start-utils";
 
 import "./QuickStartTile.scss";
 
@@ -60,6 +61,7 @@ const QuickStartTile: React.FC<QuickStartTileProps> = ({
       }}
       icon={quickStartIcon}
       className="co-quick-start-tile"
+      data-testid={`qs-card-${camelize(displayName)}`}
       featured={isActive}
       title={
         <QuickStartTileHeader
