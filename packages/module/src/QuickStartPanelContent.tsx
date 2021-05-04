@@ -16,6 +16,10 @@ import { QuickStart } from "./utils/quick-start-types";
 import "./QuickStartPanelContent.scss";
 // js: Remove AsyncComponent and import QuickStartController directly
 import QuickStartController from "./QuickStartController";
+import {
+  QuickStartContext,
+  QuickStartContextValues,
+} from "./utils/quick-start-context";
 import { camelize } from "./utils/quick-start-utils";
 
 type HandleClose = () => void;
@@ -46,6 +50,10 @@ const QuickStartPanelContent: React.FC<QuickStartPanelContentProps> = ({
   const quickStart = quickStarts.find(
     (qs) => qs.metadata.name === activeQuickStartID
   );
+  const { activeQuickStartState } = React.useContext<QuickStartContextValues>(
+    QuickStartContext
+  );
+  const taskNumber = activeQuickStartState?.taskNumber;
   const nextQuickStarts: QuickStart[] = quickStarts.filter((qs: QuickStart) =>
     quickStart?.spec.nextQuickStart?.includes(qs.metadata.name)
   );
@@ -60,8 +68,23 @@ const QuickStartPanelContent: React.FC<QuickStartPanelContentProps> = ({
       shadows === Shadows.bottom || shadows === Shadows.both,
   });
 
+  const getStep = () => {
+    const tasks = quickStart.spec.tasks.length;
+    if (Number.parseInt(taskNumber as string) === -1) {
+      return 'intro';
+    } else if (Number.parseInt(taskNumber as string) === tasks) {
+      return 'conclusion'
+    }
+    return Number.parseInt(taskNumber as string) + 1;
+  }
+
   const content = quickStart ? (
-    <DrawerPanelContent isResizable className="co-quick-start-panel-content" data-testid={`qs-drawer-${camelize(quickStart.spec.displayName)}`}>
+    <DrawerPanelContent
+      isResizable
+      className="co-quick-start-panel-content"
+      data-testid={`qs-drawer-${camelize(quickStart.spec.displayName)}`}
+      data-qs={`qs-step-${getStep()}`}
+    >
       <div className={`co-quick-start-panel-content-head ${headerClasses}`}>
         <DrawerHead>
           <div className="co-quick-start-panel-content__title">
@@ -79,7 +102,10 @@ const QuickStartPanelContent: React.FC<QuickStartPanelContentProps> = ({
             </Title>
           </div>
           <DrawerActions>
-            <DrawerCloseButton onClick={handleClose} data-testid="qs-drawer-close" />
+            <DrawerCloseButton
+              onClick={handleClose}
+              data-testid="qs-drawer-close"
+            />
           </DrawerActions>
         </DrawerHead>
       </div>
