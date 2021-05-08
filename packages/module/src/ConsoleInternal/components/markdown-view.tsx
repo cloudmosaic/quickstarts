@@ -13,6 +13,8 @@ import './_markdown-view.scss';
 const tableTags = ["table", "thead", "tbody", "tr", "th", "td"];
 
 export const markdownConvert = (markdown, extensions?: string[]) => {
+  console.log('Markdown:')
+  console.log(markdown);
   const unsafeHtml = new Converter({
     tables: true,
     openLinksInNewWindow: true,
@@ -20,6 +22,9 @@ export const markdownConvert = (markdown, extensions?: string[]) => {
     emoji: true,
     extensions,
   }).makeHtml(markdown);
+
+  console.log('\nUnsafe html:');
+  console.log(unsafeHtml);
 
   // add hook to transform anchor tags
   DOMPurify.addHook("beforeSanitizeElements", function (node) {
@@ -57,7 +62,7 @@ export const markdownConvert = (markdown, extensions?: string[]) => {
       "span"
     ],
     ALLOWED_ATTR: ["href", "target", "rel", "class", "src", "alt"],
-    ALLOWED_URI_REGEXP: /^(?:(?:https?|mailto):|[^a-z]|[a-z+.\-]+(?:[^a-z+.\-:]|$))/i,
+    ALLOWED_URI_REGEXP: /^(?:(?:https?|mailto|didact):|[^a-z]|[a-z+.\-]+(?:[^a-z+.\-:]|$))/i,
   });
 };
 

@@ -29,6 +29,8 @@ type QuickStartPanelContentProps = {
   activeQuickStartID: string;
   handleClose: HandleClose;
   appendTo?: HTMLElement | (() => HTMLElement);
+  isResizable?: boolean;
+  showClose?: boolean;
 };
 
 const getElement = (appendTo: HTMLElement | (() => HTMLElement)) => {
@@ -43,6 +45,9 @@ const QuickStartPanelContent: React.FC<QuickStartPanelContentProps> = ({
   handleClose,
   activeQuickStartID,
   appendTo,
+  isResizable = true,
+  showClose = true,
+  ...props
 }) => {
   const { t } = useTranslation();
   const [contentRef, setContentRef] = React.useState<HTMLDivElement>();
@@ -80,10 +85,11 @@ const QuickStartPanelContent: React.FC<QuickStartPanelContentProps> = ({
 
   const content = quickStart ? (
     <DrawerPanelContent
-      isResizable
+      isResizable={isResizable}
       className="co-quick-start-panel-content"
       data-testid={`qs-drawer-${camelize(quickStart.spec.displayName)}`}
       data-qs={`qs-step-${getStep()}`}
+      {...props}
     >
       <div className={`co-quick-start-panel-content-head ${headerClasses}`}>
         <DrawerHead>
@@ -101,12 +107,12 @@ const QuickStartPanelContent: React.FC<QuickStartPanelContentProps> = ({
               </small>
             </Title>
           </div>
-          <DrawerActions>
+          {showClose && <DrawerActions>
             <DrawerCloseButton
               onClick={handleClose}
               data-testid="qs-drawer-close"
             />
-          </DrawerActions>
+          </DrawerActions>}
         </DrawerHead>
       </div>
       <DrawerPanelBody

@@ -17,11 +17,13 @@ import { getQuickStartByName } from "./utils/quick-start-utils";
 import "./QuickStartDrawer.scss";
 
 export interface QuickStartDrawerProps extends React.HTMLProps<HTMLDivElement> {
-  children: React.ReactNode;
+  children?: React.ReactNode;
   appendTo?: HTMLElement | (() => HTMLElement);
+  isStatic?: boolean;
+  fullWidth?: boolean;
 }
 
-export const QuickStartDrawer: React.FC<QuickStartDrawerProps> = ({ children, appendTo, ...props }) => {
+export const QuickStartDrawer: React.FC<QuickStartDrawerProps> = ({ children, appendTo, isStatic, fullWidth, ...props }) => {
   const allContext = React.useContext<QuickStartContextValues>(
     QuickStartContext
   );
@@ -60,6 +62,18 @@ export const QuickStartDrawer: React.FC<QuickStartDrawerProps> = ({ children, ap
 
   const onModalCancel = () => setModalOpen(false);
 
+  const fullWidthPanelStyle = fullWidth ? {
+    style: {
+      flex: 1
+    }
+  } : {};
+
+  const fullWidthBodyStyle = fullWidth ? {
+    style: {
+      display: !!activeQuickStartID ? 'none' : 'flex'
+    }
+  } : {};
+
   const panelContent = (
     <QuickStartsLoader>
       {(quickStarts) => (
@@ -68,6 +82,8 @@ export const QuickStartDrawer: React.FC<QuickStartDrawerProps> = ({ children, ap
           handleClose={handleClose}
           activeQuickStartID={activeQuickStartID}
           appendTo={appendTo}
+          isResizable={!fullWidth}
+          {...fullWidthPanelStyle}
         />
       )}
     </QuickStartsLoader>
@@ -75,12 +91,18 @@ export const QuickStartDrawer: React.FC<QuickStartDrawerProps> = ({ children, ap
 
   return (
     <>
-      <Drawer isExpanded={!!activeQuickStartID} isInline {...props}>
-        <DrawerContent panelContent={panelContent}>
-          <DrawerContentBody className="co-quick-start-drawer__body">
-            {children}
-          </DrawerContentBody>
-        </DrawerContent>
+      <Drawer isExpanded={!!activeQuickStartID} isInline isStatic={isStatic} {...props}>
+        {children ? (
+          <DrawerContent panelContent={panelContent} {...fullWidthBodyStyle}>
+            <DrawerContentBody className="co-quick-start-drawer__body">
+              {children}
+            </DrawerContentBody>
+          </DrawerContent>
+        ) : (
+          <div className="pf-c-drawer__main">
+            {panelContent}
+          </div>
+        )}
       </Drawer>
       <QuickStartCloseModal
         isOpen={modalOpen}

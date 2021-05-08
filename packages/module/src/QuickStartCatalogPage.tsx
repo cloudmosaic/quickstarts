@@ -36,6 +36,7 @@ type QuickStartCatalogPageProps = {
   showFilter?: boolean;
   sortFnc?: (q1: QuickStart, q2: QuickStart) => number;
   title?: string;
+  showTitle?: boolean;
 };
 
 export const QuickStartCatalogEmptyState = ({ clearFilters }) => {
@@ -65,6 +66,7 @@ export const QuickStartCatalogPage: React.FC<QuickStartCatalogPageProps> = ({
   showFilter,
   sortFnc = (q1, q2) => q1.spec.displayName.localeCompare(q2.spec.displayName),
   title,
+  showTitle = true
 }) => {
   const { t } = useTranslation();
   const { allQuickStartStates } = React.useContext<QuickStartContextValues>(
@@ -146,12 +148,12 @@ export const QuickStartCatalogPage: React.FC<QuickStartCatalogPageProps> = ({
 
   return (
     <>
-      <PageSection variant={PageSectionVariants.light}>
+      {showTitle && <PageSection variant={PageSectionVariants.light}>
         <TextContent>
           <Text component="h1">{title || t("quickstart~Quick Starts")}</Text>
         </TextContent>
-      </PageSection>
-      <Divider component="div" />
+      </PageSection>}
+      {showTitle && <Divider component="div" />}
       {showFilter && (
         <>
           <PageSection

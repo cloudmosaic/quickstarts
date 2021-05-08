@@ -41,7 +41,7 @@ export const QuickStartContext = createContext<QuickStartContextValues>({
   restartQuickStart: () => {}
 });
 
-const getDefaultQuickStartState = (
+export const getDefaultQuickStartState = (
   totalTasks?: number,
   initialStatus?: QuickStartStatus
 ) => {
