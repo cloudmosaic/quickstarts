@@ -56,7 +56,7 @@ export const markdownConvert = (markdown, extensions?: string[]) => {
       "img",
       "span"
     ],
-    ALLOWED_ATTR: ["href", "target", "rel", "class", "src", "alt"],
+    ALLOWED_ATTR: ["href", "target", "rel", "class", "src", "alt", "id"],
     ALLOWED_URI_REGEXP: /^(?:(?:https?|mailto|didact):|[^a-z]|[a-z+.\-]+(?:[^a-z+.\-:]|$))/i,
   });
 };
