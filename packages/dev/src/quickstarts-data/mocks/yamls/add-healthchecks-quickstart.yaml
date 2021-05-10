@@ -13,7 +13,8 @@ spec:
   version: 4.7
   displayName: Add health checks to your sample application
   durationMinutes: 10
-  description: You just created a sample application. Now, let’s add health checks
+  description: |-
+    You just created a sample application. Now, let’s add health checks
     to it.
   prerequisites: [You completed the "Getting started with a sample" quick start.]
   introduction: |-

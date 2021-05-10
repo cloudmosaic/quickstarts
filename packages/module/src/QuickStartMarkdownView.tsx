@@ -23,7 +23,22 @@ extension(EXTENSION_NAME, () => {
   ];
 });
 
-export const removeParagraphWrap = (markdown: string) => markdown.replace(/^<p>|<\/p>$/g, '');
+/* TODO: Make this extension opt-in? */
+extension("curlyAttrs", () => {
+  return [
+    {
+      type: "output",
+      filter: function (text, converter, options) {
+        // check HTML for patterns like: <em>Status: unknown</em>{#extension-requirement-status}
+        // and replace with <em id="extension-requirement-status">Status: unknown</em>
+        return text.replace(/<em>(.*)<\/em>{#(.*)}/g, '<em id="$2">$1</em>');
+      },
+    },
+  ];
+});
+
+export const removeParagraphWrap = (markdown: string) =>
+  markdown.replace(/^<p>|<\/p>$/g, "");
 
 type QuickStartMarkdownViewProps = {
   content: string;
@@ -39,7 +54,7 @@ const QuickStartMarkdownView: React.FC<QuickStartMarkdownViewProps> = ({
       inline
       content={content}
       exactHeight={exactHeight}
-      extensions={[EXTENSION_NAME]}
+      extensions={[EXTENSION_NAME, "curlyAttrs"]}
       renderExtension={(docContext, rootSelector) => (
         <MarkdownHighlightExtension
           key={content}
