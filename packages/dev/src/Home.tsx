@@ -3,8 +3,11 @@ import { Button, PageSection, Stack, StackItem } from "@patternfly/react-core";
 import {
   QuickStartContext,
   QuickStartContextValues,
-  i18n
+  i18n,
 } from "@cloudmosaic/quickstarts";
+
+import { getStorage } from './crossDomainStorage';
+
 // import {
 //   ProcedureAsciiDocParser,
 //   getQuickStartStatus,
@@ -14,6 +17,7 @@ import {
 // import { FormInput } from "./FormInput";
 
 export const Home: React.FunctionComponent = () => {
+  const [crossDomainValue, setCrossDomainValue] = React.useState("");
   // const [inputValue, setInputValue] = React.useState("");
   // const qsContext: QuickStartContextValues = React.useContext(QuickStartContext);
 
@@ -73,6 +77,32 @@ export const Home: React.FunctionComponent = () => {
               Change lng - EN
             </Button>
           </StackItem>
+          {/* <StackItem>
+            <Button
+              variant="secondary"
+              onClick={() => {
+                getStorage().get(
+                  "quickStartCrossDomain",
+                  (error: any, value: string) => {
+                    debugger;
+                    if (error) {
+                      console.log(error);
+                    } else {
+                      setCrossDomainValue(value);
+                    }
+                  }
+                );
+              }}
+            >
+              Get cross domain value
+            </Button>
+          </StackItem> */}
+          {/* <StackItem>
+            <p>
+              Value stored in cross domain storage:{" "}
+              {crossDomainValue}
+            </p>
+          </StackItem> */}
           {/* <StackItem>
             <FormInput inputValue={inputValue} setInputValue={setInputValue} />
           </StackItem>

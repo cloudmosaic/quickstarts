@@ -15,14 +15,19 @@ import imgAvatar from "./assets/images/imgAvatar.svg";
 import { Link, useHistory } from "react-router-dom";
 import Demos from "./Demos";
 import "./App.css";
+import './LearningFrame.css';
 import {
   QuickStartDrawer,
   QuickStartContext,
   useValuesForQuickStartContext,
   useLocalStorage,
+  QuickStart,
+  getDefaultQuickStartState
 } from "@cloudmosaic/quickstarts";
 import { allQuickStarts as yamlQuickStarts } from "./quickstarts-data/quick-start-test-data";
 import { loadJSONQuickStarts } from "./quickstarts-data/mas-guides/quickstartLoader";
+import { wrapBody } from './learningFrame/learningFrame';
+import { getStorage } from './crossDomainStorage';
 
 const App: React.FunctionComponent = ({ children }) => {
   const history = useHistory();
@@ -52,9 +57,52 @@ const App: React.FunctionComponent = ({ children }) => {
   const [allQuickStarts, setAllQuickStarts] = React.useState<any[]>([]);
   React.useEffect(() => {
     const load = async () => {
+      let combinedQuickStarts: QuickStart[];
       const masGuidesQuickstarts = await loadJSONQuickStarts("");
-      setAllQuickStarts(yamlQuickStarts.concat(masGuidesQuickstarts));
-      setAllQuickStartsLoaded(true);
+      combinedQuickStarts = yamlQuickStarts.concat(masGuidesQuickstarts);
+
+      const queryParams = new URLSearchParams(window.location.search);
+      const onLearningPath = queryParams.get('learning') || false;
+      if (onLearningPath === 'true') {
+        getStorage().get(
+          "quickStartCrossDomain",
+          (error: any, value: string) => {
+            if (error) {
+              console.log(error);
+            } else {
+              const valueObj = JSON.parse(value);
+              if (valueObj.quickstartId) {
+                setAllQuickStarts(combinedQuickStarts);
+                setActiveQuickStartID(valueObj.quickstartId);
+                let newState = {
+                  [valueObj.quickstartId]: getDefaultQuickStartState()
+                };
+                setAllQuickStartStates({
+                  ...allQuickStartStates,
+                  ...newState
+                });
+                setAllQuickStartsLoaded(true);
+              } else if (valueObj.quickstartContent) {
+                combinedQuickStarts = combinedQuickStarts.concat(valueObj.quickstartContent);
+                setAllQuickStarts(combinedQuickStarts);
+                setActiveQuickStartID(valueObj.quickstartContent.metadata.name);
+                let newState = {
+                  [valueObj.quickstartContent.metadata.name]: getDefaultQuickStartState()
+                };
+                setAllQuickStartStates({
+                  ...allQuickStartStates,
+                  ...newState
+                });
+                setAllQuickStartsLoaded(true);
+              }
+              wrapBody(null, valueObj.host, `/${valueObj.tutorial}/${valueObj.step}`);
+            }
+          }
+        );
+      } else {
+        setAllQuickStarts(combinedQuickStarts);
+        setAllQuickStartsLoaded(true);
+      }
     };
     load();
   }, []);

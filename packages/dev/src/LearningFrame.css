@@ -1,0 +1,65 @@
+.tut-drawer .mas-quickstart-drawer {
+  height: inherit !important;
+}
+
+.tut-main {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+.tut-main .tut-img-fluid {
+  max-width: 120px;
+  max-height: 30px;
+  padding-right: 8px;
+}
+
+.tut-main .pf-c-page__main-breadcrumb,
+.tut-main .tut-header {
+  display: flex;
+  align-items: center;
+  background-color: #0088ce;
+  padding: 0;
+  box-shadow: 0 4px 14px 0 rgba(155, 155, 155, 0.2);
+  top: 0px;
+  width: 100%;
+  /* background-image: url("../images/bg_grid-our-code-is-open.jpeg"); */
+  /* background-image: url("https://www.redhat.com/cms/managed-files/bg_grid-our-code-is-open.jpg"); */
+  /* background-size: cover; */
+  /* background-position: bottom right; */
+}
+
+.tut-main .tut-header__body {
+  padding: 10px 16px;
+  flex-grow: 1;
+}
+
+.tut-main .tut-header__body .pf-c-breadcrumb__item-divider {
+  color: white;
+}
+
+.tut-main .tut-header__body .pf-c-breadcrumb__item a {
+  color: white;
+}
+.tut-main .tut-header__body .pf-c-breadcrumb__item a:hover {
+  color: white;
+}
+
+.tut-drawer {
+  position: fixed;
+  top: 49px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  border: 5px solid #0088ce;
+}
+
+.tut-drawer .imageblock.screencapture {
+    display: none;
+}
+
+.tut-home a {
+    display: flex;
+    align-items: center;
+}
