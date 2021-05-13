@@ -1,16 +1,16 @@
-import * as React from "react";
+import * as React from 'react';
 import cx from 'classnames';
-import _includes from "lodash-es/includes";
-import _reduce from "lodash-es/reduce";
-import _truncate from "lodash-es/truncate";
-import _uniqueId from "lodash-es/uniqueId";
-import { Converter } from "showdown";
-import DOMPurify from "dompurify";
+import _includes from 'lodash-es/includes';
+import _reduce from 'lodash-es/reduce';
+import _truncate from 'lodash-es/truncate';
+import _uniqueId from 'lodash-es/uniqueId';
+import { Converter } from 'showdown';
+import DOMPurify from 'dompurify';
 import { useTranslation } from 'react-i18next';
 
 import './_markdown-view.scss';
 
-const tableTags = ["table", "thead", "tbody", "tr", "th", "td"];
+const tableTags = ['table', 'thead', 'tbody', 'tr', 'th', 'td'];
 
 export const markdownConvert = (markdown, extensions?: string[]) => {
   const unsafeHtml = new Converter({
@@ -22,41 +22,41 @@ export const markdownConvert = (markdown, extensions?: string[]) => {
   }).makeHtml(markdown);
 
   // add hook to transform anchor tags
-  DOMPurify.addHook("beforeSanitizeElements", function (node) {
+  DOMPurify.addHook('beforeSanitizeElements', function (node) {
     // nodeType 1 = element type
-    if (node.nodeType === 1 && node.nodeName.toLowerCase() === "a") {
-      node.setAttribute("rel", "noopener noreferrer");
+    if (node.nodeType === 1 && node.nodeName.toLowerCase() === 'a') {
+      node.setAttribute('rel', 'noopener noreferrer');
       return node;
     }
   });
 
   return DOMPurify.sanitize(unsafeHtml, {
     ALLOWED_TAGS: [
-      "b",
-      "i",
-      "strike",
-      "s",
-      "del",
-      "em",
-      "strong",
-      "a",
-      "p",
-      "h1",
-      "h2",
-      "h3",
-      "h4",
-      "ul",
-      "ol",
-      "li",
-      "code",
-      "pre",
-      "button",
+      'b',
+      'i',
+      'strike',
+      's',
+      'del',
+      'em',
+      'strong',
+      'a',
+      'p',
+      'h1',
+      'h2',
+      'h3',
+      'h4',
+      'ul',
+      'ol',
+      'li',
+      'code',
+      'pre',
+      'button',
       ...tableTags,
-      "div",
-      "img",
-      "span"
+      'div',
+      'img',
+      'span',
     ],
-    ALLOWED_ATTR: ["href", "target", "rel", "class", "src", "alt", "id"],
+    ALLOWED_ATTR: ['href', 'target', 'rel', 'class', 'src', 'alt', 'id'],
     ALLOWED_URI_REGEXP: /^(?:(?:https?|mailto|didact):|[^a-z]|[a-z+.\-]+(?:[^a-z+.\-:]|$))/i,
   });
 };
@@ -142,8 +142,9 @@ const IFrameMarkdownView: React.FC<InnerSyncMarkdownProps> = ({
         frame.style.height = `${frame.contentWindow.document.body.firstElementChild.scrollHeight}px`;
       } else {
         // Increase by 15px for the case where a horizontal scrollbar might appear
-        frame.style.height = `${frame.contentWindow.document.body.firstElementChild.scrollHeight +
-          15}px`;
+        frame.style.height = `${
+          frame.contentWindow.document.body.firstElementChild.scrollHeight + 15
+        }px`;
       }
     });
   }, [frame, exactHeight]);

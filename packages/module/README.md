@@ -32,11 +32,11 @@ Additionally for styles the package depends on (might bundle these up as vendor.
 In your web-apps entry point, add this (these should be imported before modules from the package are imported):
 
 ```js
-import "@patternfly/patternfly/base/patternfly-shield-inheritable.css";
-import "@patternfly/patternfly/patternfly.min.css";
-import "@patternfly/patternfly/utilities/Accessibility/accessibility.css";
-import "@patternfly/react-catalog-view-extension/dist/css/react-catalog-view-extension.css";
-import "@cloudmosaic/quickstarts/dist/quickstarts.css";
+import '@patternfly/patternfly/base/patternfly-shield-inheritable.css';
+import '@patternfly/patternfly/patternfly.min.css';
+import '@patternfly/patternfly/utilities/Accessibility/accessibility.css';
+import '@patternfly/react-catalog-view-extension/dist/css/react-catalog-view-extension.css';
+import '@cloudmosaic/quickstarts/dist/quickstarts.css';
 ```
 
 ## Usage
@@ -52,23 +52,17 @@ import {
   useLocalStorage,
   QuickStartContextValues,
   QuickStartContext,
-} from "@cloudmosaic/quickstarts";
+} from '@cloudmosaic/quickstarts';
 // for how these yaml files should look see below
-import quickstartOne from ".yamls/quickstart-one.yaml";
-import quickstartTwo from ".yamls/quickstart-two.yaml";
+import quickstartOne from '.yamls/quickstart-one.yaml';
+import quickstartTwo from '.yamls/quickstart-two.yaml';
 
 const App = () => {
   const allQuickStarts = [quickstartOne, quickstartTwo];
-  const [activeQuickStartID, setActiveQuickStartID] = useLocalStorage(
-    "quickstartId",
-    ""
-  );
-  const [allQuickStartStates, setAllQuickStartStates] = useLocalStorage(
-    "quickstarts",
-    {}
-  );
+  const [activeQuickStartID, setActiveQuickStartID] = useLocalStorage('quickstartId', '');
+  const [allQuickStartStates, setAllQuickStartStates] = useLocalStorage('quickstarts', {});
   const { pathname: currentPath } = window.location;
-  const quickStartPath = "/quickstarts";
+  const quickStartPath = '/quickstarts';
   const valuesForQuickstartContext = useValuesForQuickStartContext({
     allQuickStarts,
     activeQuickStartID,
@@ -86,11 +80,7 @@ const App = () => {
       <QuickStartDrawer>
         <div>
           <h1>My app</h1>
-          <button
-            onClick={() =>
-              valuesForQuickstartContext.setActiveQuickStart("a quickstart id")
-            }
-          >
+          <button onClick={() => valuesForQuickstartContext.setActiveQuickStart('a quickstart id')}>
             Open a quickstart
           </button>
           <QuickStartCatalogPage />
@@ -102,15 +92,9 @@ const App = () => {
 };
 
 const SomeNestedComponent = () => {
-  const qsContext = React.useContext<QuickStartContextValues>(
-    QuickStartContext
-  );
+  const qsContext = React.useContext < QuickStartContextValues > QuickStartContext;
   return (
-    <button
-      onClick={() =>
-        qsContext.setActiveQuickStart("a quickstart id")
-      }
-    >
+    <button onClick={() => qsContext.setActiveQuickStart('a quickstart id')}>
       Open a quickstart from a nested component
     </button>
   );
@@ -132,8 +116,9 @@ In the quickstart .yaml file, you can add this type of markdown text to target t
 . To highlight items from a quick start, first the target item needs to have a data attribute: **data-quickstart-id="something"**
 . Then in asciidoc, the trigger element needs to have the `data-highlight__something` class/role, where the part after `data-highlight__` matches the data-quickstart-id of the target
 Here are some examples:
-* `link:[Click me to highlight the logo, role="data-highlight__logo"]`
-* `link:[Click me to highlight the Home nav item, role="data-highlight__home"]`
+
+- `link:[Click me to highlight the logo, role="data-highlight__logo"]`
+- `link:[Click me to highlight the Home nav item, role="data-highlight__home"]`
 
 ## Webpack
 
@@ -142,11 +127,11 @@ You can reduce the size of your CSS bundle by using `clean-css-loader` and `null
 In the webpack config:
 
 ```js
-const isProd = argv.mode === "production";
-const cssLoaders = ["style-loader", "css-loader"];
+const isProd = argv.mode === 'production';
+const cssLoaders = ['style-loader', 'css-loader'];
 if (isProd) {
   // push loader for production mode only
-  cssLoaders.push("clean-css-loader");
+  cssLoaders.push('clean-css-loader');
 }
 ```
 

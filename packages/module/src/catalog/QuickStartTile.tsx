@@ -1,19 +1,16 @@
-import * as React from "react";
-import { CatalogTile } from "@patternfly/react-catalog-view-extension";
-import { RocketIcon } from "@patternfly/react-icons";
-import { FallbackImg } from "@console/shared";
-import { QuickStartStatus, QuickStart } from "../utils/quick-start-types";
-import QuickStartTileHeader from "./QuickStartTileHeader";
-import QuickStartTileDescription from "./QuickStartTileDescription";
-import QuickStartTileFooter from "./QuickStartTileFooter";
-import QuickStartTileFooterExternal from "./QuickStartTileFooterExternal";
-import {
-  QuickStartContext,
-  QuickStartContextValues,
-} from "../utils/quick-start-context";
-import { camelize } from "../utils/quick-start-utils";
+import * as React from 'react';
+import { CatalogTile } from '@patternfly/react-catalog-view-extension';
+import { RocketIcon } from '@patternfly/react-icons';
+import { FallbackImg } from '@console/shared';
+import { QuickStartStatus, QuickStart } from '../utils/quick-start-types';
+import QuickStartTileHeader from './QuickStartTileHeader';
+import QuickStartTileDescription from './QuickStartTileDescription';
+import QuickStartTileFooter from './QuickStartTileFooter';
+import QuickStartTileFooterExternal from './QuickStartTileFooterExternal';
+import { QuickStartContext, QuickStartContextValues } from '../utils/quick-start-context';
+import { camelize } from '../utils/quick-start-utils';
 
-import "./QuickStartTile.scss";
+import './QuickStartTile.scss';
 
 type QuickStartTileProps = {
   quickStart: QuickStart;
@@ -21,28 +18,13 @@ type QuickStartTileProps = {
   isActive: boolean;
 };
 
-const QuickStartTile: React.FC<QuickStartTileProps> = ({
-  quickStart,
-  status,
-  isActive
-}) => {
+const QuickStartTile: React.FC<QuickStartTileProps> = ({ quickStart, status, isActive }) => {
   const {
     metadata: { name: id },
-    spec: {
-      icon,
-      tasks,
-      displayName,
-      description,
-      durationMinutes,
-      prerequisites,
-      link,
-      type
-    },
+    spec: { icon, tasks, displayName, description, durationMinutes, prerequisites, link, type },
   } = quickStart;
 
-  const {
-    setActiveQuickStart,
-  } = React.useContext<QuickStartContextValues>(QuickStartContext);
+  const { setActiveQuickStart } = React.useContext<QuickStartContextValues>(QuickStartContext);
 
   const quickStartIcon = (
     <FallbackImg
@@ -57,7 +39,7 @@ const QuickStartTile: React.FC<QuickStartTileProps> = ({
       // @ts-ignore
       component="div"
       style={{
-        cursor: 'pointer'
+        cursor: 'pointer',
       }}
       icon={quickStartIcon}
       className="co-quick-start-tile"
@@ -79,20 +61,13 @@ const QuickStartTile: React.FC<QuickStartTileProps> = ({
         }
       }}
       description={
-        <QuickStartTileDescription
-          description={description}
-          prerequisites={prerequisites}
-        />
+        <QuickStartTileDescription description={description} prerequisites={prerequisites} />
       }
       footer={
         link ? (
           <QuickStartTileFooterExternal link={link} />
         ) : (
-          <QuickStartTileFooter
-            quickStartId={id}
-            status={status}
-            totalTasks={tasks?.length}
-          />
+          <QuickStartTileFooter quickStartId={id} status={status} totalTasks={tasks?.length} />
         )
       }
     />

@@ -63,9 +63,9 @@ export enum QuickStartTaskStatus {
 export type QuickStartExternal = {
   href: string;
   text?: string;
-}
+};
 
 export type QuickStartType = {
   text: string;
   color?: 'blue' | 'cyan' | 'green' | 'orange' | 'purple' | 'red' | 'grey';
-}
+};

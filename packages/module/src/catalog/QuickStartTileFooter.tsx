@@ -16,9 +16,11 @@ const QuickStartTileFooter: React.FC<QuickStartTileFooterProps> = ({
   totalTasks,
 }) => {
   const { t } = useTranslation();
-  const { activeQuickStartID, startQuickStart, restartQuickStart } = React.useContext<
-    QuickStartContextValues
-  >(QuickStartContext);
+  const {
+    activeQuickStartID,
+    startQuickStart,
+    restartQuickStart,
+  } = React.useContext<QuickStartContextValues>(QuickStartContext);
 
   const start = React.useCallback(
     (e: React.SyntheticEvent) => {
@@ -63,7 +65,12 @@ const QuickStartTileFooter: React.FC<QuickStartTileFooterProps> = ({
       )}
       {status === QuickStartStatus.IN_PROGRESS && (
         <FlexItem>
-          <Button onClick={restart} variant="link" isInline data-testid="qs-card-inProgress-restart">
+          <Button
+            onClick={restart}
+            variant="link"
+            isInline
+            data-testid="qs-card-inProgress-restart"
+          >
             {t('quickstart~Restart the tour')}
           </Button>
         </FlexItem>

@@ -1,20 +1,20 @@
-import i18n from "i18next";
-import { initReactI18next } from "react-i18next";
-import detector from "i18next-browser-languagedetector";
-import Pseudo from "i18next-pseudo";
-import dayjs from "dayjs";
-import * as relativeTime from "dayjs/plugin/relativeTime";
+import i18n from 'i18next';
+import { initReactI18next } from 'react-i18next';
+import detector from 'i18next-browser-languagedetector';
+import Pseudo from 'i18next-pseudo';
+import dayjs from 'dayjs';
+import * as relativeTime from 'dayjs/plugin/relativeTime';
 
-import en from "../locales/en/quickstart.json";
-import de from "../locales/de/quickstart.json";
+import en from '../locales/en/quickstart.json';
+import de from '../locales/de/quickstart.json';
 
 // import locales for any languages you're supporting (English is included by default)
-import "dayjs/locale/de";
+import 'dayjs/locale/de';
 
 // Pseudo won't work while the detector is enabled
 // https://github.com/MattBoatman/i18next-pseudo/issues/4
 const params = new URLSearchParams(window.location.search);
-const pseudolocalizationEnabled = params.get("pseudolocalization") === "true";
+const pseudolocalizationEnabled = params.get('pseudolocalization') === 'true';
 
 declare const window: Window & {
   windowError: string;
@@ -39,26 +39,26 @@ i18n
           quickstart: de,
         },
       },
-      fallbackLng: "en",
-      load: "all",
-      debug: process.env.NODE_ENV === "development",
+      fallbackLng: 'en',
+      load: 'all',
+      debug: process.env.NODE_ENV === 'development',
       detection: { caches: [] },
-      contextSeparator: "~",
+      contextSeparator: '~',
       // add any namespaces you're using here for loading purposes
-      ns: ["quickstart"],
-      defaultNS: "quickstart",
-      nsSeparator: "~",
+      ns: ['quickstart'],
+      defaultNS: 'quickstart',
+      nsSeparator: '~',
       keySeparator: false,
-      postProcess: ["pseudo"],
+      postProcess: ['pseudo'],
       interpolation: {
         format: function (value, format, lng, options) {
           options = options || {};
-          if (format === "number") {
+          if (format === 'number') {
             // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat#Browser_compatibility
             return new Intl.NumberFormat(lng).format(value);
           }
           if (value instanceof Date) {
-            if (format === "fromNow") {
+            if (format === 'fromNow') {
               return dayjs(value).fromNow(options.omitSuffix === true);
             }
             return dayjs(value).format(format);
@@ -80,10 +80,10 @@ i18n
     },
     () => {
       dayjs.locale(i18n.language);
-    }
+    },
   );
 
-i18n.on("languageChanged", function (lng) {
+i18n.on('languageChanged', function (lng) {
   // console.log(`current lng: ${i18n.language}`);
   // console.log(`switching lng: ${lng}`);
   // i18n.changeLanguage(lng);

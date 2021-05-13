@@ -1,12 +1,12 @@
-@import "style/vars";
-@import "style/base";
+@import 'style/vars';
+@import 'style/base';
 
 // Mixins
-@import "style/mixin/break-word";
+@import 'style/mixin/break-word';
 
 // React Components
-@import "components/icon-and-text";
-@import "components/catalog/catalog";
+@import 'components/icon-and-text';
+@import 'components/catalog/catalog';
 
 .co-quick-start-panel-content,
 .ocs-page-layout__content {

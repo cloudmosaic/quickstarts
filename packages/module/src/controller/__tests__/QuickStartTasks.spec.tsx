@@ -51,26 +51,17 @@ describe('QuickStartTasks', () => {
       />,
     );
 
-    expect(
-      wrapper
-        .find(QuickStartMarkdownView)
-        .at(0)
-        .props().content,
-    ).toEqual(props.tasks[0].summary.success);
+    expect(wrapper.find(QuickStartMarkdownView).at(0).props().content).toEqual(
+      props.tasks[0].summary.success,
+    );
 
-    expect(
-      wrapper
-        .find(QuickStartMarkdownView)
-        .at(1)
-        .props().content,
-    ).toEqual(props.tasks[1].summary.failed);
+    expect(wrapper.find(QuickStartMarkdownView).at(1).props().content).toEqual(
+      props.tasks[1].summary.failed,
+    );
 
-    expect(
-      wrapper
-        .find(QuickStartMarkdownView)
-        .at(2)
-        .props().content,
-    ).toEqual(props.tasks[2].description);
+    expect(wrapper.find(QuickStartMarkdownView).at(2).props().content).toEqual(
+      props.tasks[2].description,
+    );
   });
 
   it('should render review when task is active and in Review state', () => {

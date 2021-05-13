@@ -39,10 +39,15 @@ const QuickStartTileDescription: React.FC<QuickStartTileDescriptionProps> = ({
             aria-label={t('quickstart~Prerequisites')}
             headerContent={t('quickstart~Prerequisites')}
             bodyContent={
-              <TextList aria-label={t('quickstart~Prerequisites')} className="co-quick-start-tile-prerequisites-list">
+              <TextList
+                aria-label={t('quickstart~Prerequisites')}
+                className="co-quick-start-tile-prerequisites-list"
+              >
                 {prereqs.map((prerequisite, index) => (
                   // eslint-disable-next-line react/no-array-index-key
-                  <TextListItem key={index}><QuickStartMarkdownView content={prerequisite} /></TextListItem>
+                  <TextListItem key={index}>
+                    <QuickStartMarkdownView content={prerequisite} />
+                  </TextListItem>
                 ))}
               </TextList>
             }

@@ -1,8 +1,8 @@
 import './style.scss';
-import "./i18n/i18n";
+import './i18n/i18n';
 
 export * from './QuickStartCatalogPage';
-export * from './catalog'
+export * from './catalog';
 export * from './ConsoleInternal/components/utils';
 export * from './QuickStartDrawer';
 export * from './utils/const';

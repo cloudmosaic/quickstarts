@@ -1,14 +1,11 @@
-import * as React from "react";
-import { useTranslation } from "react-i18next";
-import { Button } from "@patternfly/react-core";
-import { QuickStartStatus } from "../utils/quick-start-types";
-import {
-  QuickStartContext,
-  QuickStartContextValues,
-} from "../utils/quick-start-context";
-import { camelize } from "../utils/quick-start-utils";
+import * as React from 'react';
+import { useTranslation } from 'react-i18next';
+import { Button } from '@patternfly/react-core';
+import { QuickStartStatus } from '../utils/quick-start-types';
+import { QuickStartContext, QuickStartContextValues } from '../utils/quick-start-context';
+import { camelize } from '../utils/quick-start-utils';
 
-import "./QuickStartFooter.scss";
+import './QuickStartFooter.scss';
 
 export type QuickStartFooterProps = {
   status: QuickStartStatus;
@@ -28,24 +25,21 @@ const QuickStartFooter: React.FC<QuickStartFooterProps> = ({
   footerClass,
 }) => {
   const { t } = useTranslation();
-  const { footer } = React.useContext<QuickStartContextValues>(
-    QuickStartContext
-  );
+  const { footer } = React.useContext<QuickStartContextValues>(QuickStartContext);
 
   const showAllLink = footer?.showAllLink;
   const onShowAllLinkClick = footer?.onShowAllLinkClick;
 
   const PrimaryButtonText = {
-    START: t("quickstart~Start tour"),
-    NEXT: t("quickstart~Next"),
-    CLOSE: t("quickstart~Close"),
+    START: t('quickstart~Start tour'),
+    NEXT: t('quickstart~Next'),
+    CLOSE: t('quickstart~Close'),
   };
 
   const getPrimaryButtonText = React.useCallback((): string => {
     if (taskNumber === totalTasks) return PrimaryButtonText.CLOSE;
 
-    if (taskNumber > -1 && taskNumber < totalTasks)
-      return PrimaryButtonText.NEXT;
+    if (taskNumber > -1 && taskNumber < totalTasks) return PrimaryButtonText.NEXT;
 
     return PrimaryButtonText.START;
   }, [
@@ -60,7 +54,7 @@ const QuickStartFooter: React.FC<QuickStartFooterProps> = ({
     <div className={`co-quick-start-footer ${footerClass}`}>
       <Button
         style={{
-          marginRight: "var(--pf-global--spacer--md)",
+          marginRight: 'var(--pf-global--spacer--md)',
         }}
         type="submit"
         variant="primary"
@@ -73,7 +67,7 @@ const QuickStartFooter: React.FC<QuickStartFooterProps> = ({
       {taskNumber > -1 && (
         <Button
           style={{
-            marginRight: "var(--pf-global--spacer--md)",
+            marginRight: 'var(--pf-global--spacer--md)',
           }}
           type="submit"
           variant="secondary"
@@ -81,16 +75,19 @@ const QuickStartFooter: React.FC<QuickStartFooterProps> = ({
           isInline
           data-testid="qs-drawer-back"
         >
-          {t("quickstart~Back")}
+          {t('quickstart~Back')}
         </Button>
       )}
-      {status === QuickStartStatus.COMPLETE &&
-        showAllLink &&
-        onShowAllLinkClick && (
-          <Button variant="link" isInline onClick={onShowAllLinkClick} data-testid="qs-drawer-viewAllTours">
-            {t("quickstart~View all tours")}
-          </Button>
-        )}
+      {status === QuickStartStatus.COMPLETE && showAllLink && onShowAllLinkClick && (
+        <Button
+          variant="link"
+          isInline
+          onClick={onShowAllLinkClick}
+          data-testid="qs-drawer-viewAllTours"
+        >
+          {t('quickstart~View all tours')}
+        </Button>
+      )}
     </div>
   );
 };
