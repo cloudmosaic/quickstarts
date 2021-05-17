@@ -27,6 +27,7 @@ type QuickStartCatalogPageProps = {
   showFilter?: boolean;
   sortFnc?: (q1: QuickStart, q2: QuickStart) => number;
   title?: string;
+  hint?: string;
   showTitle?: boolean;
 };
 
@@ -57,6 +58,7 @@ export const QuickStartCatalogPage: React.FC<QuickStartCatalogPageProps> = ({
   showFilter,
   sortFnc = (q1, q2) => q1.spec.displayName.localeCompare(q2.spec.displayName),
   title,
+  hint,
   showTitle = true,
 }) => {
   const { t } = useTranslation();
@@ -126,9 +128,12 @@ export const QuickStartCatalogPage: React.FC<QuickStartCatalogPageProps> = ({
   return (
     <>
       {showTitle && (
-        <PageSection variant={PageSectionVariants.light}>
+        <PageSection variant={PageSectionVariants.light} className="ocs-page-layout__header">
           <TextContent>
-            <Text component="h1">{title || t('quickstart~Quick Starts')}</Text>
+            <Text component="h1" /*className="ocs-page-layout__title"*/>
+              {title || t('quickstart~Quick Starts')}
+            </Text>
+            {hint && <div className="ocs-page-layout__hint">{hint}</div>}
           </TextContent>
         </PageSection>
       )}

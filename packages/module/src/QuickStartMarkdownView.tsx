@@ -15,8 +15,8 @@ type QuickStartMarkdownViewProps = {
 const QuickStartMarkdownView: React.FC<QuickStartMarkdownViewProps> = ({
   content,
   exactHeight,
-  extensions,
-  renderExtensionComponents,
+  extensions = [],
+  renderExtensionComponents = () => {},
 }) => {
   return (
     <SyncMarkdownView

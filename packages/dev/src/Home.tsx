@@ -3,7 +3,9 @@ import { Button, PageSection, Stack, StackItem } from "@patternfly/react-core";
 import {
   QuickStartContext,
   QuickStartContextValues,
-  i18n
+  i18n,
+  QuickStartPanelContent,
+  QuickStartCloseModal,
 } from "@cloudmosaic/quickstarts";
 // import {
 //   ProcedureAsciiDocParser,
@@ -49,6 +51,7 @@ export const Home: React.FunctionComponent = () => {
 
   return (
     <>
+      <QuickStartCloseModal isOpen onConfirm={() => {}} onCancel={() => {}} />
       <PageSection>
         <h1>Quick starts demo app</h1>
         <p>To view all quick starts, click the left "Quick Starts" nav item</p>
