@@ -7,7 +7,8 @@ import {
   QuickStart,
 } from './quick-start-types';
 import { setQueryArgument, removeQueryArgument } from '../ConsoleInternal/components/utils/router';
-import { QUICKSTART_ID_FILTER_KEY } from './const';
+import { QUICKSTART_ID_FILTER_KEY, QUICKSTART_TASKS_INITIAL_STATES } from './const';
+import { getTaskStatusKey } from './quick-start-utils';
 
 type FooterProps = {
   show?: boolean;
@@ -54,7 +55,7 @@ export const getDefaultQuickStartState = (
   };
   if (totalTasks) {
     for (let i = 0; i < totalTasks; i++) {
-      defaultQuickStartState[`taskStatus${i}`] = QuickStartTaskStatus.INIT;
+      defaultQuickStartState[getTaskStatusKey(i)] = QuickStartTaskStatus.INIT;
     }
   }
   return defaultQuickStartState;
@@ -154,7 +155,7 @@ export const useValuesForQuickStartContext = ({
         const quickStart = qs[activeQuickStartID];
         const status = quickStart?.status;
         const taskNumber = quickStart?.taskNumber as number;
-        const taskStatus = quickStart[`taskStatus${taskNumber}`];
+        const taskStatus = quickStart[getTaskStatusKey(taskNumber)];
 
         let updatedStatus;
         let updatedTaskNumber;
@@ -164,27 +165,36 @@ export const useValuesForQuickStartContext = ({
           updatedStatus = QuickStartStatus.IN_PROGRESS;
         } else if (
           status === QuickStartStatus.IN_PROGRESS &&
-          taskStatus !== QuickStartTaskStatus.INIT &&
+          !QUICKSTART_TASKS_INITIAL_STATES.includes(taskStatus as any) &&
           taskNumber === totalTasks - 1
         ) {
           updatedStatus = QuickStartStatus.COMPLETE;
         }
 
-        if (taskStatus === QuickStartTaskStatus.INIT) {
+        if (taskStatus === QuickStartTaskStatus.VISITED) {
           updatedTaskStatus = QuickStartTaskStatus.REVIEW;
         }
 
         if (taskNumber < totalTasks && !updatedTaskStatus) {
           updatedTaskNumber = taskNumber + 1;
         }
-
+        const markInitialStepVisited =
+          updatedTaskNumber > -1 &&
+          quickStart[getTaskStatusKey(updatedTaskNumber)] === QuickStartTaskStatus.INIT
+            ? QuickStartTaskStatus.VISITED
+            : quickStart[getTaskStatusKey(updatedTaskNumber)];
         const newState = {
           ...qs,
           [activeQuickStartID]: {
             ...quickStart,
             ...(updatedStatus ? { status: updatedStatus } : {}),
-            ...(updatedTaskNumber > -1 ? { taskNumber: updatedTaskNumber } : {}),
-            ...(updatedTaskStatus ? { [`taskStatus${taskNumber}`]: updatedTaskStatus } : {}),
+            ...(updatedTaskNumber > -1
+              ? {
+                  taskNumber: updatedTaskNumber,
+                  [getTaskStatusKey(updatedTaskNumber)]: markInitialStepVisited,
+                }
+              : {}),
+            ...(updatedTaskStatus ? { [getTaskStatusKey(taskNumber)]: updatedTaskStatus } : {}),
           },
         };
         return newState;
@@ -202,7 +212,10 @@ export const useValuesForQuickStartContext = ({
 
       return {
         ...qs,
-        [activeQuickStartID]: { ...quickStart, taskNumber: taskNumber - 1 },
+        [activeQuickStartID]: {
+          ...quickStart,
+          taskNumber: taskNumber - 1,
+        },
       };
     });
   }, [activeQuickStartID, setAllQuickStartStates]);
@@ -216,10 +229,24 @@ export const useValuesForQuickStartContext = ({
         if (taskNumber > -1 && status === QuickStartStatus.NOT_STARTED) {
           updatedStatus = QuickStartStatus.IN_PROGRESS;
         }
+
+        let updatedTaskStatus = {};
+        for (let taskIndex = 0; taskIndex <= taskNumber; taskIndex++) {
+          const taskStatus = quickStart[getTaskStatusKey(taskIndex)];
+          const newTaskStatus =
+            taskStatus === QuickStartTaskStatus.INIT ? QuickStartTaskStatus.VISITED : undefined;
+          if (newTaskStatus) {
+            updatedTaskStatus = {
+              ...updatedTaskStatus,
+              [getTaskStatusKey(taskIndex)]: newTaskStatus,
+            };
+          }
+        }
         const updatedQuickStart = {
           ...quickStart,
           ...(updatedStatus ? { status: updatedStatus } : {}),
           taskNumber,
+          ...updatedTaskStatus,
         };
         return { ...qs, [quickStartId]: updatedQuickStart };
       });
@@ -233,7 +260,7 @@ export const useValuesForQuickStartContext = ({
       const { taskNumber } = quickStart;
       const updatedQuickStart = {
         ...quickStart,
-        [`taskStatus${taskNumber}`]: taskStatus,
+        [getTaskStatusKey(taskNumber as any)]: taskStatus,
       };
       setAllQuickStartStates((qs) => ({
         ...qs,
