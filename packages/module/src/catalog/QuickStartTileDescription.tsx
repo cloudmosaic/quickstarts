@@ -25,9 +25,7 @@ const QuickStartTileDescription: React.FC<QuickStartTileDescriptionProps> = ({
   const prereqs = prerequisites?.filter((p) => p);
   return (
     <>
-      <Text component={TextVariants.p} className="oc-quick-start-tile-description">
-        <QuickStartMarkdownView content={description} />
-      </Text>
+      <QuickStartMarkdownView content={description} className="oc-quick-start-tile-description" />
       {prereqs?.length > 0 && (
         <div className="co-quick-start-tile-prerequisites">
           <Text component={TextVariants.h5} className="co-quick-start-tile-prerequisites__text">

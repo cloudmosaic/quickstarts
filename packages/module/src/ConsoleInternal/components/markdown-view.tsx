@@ -69,11 +69,13 @@ type SyncMarkdownProps = {
   extensions?: string[];
   renderExtension?: (contentDocument: HTMLDocument, rootSelector: string) => React.ReactNode;
   inline?: boolean;
+  className?: string;
 };
 
 type InnerSyncMarkdownProps = Pick<SyncMarkdownProps, 'renderExtension' | 'exactHeight'> & {
   markup: string;
   isEmpty: boolean;
+  className?: string;
 };
 
 export const SyncMarkdownView: React.FC<SyncMarkdownProps> = ({
@@ -84,6 +86,7 @@ export const SyncMarkdownView: React.FC<SyncMarkdownProps> = ({
   renderExtension,
   exactHeight,
   inline,
+  className,
 }) => {
   const { t } = useTranslation();
   const markup = React.useMemo(() => {
@@ -101,6 +104,7 @@ export const SyncMarkdownView: React.FC<SyncMarkdownProps> = ({
     exactHeight,
     markup,
     isEmpty: !content,
+    className
   };
   return inline ? <InlineMarkdownView {...innerProps} /> : <IFrameMarkdownView {...innerProps} />;
 };
@@ -109,10 +113,11 @@ const InlineMarkdownView: React.FC<InnerSyncMarkdownProps> = ({
   markup,
   isEmpty,
   renderExtension,
+  className,
 }) => {
   const id = React.useMemo(() => _uniqueId('markdown'), []);
   return (
-    <div className={cx('co-markdown-view', { ['is-empty']: isEmpty })} id={id}>
+    <div className={cx('co-markdown-view', { ['is-empty']: isEmpty }, className)} id={id}>
       <div dangerouslySetInnerHTML={{ __html: markup }} />
       {renderExtension && renderExtension(document, `#${id}`)}
     </div>
@@ -124,6 +129,7 @@ const IFrameMarkdownView: React.FC<InnerSyncMarkdownProps> = ({
   markup,
   isEmpty,
   renderExtension,
+  className,
 }) => {
   const [frame, setFrame] = React.useState<HTMLIFrameElement>();
   const [loaded, setLoaded] = React.useState(false);
@@ -206,6 +212,7 @@ const IFrameMarkdownView: React.FC<InnerSyncMarkdownProps> = ({
         style={{ border: '0px', display: 'block', width: '100%', height: '0' }}
         ref={(r) => setFrame(r)}
         onLoad={() => onLoad()}
+        className={className}
       />
       {loaded && frame && renderExtension && renderExtension(frame.contentDocument, '')}
     </>

@@ -10,6 +10,7 @@ type QuickStartMarkdownViewProps = {
   exactHeight?: boolean;
   extensions?: any[];
   renderExtensionComponents?: (docContext: HTMLDocument, rootSelector: string) => React.ReactNode;
+  className?: string;
 };
 
 const QuickStartMarkdownView: React.FC<QuickStartMarkdownViewProps> = ({
@@ -17,6 +18,7 @@ const QuickStartMarkdownView: React.FC<QuickStartMarkdownViewProps> = ({
   exactHeight,
   extensions = [],
   renderExtensionComponents = () => {},
+  className,
 }) => {
   return (
     <SyncMarkdownView
@@ -48,6 +50,7 @@ const QuickStartMarkdownView: React.FC<QuickStartMarkdownViewProps> = ({
           {renderExtensionComponents(docContext, rootSelector)}
         </>
       )}
+      className={className}
     />
   );
 };

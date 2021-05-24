@@ -36,7 +36,7 @@ const QuickStartFooter: React.FC<QuickStartFooterProps> = ({
 
   const PrimaryButtonText = React.useMemo(() => {
     return {
-      START: t('quickstart~Start tour'),
+      START: t('quickstart~Start'),
       CONTINUE: t('quickstart~Continue'),
       NEXT: t('quickstart~Next'),
       CLOSE: t('quickstart~Close'),
