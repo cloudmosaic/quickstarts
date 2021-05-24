@@ -10,6 +10,7 @@ import { setQueryArgument, removeQueryArgument } from '../ConsoleInternal/compon
 import { QUICKSTART_ID_FILTER_KEY } from './const';
 
 type FooterProps = {
+  show?: boolean;
   showAllLink?: boolean;
   onShowAllLinkClick?: () => void | null;
 };
@@ -40,6 +41,8 @@ export const QuickStartContext = createContext<QuickStartContextValues>({
   startQuickStart: () => {},
   restartQuickStart: () => {},
 });
+
+export const QuickStartContextProvider = QuickStartContext.Provider;
 
 export const getDefaultQuickStartState = (
   totalTasks?: number,

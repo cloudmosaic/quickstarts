@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Drawer, DrawerContent, DrawerContentBody } from '@patternfly/react-core';
 import { QuickStartContext, QuickStartContextValues } from './utils/quick-start-context';
-import { QuickStartStatus } from './utils/quick-start-types';
+import { QuickStart, QuickStartStatus } from './utils/quick-start-types';
 import QuickStartPanelContent from './QuickStartPanelContent';
 import QuickStartCloseModal from './QuickStartCloseModal';
 import QuickStartsLoader from './loader/QuickStartsLoader';
@@ -10,6 +10,7 @@ import { getQuickStartByName } from './utils/quick-start-utils';
 import './QuickStartDrawer.scss';
 
 export interface QuickStartDrawerProps extends React.HTMLProps<HTMLDivElement> {
+  quickStarts?: QuickStart[];
   children?: React.ReactNode;
   appendTo?: HTMLElement | (() => HTMLElement);
   isStatic?: boolean;
@@ -17,6 +18,7 @@ export interface QuickStartDrawerProps extends React.HTMLProps<HTMLDivElement> {
 }
 
 export const QuickStartDrawer: React.FC<QuickStartDrawerProps> = ({
+  quickStarts,
   children,
   appendTo,
   isStatic,
@@ -71,7 +73,16 @@ export const QuickStartDrawer: React.FC<QuickStartDrawerProps> = ({
       }
     : {};
 
-  const panelContent = (
+  const panelContent = quickStarts ? (
+    <QuickStartPanelContent
+      quickStarts={quickStarts}
+      handleClose={handleClose}
+      activeQuickStartID={activeQuickStartID}
+      appendTo={appendTo}
+      isResizable={!fullWidth}
+      {...fullWidthPanelStyle}
+    />
+  ) : (
     <QuickStartsLoader>
       {(quickStarts) => (
         <QuickStartPanelContent

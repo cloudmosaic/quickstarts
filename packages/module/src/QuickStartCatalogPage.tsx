@@ -128,40 +128,32 @@ export const QuickStartCatalogPage: React.FC<QuickStartCatalogPageProps> = ({
   return (
     <>
       {showTitle && (
-        <PageSection variant={PageSectionVariants.light} className="ocs-page-layout__header">
-          <TextContent>
-            <Text component="h1" /*className="ocs-page-layout__title"*/>
-              {title || t('quickstart~Quick Starts')}
-            </Text>
-            {hint && <div className="ocs-page-layout__hint">{hint}</div>}
-          </TextContent>
-        </PageSection>
+        <div className="ocs-page-layout__header">
+          <Text component="h1" className="ocs-page-layout__title">
+            {title || t('quickstart~Quick Starts')}
+          </Text>
+          {hint && <div className="ocs-page-layout__hint">{hint}</div>}
+        </div>
       )}
       {showTitle && <Divider component="div" />}
       {showFilter && (
         <>
-          <PageSection
-            padding={{
-              default: 'noPadding',
-            }}
-          >
-            <QuickStartCatalogFilter
-              quickStartsCount={filteredQuickStarts.length}
-              quickStartStatusCount={quickStartStatusCount}
-              onSearchInputChange={onSearchInputChange}
-              onStatusChange={onStatusChange}
-            />
-          </PageSection>
+          <QuickStartCatalogFilter
+            quickStartsCount={filteredQuickStarts.length}
+            quickStartStatusCount={quickStartStatusCount}
+            onSearchInputChange={onSearchInputChange}
+            onStatusChange={onStatusChange}
+          />
           <Divider component="div" />
         </>
       )}
-      <PageSection>
+      <>
         {filteredQuickStarts.length === 0 ? (
           <QuickStartCatalogEmptyState clearFilters={clearFilters} />
         ) : (
           <QuickStartCatalog quickStarts={filteredQuickStarts} />
         )}
-      </PageSection>
+      </>
     </>
   );
 };

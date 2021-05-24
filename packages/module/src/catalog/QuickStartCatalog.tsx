@@ -17,23 +17,25 @@ const QuickStartCatalog: React.FC<QuickStartCatalogProps> = ({ quickStarts }) =>
   );
 
   return (
-    <Gallery className="co-quick-start-catalog__gallery" hasGutter>
-      {quickStarts.map((quickStart) => {
-        const {
-          metadata: { name: id },
-        } = quickStart;
+    <div className="ocs-page-layout__content is-dark">
+      <Gallery className="co-quick-start-catalog__gallery" hasGutter>
+        {quickStarts.map((quickStart) => {
+          const {
+            metadata: { name: id },
+          } = quickStart;
 
-        return (
-          <GalleryItem key={id}>
-            <QuickStartTile
-              quickStart={quickStart}
-              isActive={id === activeQuickStartID}
-              status={getQuickStartStatus(allQuickStartStates, id)}
-            />
-          </GalleryItem>
-        );
-      })}
-    </Gallery>
+          return (
+            <GalleryItem key={id}>
+              <QuickStartTile
+                quickStart={quickStart}
+                isActive={id === activeQuickStartID}
+                status={getQuickStartStatus(allQuickStartStates, id)}
+              />
+            </GalleryItem>
+          );
+        })}
+      </Gallery>
+    </div>
   );
 };
 

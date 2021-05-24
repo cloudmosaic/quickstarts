@@ -24,7 +24,9 @@ const QuickStartTile: React.FC<QuickStartTileProps> = ({ quickStart, status, isA
     spec: { icon, tasks, displayName, description, durationMinutes, prerequisites, link, type },
   } = quickStart;
 
-  const { setActiveQuickStart } = React.useContext<QuickStartContextValues>(QuickStartContext);
+  const { setActiveQuickStart, footer } = React.useContext<QuickStartContextValues>(
+    QuickStartContext,
+  );
 
   const quickStartIcon = (
     <FallbackImg
@@ -33,6 +35,13 @@ const QuickStartTile: React.FC<QuickStartTileProps> = ({ quickStart, status, isA
       fallback={<RocketIcon />}
     />
   );
+
+  const footerComponent =
+    footer && footer.show === false ? null : link ? (
+      <QuickStartTileFooterExternal link={link} />
+    ) : (
+      <QuickStartTileFooter quickStartId={id} status={status} totalTasks={tasks?.length} />
+    );
 
   return (
     <CatalogTile
@@ -63,13 +72,7 @@ const QuickStartTile: React.FC<QuickStartTileProps> = ({ quickStart, status, isA
       description={
         <QuickStartTileDescription description={description} prerequisites={prerequisites} />
       }
-      footer={
-        link ? (
-          <QuickStartTileFooterExternal link={link} />
-        ) : (
-          <QuickStartTileFooter quickStartId={id} status={status} totalTasks={tasks?.length} />
-        )
-      }
+      footer={footerComponent}
     />
   );
 };

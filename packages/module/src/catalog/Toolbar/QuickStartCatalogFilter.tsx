@@ -24,7 +24,7 @@ const QuickStartCatalogFilter: React.FC<QuickStartCatalogFilterProps> = ({
   ...props
 }) => {
   return (
-    <Toolbar usePageInsets {...props}>
+    <Toolbar usePageInsets className="co-quick-start-catalog-filter__flex" {...props}>
       <ToolbarContent>
         <QuickStartCatalogFilterSearchWrapper onSearchInputChange={onSearchInputChange} />
         <QuickStartCatalogFilterStatusWrapper
