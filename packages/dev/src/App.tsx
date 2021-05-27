@@ -24,7 +24,12 @@ import {
 import { allQuickStarts as yamlQuickStarts } from "./quickstarts-data/quick-start-test-data";
 import { loadJSONQuickStarts } from "./quickstarts-data/mas-guides/quickstartLoader";
 
-const App: React.FunctionComponent = ({ children }) => {
+type AppProps = {
+  children?: React.ReactNode;
+  showCardFooters?: boolean;
+};
+
+const App: React.FC<AppProps> = ({ children, showCardFooters }) => {
   const history = useHistory();
 
   const [initialized, setInitialized] = React.useState(true);
@@ -69,7 +74,7 @@ const App: React.FunctionComponent = ({ children }) => {
     allQuickStartStates,
     setAllQuickStartStates,
     footer: {
-      show:false,
+      show: showCardFooters,
       showAllLink: currentPath !== quickStartPath,
       onShowAllLinkClick: () => history.push(quickStartPath),
     },

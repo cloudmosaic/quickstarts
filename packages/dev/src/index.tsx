@@ -42,7 +42,7 @@ ReactDOM.render(
         </App>
       </Route>
       <Route exact path="/custom-catalog">
-        <App>
+        <App showCardFooters>
           <QuickStartsLoader>
             {(quickStarts: QuickStart[], loaded: boolean) =>
               loaded ? (
