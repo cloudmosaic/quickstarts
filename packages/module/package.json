@@ -1,7 +1,7 @@
 {
   "name": "@cloudmosaic/quickstarts",
-  "version": "0.0.25",
-  "description": "Quickstarts for MAS",
+  "version": "1.0.0-rc.0",
+  "description": "PatternFly quick starts",
   "files": [
     "dist"
   ],

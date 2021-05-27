@@ -31,9 +31,6 @@ import sampleA from "raw-loader!./mocks/asciidoc/business-central-editing-data-s
 // import masGettingStarted from "./mas-guides/getting-started/output/getting-started.quickstart.json";
 // import masKafkaBinScripts from "./mas-guides/kafka-bin-scripts/output/kafka-bin-scripts.quickstart.json";
 
-const asd = nodeWithS2i;
-debugger;
-
 export const allAsciiDocImports = {
 //   'template': {
 //     file: template,
