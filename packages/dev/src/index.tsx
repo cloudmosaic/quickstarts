@@ -32,6 +32,7 @@ ReactDOM.render(
                 <QuickStartCatalogPage
                   quickStarts={quickStarts}
                   showFilter
+                  hint="Learn how to create, import, and run applications with step-by-step instructions and tasks."
                 />
               ) : (
                 <LoadingBox />

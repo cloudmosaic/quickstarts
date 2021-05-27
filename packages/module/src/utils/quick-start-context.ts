@@ -1,17 +1,19 @@
-import { createContext, useCallback } from "react";
+import React, { createContext, useCallback } from 'react';
 import {
   AllQuickStartStates,
   QuickStartState,
   QuickStartStatus,
   QuickStartTaskStatus,
   QuickStart,
-} from "./quick-start-types";
-import { setQueryArgument, removeQueryArgument } from "../ConsoleInternal/components/utils/router";
-import { QUICKSTART_ID_FILTER_KEY } from "./const";
+} from './quick-start-types';
+import { setQueryArgument, removeQueryArgument } from '../ConsoleInternal/components/utils/router';
+import { QUICKSTART_ID_FILTER_KEY, QUICKSTART_TASKS_INITIAL_STATES } from './const';
+import { getTaskStatusKey } from './quick-start-utils';
 
-type FooterProps = {
+export type FooterProps = {
+  show?: boolean;
   showAllLink?: boolean;
-  onShowAllLinkClick?: () => void | null
+  onShowAllLinkClick?: () => void | null;
 };
 
 export type QuickStartContextValues = {
@@ -27,23 +29,30 @@ export type QuickStartContextValues = {
   setQuickStartTaskNumber?: (quickStartId: string, taskNumber: number) => void;
   setQuickStartTaskStatus?: (taskStatus: QuickStartTaskStatus) => void;
   getQuickStartForId?: (id: string) => QuickStartState;
-  footer?: FooterProps,
+  footer?: FooterProps;
   useQueryParams?: boolean;
+  markdown?: {
+    extensions?: any[];
+    renderExtension?: (docContext: HTMLDocument, rootSelector: string) => React.ReactNode;
+  }
 };
 
 export const QuickStartContext = createContext<QuickStartContextValues>({
   allQuickStarts: [],
-  activeQuickStartID: "",
+  activeQuickStartID: '',
   allQuickStartStates: {},
   activeQuickStartState: {},
   setActiveQuickStart: () => {},
   startQuickStart: () => {},
-  restartQuickStart: () => {}
+  restartQuickStart: () => {},
+  markdown: {}
 });
+
+export const QuickStartContextProvider = QuickStartContext.Provider;
 
 export const getDefaultQuickStartState = (
   totalTasks?: number,
-  initialStatus?: QuickStartStatus
+  initialStatus?: QuickStartStatus,
 ) => {
   const defaultQuickStartState = {
     status: initialStatus || QuickStartStatus.NOT_STARTED,
@@ -51,22 +60,24 @@ export const getDefaultQuickStartState = (
   };
   if (totalTasks) {
     for (let i = 0; i < totalTasks; i++) {
-      defaultQuickStartState[`taskStatus${i}`] = QuickStartTaskStatus.INIT;
+      defaultQuickStartState[getTaskStatusKey(i)] = QuickStartTaskStatus.INIT;
     }
   }
   return defaultQuickStartState;
 };
 
 export type useValuesForQuickStartContextType = {
-  allQuickStarts?: QuickStart[],
-  activeQuickStartID?: string,
-  setActiveQuickStartID?: React.Dispatch<React.SetStateAction<string>>,
-  allQuickStartStates?: AllQuickStartStates,
-  setAllQuickStartStates?: React.Dispatch<
-    React.SetStateAction<AllQuickStartStates>
-  >,
+  allQuickStarts?: QuickStart[];
+  activeQuickStartID?: string;
+  setActiveQuickStartID?: React.Dispatch<React.SetStateAction<string>>;
+  allQuickStartStates?: AllQuickStartStates;
+  setAllQuickStartStates?: React.Dispatch<React.SetStateAction<AllQuickStartStates>>;
   footer?: FooterProps;
   useQueryParams?: boolean;
+  markdown?: {
+    extensions?: any[];
+    renderExtension?: (docContext: HTMLDocument, rootSelector: string) => React.ReactNode;
+  }
 };
 
 export const useValuesForQuickStartContext = ({
@@ -76,14 +87,18 @@ export const useValuesForQuickStartContext = ({
   allQuickStartStates,
   setAllQuickStartStates,
   footer,
-  useQueryParams = true
+  useQueryParams = true,
+  markdown = {
+    extensions: [],
+    renderExtension: (docContext, rootSelector) => null
+  }
 }: useValuesForQuickStartContextType): QuickStartContextValues => {
   const setActiveQuickStart = useCallback(
     (quickStartId: string, totalTasks?: number) => {
       setActiveQuickStartID((id) => {
         if (!quickStartId || id === quickStartId) {
           useQueryParams && removeQueryArgument(QUICKSTART_ID_FILTER_KEY);
-          return "";
+          return '';
         } else {
           useQueryParams && setQueryArgument(QUICKSTART_ID_FILTER_KEY, quickStartId);
           return quickStartId;
@@ -92,10 +107,10 @@ export const useValuesForQuickStartContext = ({
       setAllQuickStartStates((qs) =>
         !quickStartId || qs[quickStartId]
           ? qs
-          : { ...qs, [quickStartId]: getDefaultQuickStartState(totalTasks) }
+          : { ...qs, [quickStartId]: getDefaultQuickStartState(totalTasks) },
       );
     },
-    [setActiveQuickStartID, setAllQuickStartStates]
+    [setActiveQuickStartID, setAllQuickStartStates],
   );
 
   const startQuickStart = useCallback(
@@ -120,14 +135,11 @@ export const useValuesForQuickStartContext = ({
         }
         return {
           ...qs,
-          [quickStartId]: getDefaultQuickStartState(
-            totalTasks,
-            QuickStartStatus.IN_PROGRESS
-          ),
+          [quickStartId]: getDefaultQuickStartState(totalTasks, QuickStartStatus.IN_PROGRESS),
         };
       });
     },
-    [setActiveQuickStartID, setAllQuickStartStates]
+    [setActiveQuickStartID, setAllQuickStartStates],
   );
 
   const restartQuickStart = useCallback(
@@ -142,13 +154,10 @@ export const useValuesForQuickStartContext = ({
       });
       setAllQuickStartStates((qs) => ({
         ...qs,
-        [quickStartId]: getDefaultQuickStartState(
-          totalTasks,
-          QuickStartStatus.IN_PROGRESS
-        ),
+        [quickStartId]: getDefaultQuickStartState(totalTasks, QuickStartStatus.IN_PROGRESS),
       }));
     },
-    [setActiveQuickStartID, setAllQuickStartStates]
+    [setActiveQuickStartID, setAllQuickStartStates],
   );
 
   const nextStep = useCallback(
@@ -159,7 +168,7 @@ export const useValuesForQuickStartContext = ({
         const quickStart = qs[activeQuickStartID];
         const status = quickStart?.status;
         const taskNumber = quickStart?.taskNumber as number;
-        const taskStatus = quickStart[`taskStatus${taskNumber}`];
+        const taskStatus = quickStart[getTaskStatusKey(taskNumber)];
 
         let updatedStatus;
         let updatedTaskNumber;
@@ -169,37 +178,42 @@ export const useValuesForQuickStartContext = ({
           updatedStatus = QuickStartStatus.IN_PROGRESS;
         } else if (
           status === QuickStartStatus.IN_PROGRESS &&
-          taskStatus !== QuickStartTaskStatus.INIT &&
+          !QUICKSTART_TASKS_INITIAL_STATES.includes(taskStatus as any) &&
           taskNumber === totalTasks - 1
         ) {
           updatedStatus = QuickStartStatus.COMPLETE;
         }
 
-        if (taskStatus === QuickStartTaskStatus.INIT) {
+        if (taskStatus === QuickStartTaskStatus.VISITED) {
           updatedTaskStatus = QuickStartTaskStatus.REVIEW;
         }
 
         if (taskNumber < totalTasks && !updatedTaskStatus) {
           updatedTaskNumber = taskNumber + 1;
         }
-
+        const markInitialStepVisited =
+          updatedTaskNumber > -1 &&
+          quickStart[getTaskStatusKey(updatedTaskNumber)] === QuickStartTaskStatus.INIT
+            ? QuickStartTaskStatus.VISITED
+            : quickStart[getTaskStatusKey(updatedTaskNumber)];
         const newState = {
           ...qs,
           [activeQuickStartID]: {
             ...quickStart,
             ...(updatedStatus ? { status: updatedStatus } : {}),
             ...(updatedTaskNumber > -1
-              ? { taskNumber: updatedTaskNumber }
+              ? {
+                  taskNumber: updatedTaskNumber,
+                  [getTaskStatusKey(updatedTaskNumber)]: markInitialStepVisited,
+                }
               : {}),
-            ...(updatedTaskStatus
-              ? { [`taskStatus${taskNumber}`]: updatedTaskStatus }
-              : {}),
+            ...(updatedTaskStatus ? { [getTaskStatusKey(taskNumber)]: updatedTaskStatus } : {}),
           },
         };
         return newState;
       });
     },
-    [activeQuickStartID, setAllQuickStartStates]
+    [activeQuickStartID, setAllQuickStartStates],
   );
 
   const previousStep = useCallback(() => {
@@ -211,7 +225,10 @@ export const useValuesForQuickStartContext = ({
 
       return {
         ...qs,
-        [activeQuickStartID]: { ...quickStart, taskNumber: taskNumber - 1 },
+        [activeQuickStartID]: {
+          ...quickStart,
+          taskNumber: taskNumber - 1,
+        },
       };
     });
   }, [activeQuickStartID, setAllQuickStartStates]);
@@ -225,15 +242,29 @@ export const useValuesForQuickStartContext = ({
         if (taskNumber > -1 && status === QuickStartStatus.NOT_STARTED) {
           updatedStatus = QuickStartStatus.IN_PROGRESS;
         }
+
+        let updatedTaskStatus = {};
+        for (let taskIndex = 0; taskIndex <= taskNumber; taskIndex++) {
+          const taskStatus = quickStart[getTaskStatusKey(taskIndex)];
+          const newTaskStatus =
+            taskStatus === QuickStartTaskStatus.INIT ? QuickStartTaskStatus.VISITED : undefined;
+          if (newTaskStatus) {
+            updatedTaskStatus = {
+              ...updatedTaskStatus,
+              [getTaskStatusKey(taskIndex)]: newTaskStatus,
+            };
+          }
+        }
         const updatedQuickStart = {
           ...quickStart,
           ...(updatedStatus ? { status: updatedStatus } : {}),
           taskNumber,
+          ...updatedTaskStatus,
         };
         return { ...qs, [quickStartId]: updatedQuickStart };
       });
     },
-    [setAllQuickStartStates]
+    [setAllQuickStartStates],
   );
 
   const setQuickStartTaskStatus = useCallback(
@@ -242,22 +273,21 @@ export const useValuesForQuickStartContext = ({
       const { taskNumber } = quickStart;
       const updatedQuickStart = {
         ...quickStart,
-        [`taskStatus${taskNumber}`]: taskStatus,
+        [getTaskStatusKey(taskNumber as any)]: taskStatus,
       };
       setAllQuickStartStates((qs) => ({
         ...qs,
         [activeQuickStartID]: updatedQuickStart,
       }));
     },
-    [allQuickStartStates, activeQuickStartID, setAllQuickStartStates]
+    [allQuickStartStates, activeQuickStartID, setAllQuickStartStates],
   );
 
   const activeQuickStartState = allQuickStartStates?.[activeQuickStartID] ?? {};
 
-  const getQuickStartForId = useCallback(
-    (id: string) => allQuickStartStates[id],
-    [allQuickStartStates]
-  );
+  const getQuickStartForId = useCallback((id: string) => allQuickStartStates[id], [
+    allQuickStartStates,
+  ]);
 
   return {
     allQuickStarts,
@@ -273,6 +303,7 @@ export const useValuesForQuickStartContext = ({
     setQuickStartTaskStatus,
     getQuickStartForId,
     footer,
-    useQueryParams
+    useQueryParams,
+    markdown
   };
 };

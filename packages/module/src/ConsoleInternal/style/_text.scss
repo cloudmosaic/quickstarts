@@ -31,7 +31,10 @@ $kinds: (
   .co-text-#{$kind} {
     color: $color;
 
-    &:link, &:visited, &:hover, &:active {
+    &:link,
+    &:visited,
+    &:hover,
+    &:active {
       color: $color;
       text-decoration: none;
     }

@@ -16,9 +16,11 @@ const QuickStartTileFooter: React.FC<QuickStartTileFooterProps> = ({
   totalTasks,
 }) => {
   const { t } = useTranslation();
-  const { activeQuickStartID, startQuickStart, restartQuickStart } = React.useContext<
-    QuickStartContextValues
-  >(QuickStartContext);
+  const {
+    activeQuickStartID,
+    startQuickStart,
+    restartQuickStart,
+  } = React.useContext<QuickStartContextValues>(QuickStartContext);
 
   const start = React.useCallback(
     (e: React.SyntheticEvent) => {
@@ -43,28 +45,33 @@ const QuickStartTileFooter: React.FC<QuickStartTileFooterProps> = ({
       {status === QuickStartStatus.NOT_STARTED && (
         <FlexItem>
           <Button onClick={start} variant="link" isInline data-testid="qs-card-notStarted-start">
-            {t('quickstart~Start the tour')}
+            {t('quickstart~Start')}
           </Button>
         </FlexItem>
       )}
       {status === QuickStartStatus.IN_PROGRESS && activeQuickStartID !== quickStartId && (
         <FlexItem>
           <Button variant="link" isInline data-testid="qs-card-inProgress-resume">
-            {t('quickstart~Resume the tour')}
+            {t('quickstart~Continue')}
           </Button>
         </FlexItem>
       )}
       {status === QuickStartStatus.COMPLETE && (
         <FlexItem>
           <Button onClick={restart} variant="link" isInline data-testid="qs-card-complete-restart">
-            {t('quickstart~Start the tour')}
+            {t('quickstart~Start')}
           </Button>
         </FlexItem>
       )}
       {status === QuickStartStatus.IN_PROGRESS && (
         <FlexItem>
-          <Button onClick={restart} variant="link" isInline data-testid="qs-card-inProgress-restart">
-            {t('quickstart~Restart the tour')}
+          <Button
+            onClick={restart}
+            variant="link"
+            isInline
+            data-testid="qs-card-inProgress-restart"
+          >
+            {t('quickstart~Restart')}
           </Button>
         </FlexItem>
       )}

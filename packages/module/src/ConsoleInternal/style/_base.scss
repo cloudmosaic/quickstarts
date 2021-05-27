@@ -4,6 +4,7 @@
   ul,
   ol {
     padding-left: 20px;
+    margin-left: 0;
   }
 
   dl {
@@ -23,7 +24,7 @@
     margin-bottom: 0px;
   }
 
-  input[type="number"] {
+  input[type='number'] {
     -webkit-appearance: textfield;
     appearance: textfield;
     max-width: 100px;
@@ -33,7 +34,7 @@
     }
   }
 
-  input[type="radio"] {
+  input[type='radio'] {
     margin-right: 7px;
   }
 }

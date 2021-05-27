@@ -2,7 +2,7 @@ import * as React from 'react';
 import cx from 'classnames';
 import { useTranslation } from 'react-i18next';
 import { Title, WizardNavItem } from '@patternfly/react-core';
-import { CheckCircleIcon, TimesCircleIcon } from '@patternfly/react-icons';
+import { CheckCircleIcon, ExclamationCircleIcon } from '@patternfly/react-icons';
 import { QuickStartTaskStatus } from '../utils/quick-start-types';
 import { markdownConvert } from '../ConsoleInternal/components/markdown-view';
 import { removeParagraphWrap } from '../QuickStartMarkdownView';
@@ -19,19 +19,11 @@ type QuickStartTaskHeaderProps = {
   onTaskSelect: (index: number) => void;
 };
 
-const TaskIcon: React.FC<{ taskIndex; taskStatus; isActiveTask }> = ({
+const TaskIcon: React.FC<{ taskIndex: number; taskStatus: QuickStartTaskStatus; }> = ({
   taskIndex,
   taskStatus,
-  isActiveTask,
 }) => {
   const { t } = useTranslation();
-  if (isActiveTask) {
-    return (
-      <span className="co-icon-and-text__icon co-quick-start-task-header__task-icon-init">
-        {t('quickstart~{{taskIndex, number}}', { taskIndex })}
-      </span>
-    );
-  }
   switch (taskStatus) {
     case QuickStartTaskStatus.SUCCESS:
       return (
@@ -42,7 +34,10 @@ const TaskIcon: React.FC<{ taskIndex; taskStatus; isActiveTask }> = ({
     case QuickStartTaskStatus.FAILED:
       return (
         <span className="co-icon-and-text__icon">
-          <TimesCircleIcon size="md" className="co-quick-start-task-header__task-icon-failed" />
+          <ExclamationCircleIcon
+            size="md"
+            className="co-quick-start-task-header__task-icon-failed"
+          />
         </span>
       );
     default:
@@ -64,16 +59,14 @@ const QuickStartTaskHeader: React.FC<QuickStartTaskHeaderProps> = ({
   onTaskSelect,
 }) => {
   const classNames = cx('co-quick-start-task-header__title', {
-    'co-quick-start-task-header__title-success':
-      taskStatus === QuickStartTaskStatus.SUCCESS && !isActiveTask,
-    'co-quick-start-task-header__title-failed':
-      taskStatus === QuickStartTaskStatus.FAILED && !isActiveTask,
+    'co-quick-start-task-header__title-success': taskStatus === QuickStartTaskStatus.SUCCESS,
+    'co-quick-start-task-header__title-failed': taskStatus === QuickStartTaskStatus.FAILED,
   });
 
   const content = (
     <span className="co-quick-start-task-header">
       <Title headingLevel="h3" size={size} className={classNames}>
-        <TaskIcon taskIndex={taskIndex} taskStatus={taskStatus} isActiveTask={isActiveTask} />
+        <TaskIcon taskIndex={taskIndex} taskStatus={taskStatus} />
         <span dangerouslySetInnerHTML={{ __html: removeParagraphWrap(markdownConvert(title)) }} />
         {isActiveTask && subtitle && (
           <>
@@ -82,7 +75,7 @@ const QuickStartTaskHeader: React.FC<QuickStartTaskHeaderProps> = ({
               className="co-quick-start-task-header__subtitle text-secondary"
               data-test-id="quick-start-task-subtitle"
             >
-              - {subtitle}
+              {subtitle}
             </span>
           </>
         )}

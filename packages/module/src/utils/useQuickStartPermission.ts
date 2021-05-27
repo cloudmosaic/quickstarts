@@ -28,12 +28,10 @@
 
 // export default useQuickStartPermission;
 
-
 // js: replace
 import { QuickStart } from './quick-start-types';
 
 const useQuickStartPermission = (quickStart: QuickStart): [boolean, boolean] => {
-
   return [true, true];
 };
 

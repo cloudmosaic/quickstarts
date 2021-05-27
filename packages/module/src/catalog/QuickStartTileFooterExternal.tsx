@@ -8,9 +8,7 @@ type QuickStartTileFooterProps = {
   link: QuickStartExternal;
 };
 
-const QuickStartTileFooterExternal: React.FC<QuickStartTileFooterProps> = ({
-  link
-}) => {
+const QuickStartTileFooterExternal: React.FC<QuickStartTileFooterProps> = ({ link }) => {
   const { t } = useTranslation();
   const { href, text } = link;
 
@@ -19,7 +17,7 @@ const QuickStartTileFooterExternal: React.FC<QuickStartTileFooterProps> = ({
       <FlexItem>
         <Button
           component="a"
-          href={href} 
+          href={href}
           target="_blank"
           rel="noopener noreferrer"
           variant="link"

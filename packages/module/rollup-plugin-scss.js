@@ -2,20 +2,20 @@
  * Copied https://github.com/thgh/rollup-plugin-scss/blob/master/index.es.js
  * Modified to filter out @patternfly css srylesheets
  */
-import { existsSync, mkdirSync, writeFile } from "fs";
-import { dirname } from "path";
-import { createFilter } from "rollup-pluginutils";
+import { existsSync, mkdirSync, writeFile } from 'fs';
+import { dirname } from 'path';
+import { createFilter } from 'rollup-pluginutils';
 
 export default function css(options = {}) {
   const filter = createFilter(
-    options.include || ["/**/*.css", "/**/*.scss", "/**/*.sass"],
-    options.exclude
+    options.include || ['/**/*.css', '/**/*.scss', '/**/*.sass'],
+    options.exclude,
   );
   let dest = options.output;
 
   const styles = {};
-  const prefix = options.prefix ? options.prefix + "\n" : "";
-  let includePaths = options.includePaths || ["node_modules/"];
+  const prefix = options.prefix ? options.prefix + '\n' : '';
+  let includePaths = options.includePaths || ['node_modules/'];
   includePaths.push(process.cwd());
 
   const compileToCSS = function (scss) {
@@ -23,7 +23,7 @@ export default function css(options = {}) {
     if (scss.length) {
       includePaths = includePaths.filter((v, i, a) => a.indexOf(v) === i);
       try {
-        const sass = options.sass || require("node-sass");
+        const sass = options.sass || require('node-sass');
         const css = sass
           .renderSync(
             Object.assign(
@@ -31,19 +31,19 @@ export default function css(options = {}) {
                 data: prefix + scss,
                 includePaths,
               },
-              options
-            )
+              options,
+            ),
           )
           .css.toString();
         // Possibly process CSS (e.g. by PostCSS)
-        if (typeof options.processor === "function") {
+        if (typeof options.processor === 'function') {
           const processor = options.processor(css, styles);
 
           // PostCSS support
-          if (typeof processor.process === "function") {
-            return Promise.resolve(
-              processor.process(css, { from: undefined })
-            ).then((result) => result.css);
+          if (typeof processor.process === 'function') {
+            return Promise.resolve(processor.process(css, { from: undefined })).then(
+              (result) => result.css,
+            );
           }
 
           return processor;
@@ -54,20 +54,17 @@ export default function css(options = {}) {
           throw e;
         }
         console.log();
-        console.log(red("Error:\n\t" + e.message));
-        if (e.message.includes("Invalid CSS")) {
-          console.log(green("Solution:\n\t" + "fix your Sass code"));
-          console.log("Line:   " + e.line);
-          console.log("Column: " + e.column);
+        console.log(red('Error:\n\t' + e.message));
+        if (e.message.includes('Invalid CSS')) {
+          console.log(green('Solution:\n\t' + 'fix your Sass code'));
+          console.log('Line:   ' + e.line);
+          console.log('Column: ' + e.column);
         }
-        if (
-          e.message.includes("node-sass") &&
-          e.message.includes("find module")
-        ) {
-          console.log(green("Solution:\n\t" + "npm install --save node-sass"));
+        if (e.message.includes('node-sass') && e.message.includes('find module')) {
+          console.log(green('Solution:\n\t' + 'npm install --save node-sass'));
         }
-        if (e.message.includes("node-sass") && e.message.includes("bindings")) {
-          console.log(green("Solution:\n\t" + "npm rebuild node-sass --force"));
+        if (e.message.includes('node-sass') && e.message.includes('bindings')) {
+          console.log(green('Solution:\n\t' + 'npm rebuild node-sass --force'));
         }
         console.log();
       }
@@ -75,7 +72,7 @@ export default function css(options = {}) {
   };
 
   return {
-    name: "scss",
+    name: 'scss',
     transform(code, id) {
       if (!filter(id)) {
         return;
@@ -88,25 +85,23 @@ export default function css(options = {}) {
       // Rebuild all scss files if anything happens to this folder
       // TODO: check if it's possible to get a list of all dependent scss files
       //       and only watch those
-      if ("watch" in options) {
-        const files = Array.isArray(options.watch)
-          ? options.watch
-          : [options.watch];
+      if ('watch' in options) {
+        const files = Array.isArray(options.watch) ? options.watch : [options.watch];
         files.forEach((file) => this.addWatchFile(file));
       }
 
       // When output is disabled, the stylesheet is exported as a string
       if (options.output === false) {
         return Promise.resolve(compileToCSS(code, id)).then((css) => ({
-          code: "export default " + JSON.stringify(css),
-          map: { mappings: "" },
+          code: 'export default ' + JSON.stringify(css),
+          map: { mappings: '' },
         }));
       }
 
       // Map of every stylesheet
       styles[id] = code;
 
-      return "";
+      return '';
     },
     generateBundle(opts) {
       // No stylesheet needed
@@ -115,11 +110,11 @@ export default function css(options = {}) {
       }
 
       // Combine all stylesheets
-      let scss = "";
+      let scss = '';
       for (const id in styles) {
         // console.log(id);
-        if (id.indexOf("@patternfly") === -1) {
-          scss += styles[id] || "";
+        if (id.indexOf('@patternfly') === -1) {
+          scss += styles[id] || '';
         }
       }
 
@@ -128,27 +123,27 @@ export default function css(options = {}) {
       // Resolve if processor returned a Promise
       Promise.resolve(css).then((css) => {
         // Emit styles through callback
-        if (typeof options.output === "function") {
+        if (typeof options.output === 'function') {
           options.output(css, styles);
           return;
         }
 
-        if (typeof css !== "string") {
+        if (typeof css !== 'string') {
           return;
         }
 
-        if (typeof dest !== "string") {
+        if (typeof dest !== 'string') {
           // Don't create unwanted empty stylesheets
           if (!css.length) {
             return;
           }
 
           // Guess destination filename
-          dest = opts.dest || opts.file || "bundle.js";
-          if (dest.endsWith(".js")) {
+          dest = opts.dest || opts.file || 'bundle.js';
+          if (dest.endsWith('.js')) {
             dest = dest.slice(0, -3);
           }
-          dest = dest + ".css";
+          dest = dest + '.css';
         }
 
         // Ensure that dest parent folders exist (create the missing ones)
@@ -170,19 +165,19 @@ export default function css(options = {}) {
 }
 
 function red(text) {
-  return "\x1b[1m\x1b[31m" + text + "\x1b[0m";
+  return '\x1b[1m\x1b[31m' + text + '\x1b[0m';
 }
 
 function green(text) {
-  return "\x1b[1m\x1b[32m" + text + "\x1b[0m";
+  return '\x1b[1m\x1b[32m' + text + '\x1b[0m';
 }
 
 function getSize(bytes) {
   return bytes < 10000
-    ? bytes.toFixed(0) + " B"
+    ? bytes.toFixed(0) + ' B'
     : bytes < 1024000
-    ? (bytes / 1024).toPrecision(3) + " kB"
-    : (bytes / 1024 / 1024).toPrecision(4) + " MB";
+    ? (bytes / 1024).toPrecision(3) + ' kB'
+    : (bytes / 1024 / 1024).toPrecision(4) + ' MB';
 }
 
 function ensureParentDirsSync(dir) {
@@ -193,7 +188,7 @@ function ensureParentDirsSync(dir) {
   try {
     mkdirSync(dir);
   } catch (err) {
-    if (err.code === "ENOENT") {
+    if (err.code === 'ENOENT') {
       ensureParentDirsSync(dirname(dir));
       ensureParentDirsSync(dir);
     }

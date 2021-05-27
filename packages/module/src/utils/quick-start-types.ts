@@ -1,12 +1,9 @@
-// import { AccessReviewResourceAttributes } from '@console/internal/module/k8s/types';
-import { AccessReviewResourceAttributes } from '../ConsoleInternal/module/k8s/types';
+import { AccessReviewResourceAttributes, ObjectMetadata } from '../ConsoleInternal/module/k8s/types';
 
 export type QuickStart = {
   apiVersion?: string;
   kind?: string;
-  metadata: {
-    name: string;
-  };
+  metadata: ObjectMetadata;
   spec: QuickStartSpec;
 };
 
@@ -55,6 +52,7 @@ export enum QuickStartStatus {
 
 export enum QuickStartTaskStatus {
   INIT = 'Initial',
+  VISITED = 'Visited',
   REVIEW = 'Review',
   SUCCESS = 'Success',
   FAILED = 'Failed',
@@ -63,9 +61,9 @@ export enum QuickStartTaskStatus {
 export type QuickStartExternal = {
   href: string;
   text?: string;
-}
+};
 
 export type QuickStartType = {
   text: string;
   color?: 'blue' | 'cyan' | 'green' | 'orange' | 'purple' | 'red' | 'grey';
-}
+};

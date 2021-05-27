@@ -8,11 +8,10 @@
 // i.e., $color-pf-black-100 (PF3) vs $pf-color-black-100 (PF4)
 @import '~@patternfly/patternfly/sass-utilities/colors';
 
-
 // == Overrides of external dependency variables
 
 // FontAwesome font path.
-$fa-font-path: "~@fortawesome/fontawesome-free/webfonts";
+$fa-font-path: '~@fortawesome/fontawesome-free/webfonts';
 // Use PatternFly 4 font family in PatternFly 3.
 $font-family-base: var(--pf-global--FontFamily--sans-serif);
 $font-size-base: 14px;
@@ -40,7 +39,6 @@ $pf-global--enable-shield: true;
 // $pf-global--font-path: '~@patternfly/patternfly/assets/fonts';
 $table-border-color: $color-pf-black-200;
 
-
 // == Custom variables
 
 $co-m-label-line-height: 20px;
@@ -50,7 +48,6 @@ $co-side-nav-font-size: $font-size-base; // Matches PF 4 --pf-c-nav__subnav__lin
 $co-side-nav-section-font-size: ($font-size-base + 2); // Matches PF 4 --pf-c-nav__link--FontSize
 $co-m-catalog-tile-height: 100%;
 $co-m-catalog-tile-width: 260px;
-
 
 // == Colors
 

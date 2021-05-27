@@ -1,67 +1,54 @@
-import * as React from "react";
-import { extension } from "showdown";
-import { SyncMarkdownView } from "@console/internal/components/markdown-view";
-import { MarkdownHighlightExtension } from "@console/shared";
-import { HIGHLIGHT_REGEXP } from "@console/shared/src/components/markdown-highlight-extension/highlight-consts";
+import * as React from 'react';
+import { SyncMarkdownView } from '@console/internal/components/markdown-view';
+import { MarkdownHighlightExtension } from '@console/shared';
+import { HIGHLIGHT_REGEXP } from '@console/shared/src/components/markdown-highlight-extension/highlight-consts';
+import { QuickStartContext, QuickStartContextValues } from './utils/quick-start-context';
 
-export const EXTENSION_NAME = "quickstart";
-extension(EXTENSION_NAME, () => {
-  return [
-    {
-      type: "lang",
-      regex: HIGHLIGHT_REGEXP,
-      replace: (
-        text: string,
-        linkLabel: string,
-        linkType: string,
-        linkId: string
-      ): string => {
-        if (!linkLabel || !linkType || !linkId) return text;
-        return `<button class="pf-c-button pf-m-inline pf-m-link" data-highlight="${linkId}">${linkLabel}</button>`;
-      },
-    },
-  ];
-});
-
-/* TODO: Make this extension opt-in? */
-extension("curlyAttrs", () => {
-  return [
-    {
-      type: "output",
-      filter: function (text, converter, options) {
-        // check HTML for patterns like: <em>Status: unknown</em>{#extension-requirement-status}
-        // and replace with <em id="extension-requirement-status">Status: unknown</em>
-        return text.replace(/<em>(.*)<\/em>{#(.*)}/g, '<em id="$2">$1</em>');
-      },
-    },
-  ];
-});
-
-export const removeParagraphWrap = (markdown: string) =>
-  markdown.replace(/^<p>|<\/p>$/g, "");
+export const removeParagraphWrap = (markdown: string) => markdown.replace(/^<p>|<\/p>$/g, '');
 
 type QuickStartMarkdownViewProps = {
   content: string;
   exactHeight?: boolean;
+  className?: string;
 };
 
 const QuickStartMarkdownView: React.FC<QuickStartMarkdownViewProps> = ({
   content,
   exactHeight,
+  className,
 }) => {
+  const { markdown } = React.useContext<QuickStartContextValues>(QuickStartContext);
   return (
     <SyncMarkdownView
       inline
       content={content}
       exactHeight={exactHeight}
-      extensions={[EXTENSION_NAME, "curlyAttrs"]}
+      extensions={[
+        {
+          type: 'lang',
+          regex: HIGHLIGHT_REGEXP,
+          replace: (text: string, linkLabel: string, linkType: string, linkId: string): string => {
+            if (!linkLabel || !linkType || !linkId) return text;
+            return `<button class="pf-c-button pf-m-inline pf-m-link" data-highlight="${linkId}">${linkLabel}</button>`;
+          },
+        },
+        {
+          type: 'output',
+          filter: function (text, converter, options) {
+            // check HTML for patterns like: <em>Status: unknown</em>{#extension-requirement-status}
+            // and replace with <em id="extension-requirement-status">Status: unknown</em>
+            return text.replace(/<em>(.*)<\/em>{#(.*)}/g, '<em id="$2">$1</em>');
+          },
+        },
+        ...markdown.extensions,
+      ]}
       renderExtension={(docContext, rootSelector) => (
-        <MarkdownHighlightExtension
-          key={content}
-          docContext={docContext}
-          rootSelector={rootSelector}
-        />
+        <>
+          <MarkdownHighlightExtension docContext={docContext} rootSelector={rootSelector} />
+          {markdown.renderExtension(docContext, rootSelector)}
+        </>
       )}
+      className={className}
     />
   );
 };

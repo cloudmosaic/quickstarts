@@ -1,62 +1,69 @@
-import * as React from "react";
+import * as React from 'react';
 import cx from 'classnames';
-import _includes from "lodash-es/includes";
-import _reduce from "lodash-es/reduce";
-import _truncate from "lodash-es/truncate";
-import _uniqueId from "lodash-es/uniqueId";
-import { Converter } from "showdown";
-import DOMPurify from "dompurify";
+import _includes from 'lodash-es/includes';
+import _reduce from 'lodash-es/reduce';
+import _truncate from 'lodash-es/truncate';
+import _uniqueId from 'lodash-es/uniqueId';
+import { Converter } from 'showdown';
+import DOMPurify from 'dompurify';
 import { useTranslation } from 'react-i18next';
 
 import './_markdown-view.scss';
 
-const tableTags = ["table", "thead", "tbody", "tr", "th", "td"];
+const tableTags = ['table', 'thead', 'tbody', 'tr', 'th', 'td'];
 
-export const markdownConvert = (markdown, extensions?: string[]) => {
-  const unsafeHtml = new Converter({
+type ShowdownExtension = {
+  type: string;
+  regex?: RegExp;
+  replace?: (...args: any[]) => string;
+};
+
+export const markdownConvert = (markdown, extensions?: ShowdownExtension[]) => {
+  const converter = new Converter({
     tables: true,
     openLinksInNewWindow: true,
     strikethrough: true,
     emoji: true,
-    extensions,
-  }).makeHtml(markdown);
+  });
+
+  extensions && converter.addExtension(extensions);
 
   // add hook to transform anchor tags
-  DOMPurify.addHook("beforeSanitizeElements", function (node) {
+  DOMPurify.addHook('beforeSanitizeElements', function (node) {
     // nodeType 1 = element type
-    if (node.nodeType === 1 && node.nodeName.toLowerCase() === "a") {
-      node.setAttribute("rel", "noopener noreferrer");
+    if (node.nodeType === 1 && node.nodeName.toLowerCase() === 'a') {
+      node.setAttribute('rel', 'noopener noreferrer');
       return node;
     }
   });
 
-  return DOMPurify.sanitize(unsafeHtml, {
+  return DOMPurify.sanitize(converter.makeHtml(markdown), {
     ALLOWED_TAGS: [
-      "b",
-      "i",
-      "strike",
-      "s",
-      "del",
-      "em",
-      "strong",
-      "a",
-      "p",
-      "h1",
-      "h2",
-      "h3",
-      "h4",
-      "ul",
-      "ol",
-      "li",
-      "code",
-      "pre",
-      "button",
+      'b',
+      'i',
+      'strike',
+      's',
+      'del',
+      'em',
+      'strong',
+      'a',
+      'p',
+      'h1',
+      'h2',
+      'h3',
+      'h4',
+      'ul',
+      'ol',
+      'li',
+      'code',
+      'pre',
+      'button',
       ...tableTags,
-      "div",
-      "img",
-      "span"
+      'div',
+      'img',
+      'span',
     ],
-    ALLOWED_ATTR: ["href", "target", "rel", "class", "src", "alt", "id"],
+    ALLOWED_ATTR: ['href', 'target', 'rel', 'class', 'src', 'alt', 'id'],
     ALLOWED_URI_REGEXP: /^(?:(?:https?|mailto|didact):|[^a-z]|[a-z+.\-]+(?:[^a-z+.\-:]|$))/i,
   });
 };
@@ -66,14 +73,16 @@ type SyncMarkdownProps = {
   emptyMsg?: string;
   exactHeight?: boolean;
   truncateContent?: boolean;
-  extensions?: string[];
+  extensions?: ShowdownExtension[];
   renderExtension?: (contentDocument: HTMLDocument, rootSelector: string) => React.ReactNode;
   inline?: boolean;
+  className?: string;
 };
 
 type InnerSyncMarkdownProps = Pick<SyncMarkdownProps, 'renderExtension' | 'exactHeight'> & {
   markup: string;
   isEmpty: boolean;
+  className?: string;
 };
 
 export const SyncMarkdownView: React.FC<SyncMarkdownProps> = ({
@@ -84,6 +93,7 @@ export const SyncMarkdownView: React.FC<SyncMarkdownProps> = ({
   renderExtension,
   exactHeight,
   inline,
+  className,
 }) => {
   const { t } = useTranslation();
   const markup = React.useMemo(() => {
@@ -101,6 +111,7 @@ export const SyncMarkdownView: React.FC<SyncMarkdownProps> = ({
     exactHeight,
     markup,
     isEmpty: !content,
+    className
   };
   return inline ? <InlineMarkdownView {...innerProps} /> : <IFrameMarkdownView {...innerProps} />;
 };
@@ -109,10 +120,11 @@ const InlineMarkdownView: React.FC<InnerSyncMarkdownProps> = ({
   markup,
   isEmpty,
   renderExtension,
+  className,
 }) => {
   const id = React.useMemo(() => _uniqueId('markdown'), []);
   return (
-    <div className={cx('co-markdown-view', { ['is-empty']: isEmpty })} id={id}>
+    <div className={cx('co-markdown-view', { ['is-empty']: isEmpty }, className)} id={id}>
       <div dangerouslySetInnerHTML={{ __html: markup }} />
       {renderExtension && renderExtension(document, `#${id}`)}
     </div>
@@ -124,6 +136,7 @@ const IFrameMarkdownView: React.FC<InnerSyncMarkdownProps> = ({
   markup,
   isEmpty,
   renderExtension,
+  className,
 }) => {
   const [frame, setFrame] = React.useState<HTMLIFrameElement>();
   const [loaded, setLoaded] = React.useState(false);
@@ -142,8 +155,9 @@ const IFrameMarkdownView: React.FC<InnerSyncMarkdownProps> = ({
         frame.style.height = `${frame.contentWindow.document.body.firstElementChild.scrollHeight}px`;
       } else {
         // Increase by 15px for the case where a horizontal scrollbar might appear
-        frame.style.height = `${frame.contentWindow.document.body.firstElementChild.scrollHeight +
-          15}px`;
+        frame.style.height = `${
+          frame.contentWindow.document.body.firstElementChild.scrollHeight + 15
+        }px`;
       }
     });
   }, [frame, exactHeight]);
@@ -205,6 +219,7 @@ const IFrameMarkdownView: React.FC<InnerSyncMarkdownProps> = ({
         style={{ border: '0px', display: 'block', width: '100%', height: '0' }}
         ref={(r) => setFrame(r)}
         onLoad={() => onLoad()}
+        className={className}
       />
       {loaded && frame && renderExtension && renderExtension(frame.contentDocument, '')}
     </>

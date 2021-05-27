@@ -1,10 +1,10 @@
-import * as React from "react";
-import { QuickStartTaskStatus, QuickStart } from "../utils/quick-start-types";
-import QuickStartIntroduction from "./QuickStartIntroduction";
-import QuickStartTasks from "./QuickStartTasks";
-import QuickStartConclusion from "./QuickStartConclusion";
+import * as React from 'react';
+import { QuickStartTaskStatus, QuickStart } from '../utils/quick-start-types';
+import QuickStartIntroduction from './QuickStartIntroduction';
+import QuickStartTasks from './QuickStartTasks';
+import QuickStartConclusion from './QuickStartConclusion';
 
-import "./QuickStartContent.scss";
+import './QuickStartContent.scss';
 
 type QuickStartContentProps = {
   quickStart: QuickStart;
@@ -16,10 +16,7 @@ type QuickStartContentProps = {
   onQuickStartChange?: (quickStartId: string) => void;
 };
 
-const QuickStartContent = React.forwardRef<
-  HTMLDivElement,
-  QuickStartContentProps
->(
+const QuickStartContent = React.forwardRef<HTMLDivElement, QuickStartContentProps>(
   (
     {
       quickStart,
@@ -30,7 +27,7 @@ const QuickStartContent = React.forwardRef<
       onTaskReview,
       onQuickStartChange,
     },
-    ref
+    ref,
   ) => {
     const {
       spec: { introduction, tasks, conclusion },
@@ -69,7 +66,7 @@ const QuickStartContent = React.forwardRef<
         )}
       </div>
     );
-  }
+  },
 );
 
 export default QuickStartContent;

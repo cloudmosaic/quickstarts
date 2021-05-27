@@ -1,7 +1,7 @@
-import * as React from "react";
-import ReactDOM from "react-dom";
-import classNames from "classnames";
-import { useTranslation } from "react-i18next";
+import * as React from 'react';
+import ReactDOM from 'react-dom';
+import classNames from 'classnames';
+import { useTranslation } from 'react-i18next';
 import {
   DrawerPanelContent,
   DrawerPanelBody,
@@ -9,18 +9,13 @@ import {
   DrawerActions,
   DrawerCloseButton,
   Title,
-} from "@patternfly/react-core";
-// import { AsyncComponent } from '@console/internal/components/utils';
-import { useScrollShadows, Shadows } from "@console/shared";
-import { QuickStart } from "./utils/quick-start-types";
-import "./QuickStartPanelContent.scss";
-// js: Remove AsyncComponent and import QuickStartController directly
-import QuickStartController from "./QuickStartController";
-import {
-  QuickStartContext,
-  QuickStartContextValues,
-} from "./utils/quick-start-context";
-import { camelize } from "./utils/quick-start-utils";
+} from '@patternfly/react-core';
+import { useScrollShadows, Shadows } from '@console/shared';
+import { QuickStart } from './utils/quick-start-types';
+import './QuickStartPanelContent.scss';
+import QuickStartController from './QuickStartController';
+import { QuickStartContext, QuickStartContextValues } from './utils/quick-start-context';
+import { camelize } from './utils/quick-start-utils';
 
 type HandleClose = () => void;
 
@@ -34,7 +29,7 @@ type QuickStartPanelContentProps = {
 };
 
 const getElement = (appendTo: HTMLElement | (() => HTMLElement)) => {
-  if (typeof appendTo === "function") {
+  if (typeof appendTo === 'function') {
     return appendTo();
   }
   return appendTo;
@@ -52,25 +47,19 @@ const QuickStartPanelContent: React.FC<QuickStartPanelContentProps> = ({
   const { t } = useTranslation();
   const [contentRef, setContentRef] = React.useState<HTMLDivElement>();
   const shadows = useScrollShadows(contentRef);
-  const quickStart = quickStarts.find(
-    (qs) => qs.metadata.name === activeQuickStartID
-  );
-  const { activeQuickStartState } = React.useContext<QuickStartContextValues>(
-    QuickStartContext
-  );
+  const quickStart = quickStarts.find((qs) => qs.metadata.name === activeQuickStartID);
+  const { activeQuickStartState } = React.useContext<QuickStartContextValues>(QuickStartContext);
   const taskNumber = activeQuickStartState?.taskNumber;
   const nextQuickStarts: QuickStart[] = quickStarts.filter((qs: QuickStart) =>
-    quickStart?.spec.nextQuickStart?.includes(qs.metadata.name)
+    quickStart?.spec.nextQuickStart?.includes(qs.metadata.name),
   );
 
   const headerClasses = classNames({
-    "pf-u-box-shadow-sm-bottom":
-      shadows === Shadows.top || shadows === Shadows.both,
+    'pf-u-box-shadow-sm-bottom': shadows === Shadows.top || shadows === Shadows.both,
   });
 
   const footerClass = classNames({
-    "pf-u-box-shadow-sm-top":
-      shadows === Shadows.bottom || shadows === Shadows.both,
+    'pf-u-box-shadow-sm-top': shadows === Shadows.bottom || shadows === Shadows.both,
   });
 
   const getStep = () => {
@@ -78,10 +67,10 @@ const QuickStartPanelContent: React.FC<QuickStartPanelContentProps> = ({
     if (Number.parseInt(taskNumber as string) === -1) {
       return 'intro';
     } else if (Number.parseInt(taskNumber as string) === tasks) {
-      return 'conclusion'
+      return 'conclusion';
     }
     return Number.parseInt(taskNumber as string) + 1;
-  }
+  };
 
   const content = quickStart ? (
     <DrawerPanelContent
@@ -97,32 +86,24 @@ const QuickStartPanelContent: React.FC<QuickStartPanelContentProps> = ({
             <Title
               headingLevel="h1"
               size="xl"
-              style={{ marginRight: "var(--pf-global--spacer--md)" }}
+              style={{ marginRight: 'var(--pf-global--spacer--md)' }}
             >
-              {quickStart?.spec.displayName}{" "}
+              {quickStart?.spec.displayName}{' '}
               <small className="co-quick-start-panel-content__duration text-secondary">
-                {t("quickstart~{{duration, number}} minutes", {
+                {t('quickstart~{{duration, number}} minutes', {
                   duration: quickStart?.spec.durationMinutes,
                 })}
               </small>
             </Title>
           </div>
-          {showClose && <DrawerActions>
-            <DrawerCloseButton
-              onClick={handleClose}
-              data-testid="qs-drawer-close"
-            />
-          </DrawerActions>}
+          {showClose && (
+            <DrawerActions>
+              <DrawerCloseButton onClick={handleClose} data-testid="qs-drawer-close" />
+            </DrawerActions>
+          )}
         </DrawerHead>
       </div>
-      <DrawerPanelBody
-        hasNoPadding
-        className="co-quick-start-panel-content__body"
-      >
-        {/* <AsyncComponent
-          loader={() => import('./QuickStartController').then((c) => c.default)}
-          quickStart={quickStart}
-        /> */}
+      <DrawerPanelBody hasNoPadding className="co-quick-start-panel-content__body">
         <QuickStartController
           quickStart={quickStart}
           nextQuickStarts={nextQuickStarts}
