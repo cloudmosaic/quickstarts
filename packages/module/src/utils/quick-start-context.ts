@@ -1,4 +1,4 @@
-import { createContext, useCallback } from 'react';
+import React, { createContext, useCallback } from 'react';
 import {
   AllQuickStartStates,
   QuickStartState,
@@ -10,7 +10,7 @@ import { setQueryArgument, removeQueryArgument } from '../ConsoleInternal/compon
 import { QUICKSTART_ID_FILTER_KEY, QUICKSTART_TASKS_INITIAL_STATES } from './const';
 import { getTaskStatusKey } from './quick-start-utils';
 
-type FooterProps = {
+export type FooterProps = {
   show?: boolean;
   showAllLink?: boolean;
   onShowAllLinkClick?: () => void | null;
@@ -31,6 +31,10 @@ export type QuickStartContextValues = {
   getQuickStartForId?: (id: string) => QuickStartState;
   footer?: FooterProps;
   useQueryParams?: boolean;
+  markdown?: {
+    extensions?: any[];
+    renderExtension?: (docContext: HTMLDocument, rootSelector: string) => React.ReactNode;
+  }
 };
 
 export const QuickStartContext = createContext<QuickStartContextValues>({
@@ -41,6 +45,7 @@ export const QuickStartContext = createContext<QuickStartContextValues>({
   setActiveQuickStart: () => {},
   startQuickStart: () => {},
   restartQuickStart: () => {},
+  markdown: {}
 });
 
 export const QuickStartContextProvider = QuickStartContext.Provider;
@@ -69,6 +74,10 @@ export type useValuesForQuickStartContextType = {
   setAllQuickStartStates?: React.Dispatch<React.SetStateAction<AllQuickStartStates>>;
   footer?: FooterProps;
   useQueryParams?: boolean;
+  markdown?: {
+    extensions?: any[];
+    renderExtension?: (docContext: HTMLDocument, rootSelector: string) => React.ReactNode;
+  }
 };
 
 export const useValuesForQuickStartContext = ({
@@ -79,6 +88,10 @@ export const useValuesForQuickStartContext = ({
   setAllQuickStartStates,
   footer,
   useQueryParams = true,
+  markdown = {
+    extensions: [],
+    renderExtension: (docContext, rootSelector) => null
+  }
 }: useValuesForQuickStartContextType): QuickStartContextValues => {
   const setActiveQuickStart = useCallback(
     (quickStartId: string, totalTasks?: number) => {
@@ -291,5 +304,6 @@ export const useValuesForQuickStartContext = ({
     getQuickStartForId,
     footer,
     useQueryParams,
+    markdown
   };
 };

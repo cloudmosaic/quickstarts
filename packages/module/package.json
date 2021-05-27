@@ -47,7 +47,6 @@
     "@patternfly/react-core": "^4.101.3",
     "bootstrap-sass": "^3.3.7",
     "classnames": "^2.2.6",
-    "dayjs": "^1.9.6",
     "dompurify": "^2.2.6",
     "history": "^5.0.0",
     "i18next": "^19.8.3",
@@ -57,7 +56,7 @@
     "lodash-es": "^4.17.20",
     "react-i18next": "^11.7.3",
     "sass": "^1.30.0",
-    "showdown": "^1.9.1"
+    "showdown": "1.8.6"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^17.0.0",
@@ -102,6 +101,6 @@
     "rollup-plugin-visualizer": "^4.2.0",
     "ts-jest": "^26.4.1",
     "tslib": "^2.0.3",
-    "typescript": "^4.0.3"
+    "typescript": "^4.3.2"
   }
 }

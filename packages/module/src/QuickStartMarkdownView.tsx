@@ -2,24 +2,22 @@ import * as React from 'react';
 import { SyncMarkdownView } from '@console/internal/components/markdown-view';
 import { MarkdownHighlightExtension } from '@console/shared';
 import { HIGHLIGHT_REGEXP } from '@console/shared/src/components/markdown-highlight-extension/highlight-consts';
+import { QuickStartContext, QuickStartContextValues } from './utils/quick-start-context';
 
 export const removeParagraphWrap = (markdown: string) => markdown.replace(/^<p>|<\/p>$/g, '');
 
 type QuickStartMarkdownViewProps = {
   content: string;
   exactHeight?: boolean;
-  extensions?: any[];
-  renderExtensionComponents?: (docContext: HTMLDocument, rootSelector: string) => React.ReactNode;
   className?: string;
 };
 
 const QuickStartMarkdownView: React.FC<QuickStartMarkdownViewProps> = ({
   content,
   exactHeight,
-  extensions = [],
-  renderExtensionComponents = () => {},
   className,
 }) => {
+  const { markdown } = React.useContext<QuickStartContextValues>(QuickStartContext);
   return (
     <SyncMarkdownView
       inline
@@ -42,12 +40,12 @@ const QuickStartMarkdownView: React.FC<QuickStartMarkdownViewProps> = ({
             return text.replace(/<em>(.*)<\/em>{#(.*)}/g, '<em id="$2">$1</em>');
           },
         },
-        ...extensions,
+        ...markdown.extensions,
       ]}
       renderExtension={(docContext, rootSelector) => (
         <>
           <MarkdownHighlightExtension docContext={docContext} rootSelector={rootSelector} />
-          {renderExtensionComponents(docContext, rootSelector)}
+          {markdown.renderExtension(docContext, rootSelector)}
         </>
       )}
       className={className}

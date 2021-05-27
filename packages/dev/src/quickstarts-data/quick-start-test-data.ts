@@ -17,6 +17,7 @@ import installAssociatePipelineQuickstart from "./mocks/yamls/install-associate-
 import sampleApplicationQuickstart from "./mocks/yamls/sample-application-quickstart.yaml";
 import serverlessApplicationQuickstart from "./mocks/yamls/serverless-application-quickstart.yaml";
 import external from "./mocks/yamls/external.yaml";
+import nodeWithS2i from "./mocks/yamls/node-with-s2i.yaml";
 
 // import addHealthchecksQuickstartADoc from "raw-loader!./mocks/asciidoc/add-healthchecks-quickstart.adoc";
 // import template from "raw-loader!./mocks/asciidoc/TEMPLATE_PROCEDURE.adoc";
@@ -29,6 +30,9 @@ import sampleA from "raw-loader!./mocks/asciidoc/business-central-editing-data-s
 // import { ProcQuickStartParser } from './mas-guides/procedure-parser';
 // import masGettingStarted from "./mas-guides/getting-started/output/getting-started.quickstart.json";
 // import masKafkaBinScripts from "./mas-guides/kafka-bin-scripts/output/kafka-bin-scripts.quickstart.json";
+
+const asd = nodeWithS2i;
+debugger;
 
 export const allAsciiDocImports = {
 //   'template': {
@@ -89,6 +93,7 @@ export const allQuickStarts: QuickStart[] = [
   sampleApplicationQuickstart,
   serverlessApplicationQuickstart,
   external,
+  nodeWithS2i,
   // QuickstartAsciiDocParser(addHealthchecksQuickstartADoc),
   // ProcedureAsciiDocParser(template, allAsciiDocImports.template.options),
   ProcedureAsciiDocParser(sampleA, allAsciiDocImports.sampleA.options),

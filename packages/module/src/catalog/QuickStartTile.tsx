@@ -16,9 +16,15 @@ type QuickStartTileProps = {
   quickStart: QuickStart;
   status: QuickStartStatus;
   isActive: boolean;
+  onClick?: () => void;
 };
 
-const QuickStartTile: React.FC<QuickStartTileProps> = ({ quickStart, status, isActive }) => {
+const QuickStartTile: React.FC<QuickStartTileProps> = ({
+  quickStart,
+  status,
+  isActive,
+  onClick = () => {},
+}) => {
   const {
     metadata: { name: id },
     spec: { icon, tasks, displayName, description, durationMinutes, prerequisites, link, type },
@@ -68,6 +74,7 @@ const QuickStartTile: React.FC<QuickStartTileProps> = ({ quickStart, status, isA
         } else {
           setActiveQuickStart(id, tasks?.length);
         }
+        onClick();
       }}
       description={
         <QuickStartTileDescription description={description} prerequisites={prerequisites} />

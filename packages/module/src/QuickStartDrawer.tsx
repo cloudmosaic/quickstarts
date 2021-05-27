@@ -9,20 +9,24 @@ import { QUICKSTART_ID_FILTER_KEY } from './utils/const';
 import { getQuickStartByName } from './utils/quick-start-utils';
 import './QuickStartDrawer.scss';
 
+export type QuickStartsLoaderProps = {
+  children: (quickStarts: QuickStart[], loaded: boolean) => React.ReactNode;
+};
+
 export interface QuickStartDrawerProps extends React.HTMLProps<HTMLDivElement> {
-  quickStarts?: QuickStart[];
   children?: React.ReactNode;
   appendTo?: HTMLElement | (() => HTMLElement);
   isStatic?: boolean;
   fullWidth?: boolean;
+  LoaderComponent?: React.FC<QuickStartsLoaderProps>
 }
 
 export const QuickStartDrawer: React.FC<QuickStartDrawerProps> = ({
-  quickStarts,
   children,
   appendTo,
   isStatic,
   fullWidth,
+  LoaderComponent = QuickStartsLoader,
   ...props
 }) => {
   const allContext = React.useContext<QuickStartContextValues>(QuickStartContext);
@@ -73,17 +77,8 @@ export const QuickStartDrawer: React.FC<QuickStartDrawerProps> = ({
       }
     : {};
 
-  const panelContent = quickStarts ? (
-    <QuickStartPanelContent
-      quickStarts={quickStarts}
-      handleClose={handleClose}
-      activeQuickStartID={activeQuickStartID}
-      appendTo={appendTo}
-      isResizable={!fullWidth}
-      {...fullWidthPanelStyle}
-    />
-  ) : (
-    <QuickStartsLoader>
+  const panelContent = (
+    <LoaderComponent>
       {(quickStarts) => (
         <QuickStartPanelContent
           quickStarts={quickStarts}
@@ -94,7 +89,7 @@ export const QuickStartDrawer: React.FC<QuickStartDrawerProps> = ({
           {...fullWidthPanelStyle}
         />
       )}
-    </QuickStartsLoader>
+    </LoaderComponent>
   );
 
   return (

@@ -69,6 +69,7 @@ const App: React.FunctionComponent = ({ children }) => {
     allQuickStartStates,
     setAllQuickStartStates,
     footer: {
+      show:false,
       showAllLink: currentPath !== quickStartPath,
       onShowAllLinkClick: () => history.push(quickStartPath),
     },

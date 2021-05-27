@@ -12,14 +12,21 @@ import './_markdown-view.scss';
 
 const tableTags = ['table', 'thead', 'tbody', 'tr', 'th', 'td'];
 
-export const markdownConvert = (markdown, extensions?: string[]) => {
-  const unsafeHtml = new Converter({
+type ShowdownExtension = {
+  type: string;
+  regex?: RegExp;
+  replace?: (...args: any[]) => string;
+};
+
+export const markdownConvert = (markdown, extensions?: ShowdownExtension[]) => {
+  const converter = new Converter({
     tables: true,
     openLinksInNewWindow: true,
     strikethrough: true,
     emoji: true,
-    extensions,
-  }).makeHtml(markdown);
+  });
+
+  extensions && converter.addExtension(extensions);
 
   // add hook to transform anchor tags
   DOMPurify.addHook('beforeSanitizeElements', function (node) {
@@ -30,7 +37,7 @@ export const markdownConvert = (markdown, extensions?: string[]) => {
     }
   });
 
-  return DOMPurify.sanitize(unsafeHtml, {
+  return DOMPurify.sanitize(converter.makeHtml(markdown), {
     ALLOWED_TAGS: [
       'b',
       'i',
@@ -66,7 +73,7 @@ type SyncMarkdownProps = {
   emptyMsg?: string;
   exactHeight?: boolean;
   truncateContent?: boolean;
-  extensions?: string[];
+  extensions?: ShowdownExtension[];
   renderExtension?: (contentDocument: HTMLDocument, rootSelector: string) => React.ReactNode;
   inline?: boolean;
   className?: string;

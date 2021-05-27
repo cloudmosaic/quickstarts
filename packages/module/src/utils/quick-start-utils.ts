@@ -38,7 +38,7 @@ declare const window: Window & {
 
 export const getDisabledQuickStarts = (): string[] => {
   let disabledQuickStarts = [];
-  const quickStartServerData = window.SERVER_FLAGS.quickStarts;
+  const quickStartServerData = window.SERVER_FLAGS?.quickStarts;
   try {
     if (quickStartServerData) {
       disabledQuickStarts = JSON.parse(quickStartServerData).disabled ?? [];
