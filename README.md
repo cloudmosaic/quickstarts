@@ -1,3 +1,5 @@
+# NOTE: This repo has been deprecated and moved to the [PatternFly org](https://github.com/patternfly/patternfly-quickstarts)
+
 # Quickstarts
 
 This is early WIP work to modularize OpenShift's quickstarts
